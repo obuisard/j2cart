@@ -1,45 +1,34 @@
-**Important Announcement: Sunsetting J2Store Development**
+**Welcome to the J2Store Fork: A New Beginning**
 
-Dear J2Store Community,
+We understand that many of you are concerned about the future of J2Store after the recent announcement from the original developers. But don't worry—we're here to ensure J2Store not only survives but thrives!
 
-We have always strived to deliver quality eCommerce extension through J2Store, and we deeply appreciate the trust and support you have shown us over the years. However, after careful consideration, we have made the difficult decision to sunset the development of J2Store and its associated extensions.
+This forked version of J2Store marks the start of an exciting new chapter! We're fully committed to actively maintaining and developing J2Store, keeping it the powerful eCommerce solution you've relied on for your Joomla websites.
 
-This decision has not come easily. The rising costs of development, combined with dwindling revenue, have made it increasingly challenging for us to continue offering the level innovation that you deserve. As a result, we have chosen to sunset  J2Store's development, but keep it as open-source software for you to fork and build upon.
 
-**What this means for you:**
-- The J2Store repository has been archived, and the project will no longer be actively maintained.
-- All open issues in the repository have been closed.
-- J2Store will remain available for the community to explore, fork, and build upon.
+**Our Commitment to the Community**
 
-**Extensions:**
-If you have purchased a license for any paid extensions and have an active license (a license is valid for a year from the date of purchase), you will continue to receive support until your license is valid. You can access support for the extension via our website.
+- Ongoing Maintenance & Support: We are dedicated to maintaining and improving the core J2Store extension so you can continue to build, manage, and grow your online stores with confidence.
 
-We want to thank everyone who has been a part of the J2Store journey—your feedback, contributions, and enthusiasm have been invaluable.
+- Compatibility with Joomla 6 and Beyond: We will be working to make J2Store compatible with Joomla 6, ensuring a smooth transition for your sites as Joomla evolves. This will future-proof your business while leveraging the latest advancements in the Joomla ecosystem.
+  
+- Exciting New Extensions & Updates: In addition to maintaining many of the existing apps and extensions, we are developing new apps, features, and integrations that will expand J2Store’s capabilities and keep your eCommerce experience fresh and innovative.
 
-Thank you for being a part of this journey with us. We hope that by open-sourcing the project, J2Store can continue to live on in new and exciting ways.
+- Community-Centered Development: We are committed to keeping J2Store community-driven. Your feedback and contributions will help shape the future of this project. We’re here to build together!
 
-## License
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+**Why Stick with J2Store?**
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+- Proven, Reliable eCommerce Platform: J2Store has been a trusted eCommerce solution for years, and with this new fork, we’ll ensure that it continues to serve your needs reliably.
 
-You should have received [a copy of the GNU General Public License](LICENSE.txt) along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- Seamless Integration with Joomla: J2Store remains one of the best solutions for Joomla users, providing deep integration with the CMS you love. No need to switch platforms when you can stay within the Joomla ecosystem.
 
-## Free Software does not mean free-of-charge services
+- New Features and Offerings: Get ready for exciting new product offerings, enhanced performance, and cutting-edge eCommerce features—all while maintaining the flexibility and customization J2Store is known for.
 
-Our software is like a free spirit - it's all about the freedom to choose, not about being free of cost. Using our software doesn't mean we're tied at the hip or that you get VIP treatment. It's a no-strings-attached kind of deal. You're free to use it, and we're here to share it. Fair and square.
 
-Kindly note that the word “Free” in the Free and Open Source Software (FOSS) designation of the software refers to freedom of choice, not lack of cost, as explained [by the Free Software Foundation itself](https://www.gnu.org/philosophy/selling.en.html).  
+**Join Us on This Journey!**
 
-Using our free of charge, FOSS software does not create any kind of business or other relationship between us, does not grant you any privileges and does not mean that we are obliged to offer any service level whatsoever free of charge.
+Your support is invaluable in this new chapter. Together, we’ll build on the foundation of J2Store and take it to new heights, ensuring a bright and promising future for your online stores.
 
-You are free to choose whether you want to use our FOSS software and the resources we make available to you free of charge.  You are, however, not entitled to any privileges or special treatment just by merit of using our software.
+If you’re as excited as we are about this new beginning, consider contributing, sharing your ideas, and staying tuned for regular updates!
 
-## Disclaimer
-
-This software provided under the GPL license are offered on an "as-is" and "as-available" basis without any warranties of any kind, either expressed or implied.  
-
-The user acknowledges and agrees that the entire risk arising out of the use or performance of the software remains solely with the user. In no event shall the provider of these software be liable for any issues pertaining to the availability, functionality, or quality of the software provided.
-
-In the event that the software are found to be inefficient, unsuitable, or defective in any way, the user assumes full responsibility for all necessary costs and actions required to remedy such issues. The provider of these software shall not be held responsible for any direct, indirect, incidental, special, consequential, or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data or other intangible losses (even if the provider has been advised of the possibility of such damages), resulting from the use or inability to use the software.
+Thank you for sticking with J2Store, and here’s to an amazing future!
