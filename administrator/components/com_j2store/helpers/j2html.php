@@ -489,7 +489,7 @@ class J2Html
 
         //assign the html
         $html = '';
-        //swtich the type of input
+        //switch the type of input
         switch ($type) {
 
             // return text input
@@ -1557,8 +1557,8 @@ jQuery('.modal-backdrop').remove();
     {
         $start = date("Y-m-d");
         $today = date_create($start);
-        //assing the coupon offer start date
-        // Assing the coupon valid date
+        //assign the coupon offer start date
+        // Assign the coupon valid date
         $date2 = date_create($valid_to);
         return date_diff($today, $date2);
     }
