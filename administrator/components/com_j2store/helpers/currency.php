@@ -173,7 +173,7 @@ class J2Currency {
 		}
   	}
 
-	public function getThousandSysmbol($currency=''){
+	public function getThousandSymbol($currency=''){
 		if (!$currency) {
 			return $this->currencies[$this->code]['currency_thousands'];
 		} elseif ($currency && isset($this->currencies[$currency])) {
