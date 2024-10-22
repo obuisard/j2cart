@@ -24,7 +24,7 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
   <div class="card-body">
     <nav class="quick-icons" aria-label="J2Commerce Mini Stats Notifications">
       <div class="row flex-wrap">
-        <div class="quickicon quickicon-single col border-0">
+        <div class="quickicon quickicon-single col-12 col-md-6 col-lg-3 mb-3 mb-lg-0 border-0">
           <?php
           $tz = Factory::getApplication()->getConfig()->get('offset');
           $today = Factory::getDate('now', $tz)->format('Y-m-d');
@@ -53,7 +53,7 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
             </div>
           </div>
         </div>
-        <div class="quickicon quickicon-single col border-0">
+        <div class="quickicon quickicon-single col-12 col-md-6 col-lg-3 mb-3 mb-lg-0 border-0">
           <div class="alert alert-warning my-0 w-100 border-0">
             <div class="quickicon-info">
               <div class="quickicon-value display-6 mb-3">
@@ -78,7 +78,7 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
             </div>
           </div>
         </div>
-        <div class="quickicon quickicon-single col border-0">
+        <div class="quickicon quickicon-single col-12 col-md-6 col-lg-3 mb-3 mb-lg-0 border-0">
           <div class="alert alert-primary my-0 w-100 border-0">
             <div class="quickicon-info">
               <div class="quickicon-value display-6 mb-3">
@@ -128,7 +128,7 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
             </div>
           </div>
         </div>
-        <div class="quickicon quickicon-single col border-0">
+        <div class="quickicon quickicon-single col-12 col-md-6 col-lg-3 mb-3 mb-lg-0 border-0">
           <div class="alert alert-danger my-0 w-100 border-0">
             <div class="quickicon-info">
               <div class="quickicon-value display-6 mb-3">
