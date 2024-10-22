@@ -361,6 +361,7 @@ class J2Html
                 'disabled' => false,
                 'dataAttribute' => '',
                 'mediaTypes' => 0,
+                'mediaTypeNames' => array(),
                 'imagesExt' => isset($imagesExt) && !empty($imagesExt) ? explode(',',$imagesExt) : array() ,
                 'audiosExt' =>  isset($audiosExt) && !empty($audiosExt) ? explode(',',$audiosExt) : array() ,
                 'videosExt' =>  isset($videosExt) && !empty($videosExt) ? explode(',',$videosExt) : array() ,
@@ -374,7 +375,6 @@ class J2Html
             $media_render = self::getRenderer('joomla.form.field.media', $path);
             $html = $media_render->render($displayData);
         } elseif (version_compare($version, '3.5.0', 'ge') && version_compare($version, '3.6.3', 'lt')) {
-            $html = '';
             $html = '<div class="form-inline">';
             $html .= '<div data-preview-height="200" data-preview-width="200" data-preview-container=".field-media-preview" data-preview="false" data-button-save-selected=".button-save-selected" data-button-clear=".button-clear" data-button-cancel=".button-cancel" data-button-select=".button-select" data-input=".field-media-input" data-modal-height="400px" data-modal-width="100%" data-modal=".modal" data-url="index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;asset=' . $asset_id . '&amp;author=' . JFactory::getUser()->id . '&amp;fieldid={field-media-id}&amp;folder=" data-basepath="' . JURI::root() . '" class="field-media-wrapper">';
             $html .= '<div class="modal fade j2store-media-model-popup ' . $hide_class . '" tabindex="-1" id="imageModal_jform_image_' . $id . '" >';
