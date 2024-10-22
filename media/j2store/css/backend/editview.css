@@ -78,6 +78,6 @@
     width: 150px !important;
     flex: none;
 }
-.com_j2store #adminForm,.com_j2store.task-add .form-horizontal,.com_j2store .view-taxprofile,.com_j2store.task-createOrder .form-horizontal {
+.com_j2store.task-add .form-horizontal,.com_j2store .view-taxprofile,.com_j2store.task-createOrder .form-horizontal {
     padding: 10px 36px;
 }
