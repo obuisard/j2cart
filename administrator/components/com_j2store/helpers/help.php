@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 class J2Help {
 
 	public static $instance = null;
-	
+
 	public function __construct($properties=null) {
 
 	}
@@ -28,17 +28,22 @@ class J2Help {
 
 		return self::$instance;
 	}
-	
-	public function watch_video_tutorials() {
-		$video_url = J2Store::buildHelpLink('support/video-tutorials.html', 'dashboard');
-		$html = '<div class="video-tutorial panel panel-solid-info">
+
+  public function watch_video_tutorials() { // update later with j2commerce youtube channel
+    $video_url = J2Store::buildHelpLink('support/video-tutorials.html', 'dashboard');
+    $html = '<div class="video-tutorial panel panel-solid-info">
 				<p class="panel-body">'.JText::_('J2STORE_VIDEO_TUTORIALS_HELP_TEXT').'
 						 				<a class="btn btn-success" target="_blank" href="'.$video_url.'">
 						 					'.JText::_('J2STORE_WATCH').'</a>
 						 			</p>
 						 		</div>';
-		return $html;
-	}
+    $newhtml = '<div class="alert alert-info d-flex align-items-center" role="alert">
+            <i class="fas fa-solid fa-info-circle flex-shrink-0 me-2"></i>
+            <div>'.JText::_('J2STORE_TAKEOVER_INFO').'</div>
+            <a href="https://www.j2commerce.com" class="btn btn-sm btn-dark text-light  ms-3 ms-lg-auto" title="Visit J2Commerce" target="_blank">'.JText::_('J2STORE_FIND_OUT_MORE').'</a>
+        </div>';
+    return $newhtml;
+  }
 
 	public function free_topbar() {
 		$html = '';
@@ -54,12 +59,12 @@ class J2Help {
 						 		</div>';
 		return $html;
 	}
-	
-	
+
+
 	public function alert($type, $title, $message) {
-		
+
 		$html = '';
-		
+
 		//check if this alert to be shown.
 		$params = J2Store::config();
 		if($params->get($type, 0)) return $html;
@@ -69,7 +74,7 @@ class J2Help {
             $class = 'alert alert-info';
         }
 		//message not hidden
-		$url = JRoute::_ ( 'index.php?option=com_j2store&view=cpanels&task=notifications&message_type=' . $type . '&' . JSession::getFormToken () . '=1' );		
+		$url = JRoute::_ ( 'index.php?option=com_j2store&view=cpanels&task=notifications&message_type=' . $type . '&' . JSession::getFormToken () . '=1' );
 		$html .= '<div class="user-notifications ' . $type . ' '.$class.'">';
 		$html .= '<h3>' . $title . '</h3>';
 		$html .= '<p>' . $message . '</p>';
@@ -90,5 +95,5 @@ class J2Help {
 		$html .= '</div>';
 		return $html;
 	}
-	
-}	
+
+}
