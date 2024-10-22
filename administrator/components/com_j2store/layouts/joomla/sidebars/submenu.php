@@ -52,11 +52,11 @@ $menus = array (
 		),
 		array (
 				'name' => Text::_ ( 'COM_J2STORE_MAINMENU_SALES' ),
-				'icon' => 'fas fa-money',
+				'icon' => 'fas fa-money fa-money-bill',
 				'submenu' => array (
 						'orders' => 'fa fa-list-alt',
 						'customers' => 'fa fa-users',
-						'coupons' => 'fa fa-scissors',
+						'coupons' => 'fa fa-scissors fa-cut',
 						'vouchers' => 'fa fa-gift'
 				)
 		),
@@ -66,11 +66,11 @@ $menus = array (
 				'submenu' => array (
 						'countries' => 'fa fa-globe',
 						'zones' => 'fa fa-flag',
-						'geozones' => 'fa fa-pie-chart',
+						'geozones' => 'fa fa-pie-chart fa-chart-pie',
 						'taxrates' => 'fa fa-calculator',
 						'taxprofiles' => 'fa fa-sitemap',
-						'lengths' => 'fa fa-arrows-v',
-						'weights' => 'fa fa-arrows-h',
+						'lengths' => 'fa fa-arrows-alt-v fa-up-down',
+						'weights' => 'fa fa-arrows-alt-h fa-left-right',
 						'orderstatuses' => 'fa fa-check-square'
 				)
 		),
@@ -88,7 +88,7 @@ $menus = array (
 				'icon' => 'fa fa-cogs',
 				'submenu' => array (
 						'configuration' => 'fa fa-cogs',
-						'currencies' => 'fa fa-dollar',
+						'currencies' => 'fa fa-dollar fa-dollar-sign',
 						'payments' => 'fa fa-credit-card',
 						'shippings' => 'fa fa-truck',
 						'shippingtroubles' => 'fa fa-bug',
@@ -103,7 +103,7 @@ $menus = array (
 		),
 		array (
 				'name' => 'Reporting',
-				'icon' => 'fas fa-chart-pie',
+				'icon' => 'fas fa-pie-chart fa-chart-pie',
 				'submenu' => array (
 						'Reports' => 'fas fa-chart-bar'
 				)
