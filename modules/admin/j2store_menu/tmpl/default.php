@@ -65,12 +65,12 @@ $icons = array (
 $menus = array (
 		array (
 				'name' => 'Dashboard',
-				'icon' => 'fa fa-th-large',
+				'icon' => 'fas fa-tachometer-alt',
 				'active' => 1
 		),
 		array (
 				'name' => JText::_ ( 'COM_J2STORE_MAINMENU_CATALOG' ),
-				'icon' => 'fa fa-tags',
+				'icon' => 'fas fa-tags',
 				'submenu' => array (
 						'products' => 'fa fa-tags',
 						'inventories' => 'fa fa-database',
@@ -82,26 +82,26 @@ $menus = array (
 		),
 		array (
 				'name' => JText::_ ( 'COM_J2STORE_MAINMENU_SALES' ),
-				'icon' => 'fa fa-money',
+				'icon' => 'fas fa-money fa-money-bill',
 				'submenu' => array (
 						'orders' => 'fa fa-list-alt',
 						'customers' => 'fa fa-users',
-						'coupons' => 'fa fa-scissors',
+						'coupons' => 'fa fa-scissors fa-cut',
 						'vouchers' => 'fa fa-gift'
 				)
 		),
 		array (
 				'name' => JText::_ ( 'COM_J2STORE_MAINMENU_LOCALISATION' ),
-				'icon' => 'fa fa-globe fa-lg',
+				'icon' => 'fa fa-globe',
 				'submenu' => array (
 						'countries' => 'fa fa-globe',
 						'zones' => 'fa fa-flag',
-						'geozones' => 'fa fa-pie-chart',
-						'taxrates' => 'fa fa-calculator',
-						'taxprofiles' => 'fa fa-sitemap',
-						'lengths' => 'fa fa-arrows-v',
-						'weights' => 'fa fa-arrows-h',
-						'orderstatuses' => 'fa fa-check-square'
+                        'geozones' => 'fa fa-pie-chart fa-chart-pie',
+                        'taxrates' => 'fa fa-calculator',
+                        'taxprofiles' => 'fa fa-sitemap',
+                        'lengths' => 'fa fa-arrows-alt-v fa-up-down',
+                        'weights' => 'fa fa-arrows-alt-h fa-left-right',
+                        'orderstatuses' => 'fa fa-check-square'
 				)
 		),
 		array (
@@ -118,7 +118,7 @@ $menus = array (
 				'icon' => 'fa fa-cogs',
 				'submenu' => array (
 						'configuration' => 'fa fa-cogs',
-						'currencies' => 'fa fa-dollar',
+						'currencies' => 'fa fa-dollar fa-dollar-sign',
 						'payments' => 'fa fa-credit-card',
 						'shippings' => 'fa fa-truck',
 						'shippingtroubles' => 'fa fa-bug',
@@ -127,15 +127,15 @@ $menus = array (
 		),
 		array (
 				'name' => 'Apps',
-				'icon' => 'fa fa-wrench',
+				'icon' => 'fas fa-th',
 				'active' => 0
 		),
 
 		array (
 				'name' => 'Reporting',
-				'icon' => 'fa fa-signal',
+				'icon' => 'fas fa-pie-chart fa-chart-pie',
 				'submenu' => array (
-						'Reports' => 'fa fa-signal'
+						'Reports' => 'fas fa-chart-bar'
 				)
 		)
 );
@@ -203,13 +203,13 @@ $menus = array (
         <?php foreach($menus as $key => $value): ?>
             <?php if(isset($value['submenu']) && count($value['submenu'])):?>
                 <a   class="dropdown-item j2submenu" href="#">
-                    <span class="<?php echo isset($value['icon']) ? $value['icon'] : '';?>" aria-hidden="true"></span>
+                    <span class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>" aria-hidden="true"></span>
                     <?php echo $value['name'];?>
                 </a>
         <div class="j2submenu-list dropdown-menu dropdown-menu-end">
             <?php foreach($value['submenu'] as $sub_key => $sub_value): ?>
                 <a class="dropdown-item" href="<?php echo JRoute::_('index.php?option=com_j2store&view='.strtolower($sub_key)); ?>">
-                    <span class="<?php echo isset($sub_value) ? $sub_value : '';?>" aria-hidden="true"></span>
+                    <span class="fa-fw me-1 me-xxl-2 <?php echo isset($sub_value) ? $sub_value : '';?>" aria-hidden="true"></span>
                     <?php echo JText::_('COM_J2STORE_TITLE_'.strtoupper($sub_key));?>
                 </a>
             <?php endforeach;?>
@@ -223,7 +223,7 @@ $menus = array (
             }
             ?>
             <a class="dropdown-item" href="<?php echo $url; ?>">
-                <span class="<?php echo isset($value['icon']) ? $value['icon'] : '';?>" aria-hidden="true"></span>
+                <span class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>" aria-hidden="true"></span>
                 <?php echo JText::_('COM_J2STORE_MAINMENU_'.$value['name']); ?>
             </a>
             <?php endif; ?>

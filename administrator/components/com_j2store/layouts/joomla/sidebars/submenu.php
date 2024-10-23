@@ -28,13 +28,12 @@ if ($wa->assetExists('style', 'fontawesome')) {
 } else {
 	J2Store::platform()->addStyle('j2store-font-awesome-css','/media/j2store/css/font-awesome.min.css');
 }
-$script="document.addEventListener('DOMContentLoaded',function(){const e=document.querySelectorAll('.submenu-dropdown-toggle'),t=window.screen.width;t<992&&e.forEach(e=>{e.addEventListener('click',function(t){new bootstrap.Collapse('#navbarScroll',{toggle:!0})})})});";
-$platform->addInlineScript($script);
+
 
 $menus = array (
 		array (
 				'name' => 'Dashboard',
-				'icon' => 'fas fa-tachometer-alt me-lg-1',
+				'icon' => 'fas fa-tachometer-alt',
 				'active' => 1
 		),
 		array (
@@ -47,16 +46,15 @@ $menus = array (
 						'vendors' => 'fa fa-male',
 						'manufacturers' => 'fa fa-user',
 						'filtergroups' => 'fa fa-filter'
-
 				)
 		),
 		array (
 				'name' => Text::_ ( 'COM_J2STORE_MAINMENU_SALES' ),
-				'icon' => 'fas fa-money',
+				'icon' => 'fas fa-money fa-money-bill',
 				'submenu' => array (
 						'orders' => 'fa fa-list-alt',
 						'customers' => 'fa fa-users',
-						'coupons' => 'fa fa-scissors',
+						'coupons' => 'fa fa-scissors fa-cut',
 						'vouchers' => 'fa fa-gift'
 				)
 		),
@@ -66,11 +64,11 @@ $menus = array (
 				'submenu' => array (
 						'countries' => 'fa fa-globe',
 						'zones' => 'fa fa-flag',
-						'geozones' => 'fa fa-pie-chart',
+						'geozones' => 'fa fa-pie-chart fa-chart-pie',
 						'taxrates' => 'fa fa-calculator',
 						'taxprofiles' => 'fa fa-sitemap',
-						'lengths' => 'fa fa-arrows-v',
-						'weights' => 'fa fa-arrows-h',
+						'lengths' => 'fa fa-arrows-alt-v fa-up-down',
+						'weights' => 'fa fa-arrows-alt-h fa-left-right',
 						'orderstatuses' => 'fa fa-check-square'
 				)
 		),
@@ -88,12 +86,11 @@ $menus = array (
 				'icon' => 'fa fa-cogs',
 				'submenu' => array (
 						'configuration' => 'fa fa-cogs',
-						'currencies' => 'fa fa-dollar',
+						'currencies' => 'fa fa-dollar fa-dollar-sign',
 						'payments' => 'fa fa-credit-card',
 						'shippings' => 'fa fa-truck',
 						'shippingtroubles' => 'fa fa-bug',
 						'customfields' => 'fa fa-th-list',
-//						'eupdates' => 'fa fa-refresh',
 				)
 		),
 		array (
@@ -101,9 +98,10 @@ $menus = array (
 				'icon' => 'fas fa-th',
 				'active' => 0
 		),
+
 		array (
 				'name' => 'Reporting',
-				'icon' => 'fas fa-chart-pie',
+				'icon' => 'fas fa-pie-chart fa-chart-pie',
 				'submenu' => array (
 						'Reports' => 'fas fa-chart-bar'
 				)
@@ -155,8 +153,8 @@ $view = $app->input->getString('view','cpanels');
             <nav class="navbar navbar-expand-lg bg-primary" role="navigation" data-bs-theme="dark">
                 <div class="container-fluid">
                     <a class="navbar-brand d-flex align-items-center" href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
-                        <img src="<?php echo Uri::root();?>media/j2store/images/dashboard-logo.png" class="img-circle" alt="j2store logo" />
-                        <h5 class="mb-0 ms-2 fw-normal d-block d-lg-none text-white-50 small">v <?php echo isset($row->version) ? $row->version : J2STORE_VERSION; ?>
+                        <img src="<?php echo Uri::root();?>media/j2store/images/dashboard-logo.png" class="img-fluid" alt="j2store logo" />
+                        <h5 class="mb-0 ms-2 fw-normal d-none d-sm-block d-lg-none text-white-50 small">v <?php echo isset($row->version) ? $row->version : J2STORE_VERSION; ?>
 		                    <?php if(J2Store::isPro() == 1): ?>
 			                    <?php echo 'PRO'; ?>
 		                    <?php else: ?>
@@ -175,7 +173,7 @@ $view = $app->input->getString('view','cpanels');
 						        <?php if(isset($value['submenu']) && count($value['submenu'])):?>
                                     <li class="nav-item dropdown flex-lg-grow-1 flex-xl-grow-0 me-xl-2" data-bs-toggle="tooltip" data-bs-placement="top" title="<?php echo $value['name'];?>">
                                         <a href="javascript:void(0);" class="nav-link dropdown-toggle submenu-dropdown-toggle text-lg-center" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-fw <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i>
+                                            <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i>
                                             <span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo $value['name'];?></span>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark bg-primary">
@@ -204,7 +202,7 @@ $view = $app->input->getString('view','cpanels');
 										        <?php endif;?>
                                                 <li>
                                                     <a class="dropdown-item <?php echo $class ?>" href="<?php echo $link_url;?>">
-                                                        <i class="fa-fw <?php echo $sub_menu_span_class;?>"></i>
+                                                        <i class="fa-fw me-1 me-xxl-2 <?php echo $sub_menu_span_class;?>"></i>
                                                         <span class="fs-6"><?php echo Text::_('COM_J2STORE_TITLE_'.strtoupper($sub_key));?></span>
                                                     </a>
                                                 </li>
@@ -217,21 +215,21 @@ $view = $app->input->getString('view','cpanels');
 								        $active_class ='active';
 							        }
 							        ?>
-                                    <li class="nav-item <?php echo $active_class;?> flex-lg-grow-1 flex-xl-grow-0 me-xl-2">
+                                    <li class="nav-item <?php echo $active_class;?> flex-lg-grow-1 flex-xl-grow-0 me-xl-2 position-relative">
 								        <?php if(isset($value['link']) && $value['link'] != ''):?>
-                                        <a class="nav-link text-lg-center" aria-current="page" href="<?php echo $value['link'];?>">
+                                        <a class="nav-link text-lg-center text-nowrap" aria-current="page" href="<?php echo $value['link'];?>">
 									        <?php else :
 									        if($value['name']=='Dashboard'):?>
-                                            <a class="nav-link <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
+                                            <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
 										        <?php elseif($value['name']=='Apps'): ?>
-                                                <a class="nav-link <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=apps';?>">
+                                                <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=apps';?>">
 											        <?php elseif($value['name']=='AppStore'): ?>
-                                                    <a class="nav-link <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=appstores';?>">
+                                                    <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=appstores';?>">
 												        <?php else:?>
-                                                        <a class="nav-link <?php echo $active_class;?> text-lg-center" aria-current="page"  href="javascript:void(0);">
+                                                        <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="javascript:void(0);">
 													        <?php endif;?>
 													        <?php endif;?>
-                                                            <i class="fa-fw <?php echo isset($value['icon']) ? $value['icon'] : '';?> icon"></i><span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo Text::_('COM_J2STORE_MAINMENU_'.strtoupper($value['name']));?></span>
+                                                            <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i><span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo Text::_('COM_J2STORE_MAINMENU_'.strtoupper($value['name']));?></span>
                                                         </a>
                                     </li>
 						        <?php endif; ?>
