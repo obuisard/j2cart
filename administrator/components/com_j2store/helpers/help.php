@@ -40,7 +40,7 @@ class J2Help {
     $newhtml = '<div class="alert alert-info d-flex align-items-center" role="alert">
             <i class="fas fa-solid fa-info-circle flex-shrink-0 me-2"></i>
             <div>'.JText::_('J2STORE_TAKEOVER_INFO').'</div>
-            <a href="https://www.j2commerce.com" class="btn btn-sm btn-dark text-light  ms-3 ms-lg-auto" title="Visit J2Commerce" target="_blank">'.JText::_('J2STORE_FIND_OUT_MORE').'</a>
+            <a href="https://www.j2commerce.com" class="btn btn-sm btn-dark text-light  ms-3 ms-lg-auto" title="'.JText::_('J2STORE_VISIT_J2COMMERCE').'" target="_blank"><i class="fas fa-solid fa-external-link me-2"></i>'.JText::_('J2STORE_FIND_OUT_MORE').'</a>
         </div>';
     return $newhtml;
   }
