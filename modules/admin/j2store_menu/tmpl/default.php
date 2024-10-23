@@ -92,15 +92,15 @@ $menus = array (
 		),
 		array (
 				'name' => JText::_ ( 'COM_J2STORE_MAINMENU_LOCALISATION' ),
-				'icon' => 'fa fa-globe',
+				'icon' => 'fas fa-globe',
 				'submenu' => array (
-						'countries' => 'fa fa-globe',
+						'countries' => 'fas fa-globe',
 						'zones' => 'fa fa-flag',
                         'geozones' => 'fa fa-pie-chart fa-chart-pie',
                         'taxrates' => 'fa fa-calculator',
                         'taxprofiles' => 'fa fa-sitemap',
-                        'lengths' => 'fa fa-arrows-alt-v fa-up-down',
-                        'weights' => 'fa fa-arrows-alt-h fa-left-right',
+                        'lengths' => 'fas fa-arrows-alt-v fa-up-down',
+                        'weights' => 'fas fa-arrows-alt-h fa-left-right',
                         'orderstatuses' => 'fa fa-check-square'
 				)
 		),
