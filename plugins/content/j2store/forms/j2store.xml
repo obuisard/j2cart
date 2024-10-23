@@ -9,6 +9,7 @@
 				description="PLG_J2STORE_DESC"
 				label="PLG_J2STORE_LABEL"
 				message="PLG_J2STORE_MESSAGE"
+				hiddenLabel="true"
 			/>
 		</fieldset>
 	</fields>
