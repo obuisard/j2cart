@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="COM_J2STORE_VIEW_PRODUCTS_LABEL"
-				>
+	<layout title="COM_J2STORE_VIEW_PRODUCTS_LABEL">
 		<message>
 				<![CDATA[COM_J2STORE_VIEW_PRODUCTS_DESC]]>
 		</message>
