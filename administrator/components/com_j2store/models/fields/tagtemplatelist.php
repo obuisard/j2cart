@@ -1,62 +1,63 @@
 <?php
-/*------------------------------------------------------------------------
- # com_j2store - J2Store
-# ------------------------------------------------------------------------
-# author    Ramesh Elamathi - Weblogicx India http://www.weblogicxindia.com
-# copyright Copyright (C) 2014 - 19 Weblogicxindia.com. All Rights Reserved.
-# @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-# Websites: http://j2store.org
-# Technical Support:  Forum - http://j2store.org/forum/index.html
--------------------------------------------------------------------------*/
+/**
+ * @copyright Copyright (C) 2014-2019 Weblogicx India. All rights reserved.
+ * @copyright Copyright (C) 2024 J2Commerce, Inc. All rights reserved.
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author  Ramesh Elamathi (weblogicxindia.com)
+ * @author  Adam Melcher adam@j2commerce.com
+ * @author  Olivier Buisard olivier@j2commerce.com
+ * @website https://www.j2commerce.com
+ */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('list');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\ListField;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
+FormHelper::loadFieldClass('list');
 
 
-class JFormFieldTagTemplateList extends JFormFieldList {
+class JFormFieldTagTemplateList extends ListField {
 
 	protected $type = 'TagTemplateList';
 
 	public function getInput() {
-		jimport('joomla.filesystem.folder');
-		$fieldName =  $this->name ;
-		//$componentPath =  JPATH_SITE.'/components/com_j2store/templates';
-		//$componentFolders = JFolder::folders($componentPath);
-		$db = JFactory::getDBO();
-		$query = "SELECT template FROM #__template_styles WHERE client_id = 0 AND home = 1";
+
+		$fieldName = $this->name;
+		$db = Factory::getContainer()->get('DatabaseDriver');
+
+		// Query to get the default template
+		$query = $db->getQuery(true)
+			->select($db->quoteName('template'))
+			->from($db->quoteName('#__template_styles'))
+			->where($db->quoteName('client_id') . ' = 0')
+			->where($db->quoteName('home') . ' = 1');
 		$db->setQuery($query);
-		$defaultemplate = $db->loadResult();
-		if (JFolder::exists(JPATH_SITE.'/templates/'.$defaultemplate.'/html/com_j2store/templates'))
-		{
-			$templatePath = JPATH_SITE.'/templates/'.$defaultemplate.'/html/com_j2store/templates';
+		$defaultTemplate = $db->loadResult();
+
+		if (is_dir(JPATH_SITE . '/templates/' . $defaultTemplate . '/html/com_j2store/templates')) {
+			$templatePath = JPATH_SITE . '/templates/' . $defaultTemplate . '/html/com_j2store/templates';
+		} else {
+			$templatePath = JPATH_SITE . '/templates/' . $defaultTemplate . '/html/com_j2store/products';
 		}
-		else
-		{
-			$templatePath = JPATH_SITE.'/templates/'.$defaultemplate.'/html/com_j2store/products';
-		}
-        $componentFolders = array();
+
+		$componentFolders = [];
         J2Store::plugin()->event('TemplateFolderList',array(&$componentFolders));
-		if (JFolder::exists($templatePath))
-		{
-			$templateFolders = JFolder::folders($templatePath);
-			$folders = @array_merge($templateFolders, $componentFolders);
-			$folders = @array_unique($folders);
-		}
-		else
-		{
+		if (is_dir($templatePath)) {
+			$templateFolders = is_dir($templatePath);
+			$folders = array_merge($templateFolders, $componentFolders);
+			$folders = array_unique($folders);
+		} else {
 			$folders = $componentFolders;
 		}
 
-		$include_array = array(
-			'tag'
-		);
-		$options = array();
-		foreach ($folders as $folder)
-		{
+		$include_array = ['tag'];
+		$options = [];
+
+		foreach ($folders as $folder) {
 			foreach ($include_array as $include){
 				$substring = substr ( $folder,0,strlen ( $include )  );
 				if(($substring != $include) || ($folder == 'tag_default')){
@@ -64,12 +65,12 @@ class JFormFieldTagTemplateList extends JFormFieldList {
 				}
 			}
 			if($folder != 'tmpl') {
-				$options[] = JHTML::_('select.option', $folder, $folder);
+				$options[] = HTMLHelper::_('select.option', $folder, $folder);
 			}
 		}
-
-		array_unshift($options, JHTML::_('select.option', 'tag_default', JText::_('J2STORE_USE_DEFAULT')));
-		return JHTML::_('select.genericlist', $options, $fieldName, 'class="inputbox"', 'value', 'text', $this->value, $this->control_name.$this->name);
+		array_unshift($options, HTMLHelper::_('select.option', 'tag_default', Text::_('J2STORE_USE_DEFAULT')));
+		return HTMLHelper::_('select.genericlist', $options, $fieldName, 'class="form-select"', 'value', 'text', $this->value, $this->control_name . $this->name);
+		
 	}
 
 }
