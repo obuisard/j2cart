@@ -2425,7 +2425,7 @@ class F0FLess
 		}
 
 		// Type based operators
-		$fname = "op_${ltype}_${rtype}";
+		$fname = "op_{$ltype}_{$rtype}";
 
 		if (is_callable(array($this, $fname)))
 		{
