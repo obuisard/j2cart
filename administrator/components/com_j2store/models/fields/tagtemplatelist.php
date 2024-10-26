@@ -47,7 +47,7 @@ class JFormFieldTagTemplateList extends ListField {
 		$componentFolders = [];
         J2Store::plugin()->event('TemplateFolderList',array(&$componentFolders));
 		if (is_dir($templatePath)) {
-			$templateFolders = is_dir($templatePath);
+			$templateFolders = array_diff(scandir($templatePath), ['.', '..']);
 			$folders = array_merge($templateFolders, $componentFolders);
 			$folders = array_unique($folders);
 		} else {

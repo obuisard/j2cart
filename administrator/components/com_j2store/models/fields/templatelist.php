@@ -51,7 +51,7 @@ class JFormFieldTemplateList extends ListField
 
 		// Fetch folders if the template path exists
 		if (is_dir($templatePath)) {
-			$templateFolders = is_dir($templatePath);
+			$templateFolders = array_diff(scandir($templatePath), ['.', '..']);
 			$folders = array_merge($templateFolders, $componentFolders);
 			$folders = array_unique($folders);
 		} else {
