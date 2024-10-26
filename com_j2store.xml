@@ -77,7 +77,7 @@
 			<language tag="en-GB">en-GB/en-GB.com_j2store.sys.ini</language>
 		</languages>
 	</administration>
-		
+
 	<!-- Installation / uninstallation PHP scripts -->
 	<scriptfile>script.j2store.php</scriptfile>
 
