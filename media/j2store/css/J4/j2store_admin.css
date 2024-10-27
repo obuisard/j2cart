@@ -780,6 +780,10 @@ div.j2store-tab div.j2store-tab-content:not(.active){
 .com_j2store .bg-important {
     background-color: #a94442;
 }
+#j-main-container {
+    padding-top: 2rem;
+}
+
 /*navbar*/
 #j2store-navbar{
     font-size:0.86rem;
@@ -909,6 +913,6 @@ div.j2store-tab div.j2store-tab-content:not(.active){
 .com_j2store a[target="_blank"]::before{
     content: none !important;
 }
-.com_j2store joomla-field-fancy-select .choices{
+/*.com_j2store joomla-field-fancy-select .choices{
     width: 260px;
-}
+}*/
