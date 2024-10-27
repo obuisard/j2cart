@@ -3,9 +3,6 @@
  * @copyright Copyright (C) 2014-2019 Weblogicx India. All rights reserved.
  * @copyright Copyright (C) 2024 J2Commerce, Inc. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
- * @author  Sasi Varna Kumar (weblogicxindia.com)
- * @author  Adam Melcher adam@j2commerce.com
- * @author  Olivier Buisard olivier@j2commerce.com
  * @website https://www.j2commerce.com
  */
 // No direct access
@@ -982,7 +979,7 @@ class J2Html
                 ->getHtml();
         }else{
             $displayData = array(
-                'class' => 'input-small',
+                'class' => '',
                 'name' => $name,
                 'value' => $value  ,
                 'options' =>$placeholders ,
@@ -1586,7 +1583,7 @@ jQuery('.modal-backdrop').remove();
         return date_diff($today, $date2);
     }
 
-    public static function fieldSQL($name, $field, $item)
+/*    public static function fieldSQL($name, $field, $item)
     {
         $html = '';
         $query = isset($field['query']) && !empty($field['query']) ? $field['query'] : '';
@@ -1599,7 +1596,39 @@ jQuery('.modal-backdrop').remove();
             $html = $field_data->$value_field ?? '';
         }
         return $html;
-    }
+    }*/
+	public static function fieldSQL($name, $field, $item)
+	{
+		$html = '';
+		$query = isset($field['query']) && !empty($field['query']) ? $field['query'] : '';
+
+		// Verify that the query includes a SELECT clause
+		if (!str_contains(strtoupper($query), 'SELECT')) {
+			$query = 'SELECT * FROM ' . $query;
+		}
+
+		if (!empty($field['key_field']) && !empty($query) && !empty($item->$name)) {
+			// Get the database instance
+			$db = Factory::getContainer()->get('DatabaseDriver');
+
+			// Properly escape column and value
+			$query .= ' WHERE ' . $db->quoteName($field['key_field']) . ' = ' . $db->quote($item->$name);
+		}
+
+		if (!empty($query)) {
+			try {
+				$db = Factory::getContainer()->get('DatabaseDriver');
+				$field_data = $db->setQuery($query)->loadObject();
+				$value_field = $field['value_field'] ?? '';
+				$html = $field_data->$value_field ?? '';
+			} catch (Exception $e) {
+				// Log or handle the error as needed
+				Factory::getApplication()->enqueueMessage('Error executing query: ' . $e->getMessage(), 'error');
+			}
+		}
+
+		return $html;
+	}
     public static function receiverTypes($item)
     {
         $html ='';
