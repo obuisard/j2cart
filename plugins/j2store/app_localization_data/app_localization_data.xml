@@ -7,7 +7,7 @@
 	<authorEmail>supports@j2store.org</authorEmail>
 	<authorUrl>http://www.j2store.org</authorUrl>
 	<copyright>2014-19 WeblogicxIndia</copyright>
-	<license>GNU General Public License v2</license>
+	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later</license>
 	<description>J2STORE_APP_LOCALIZATION_DATA_HELP_TEXT</description>
 	<files>
 		<filename plugin="app_localization_data">app_localization_data.php</filename>
