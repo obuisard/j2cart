@@ -7,7 +7,7 @@
 	<authorEmail>supports@j2store.org</authorEmail>
 	<authorUrl>http://www.j2store.org</authorUrl>
 	<copyright>2015 Weblogicx India</copyright>
-	<license>GNU General Public License v2</license>
+	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later</license>
 	<description>J2STORE_DIAGNOSTICS_HELP_TEXT</description>
 	<files>
 		<filename plugin="app_diagnostics">app_diagnostics.php</filename>
