@@ -22,13 +22,12 @@ $wa  = Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager()
 $waState = $wa->getManagerState();
 
 if ($wa->assetExists('style', 'fontawesome')) {
-	if($waState['activeAssets']['style']['j2store-font-awesome-css']){
+	if (isset($waState['activeAssets']['style']['j2store-font-awesome-css'])) {
 		$wa->disableStyle('j2store-font-awesome-css');
 	}
 } else {
-	J2Store::platform()->addStyle('j2store-font-awesome-css','/media/j2store/css/font-awesome.min.css');
+	$platform->addStyle('j2store-font-awesome-css','/media/j2store/css/font-awesome.min.css');
 }
-
 
 $menus = array (
 		array (
