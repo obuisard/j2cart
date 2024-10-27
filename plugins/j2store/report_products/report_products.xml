@@ -7,7 +7,7 @@
 	<authorEmail>supports@j2store.org</authorEmail>
 	<authorUrl>http://www.j2store.org</authorUrl>
 	<copyright>2016 Weblogicx India Limited</copyright>
-	<license>GNU General Public License v2 or later</license>
+	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later</license>
 	<description>J2STORE_REPORT_PRODUCTS_DESC</description>
 	<files>
 		<filename plugin="report_products">report_products.php</filename>

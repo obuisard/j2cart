@@ -7,7 +7,7 @@
 	<authorEmail>support@j2store.org</authorEmail>
 	<authorUrl>http://j2store.org</authorUrl>
 	<copyright>2013 Weblogicx India Private Limited</copyright>
-	<license>GNU General Public License v2</license>
+	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later</license>
 	<description>J2STORE_BANKTRANSFER_PLUGINDESC</description>
 
 	<files>
