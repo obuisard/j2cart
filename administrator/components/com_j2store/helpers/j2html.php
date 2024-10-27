@@ -892,12 +892,12 @@ class J2Html
 		        $value = $content->source;
 	        }
 
-			if ($editor_type) {
-				$editor = Editor::getInstance($editor_type);
+            if ($editor_type) {
+                $editor = Editor::getInstance($editor_type);
 			} else {
-	        $config = Factory::getApplication()->getConfig();
-	        $defaultEditor = $config->get('editor');
-	        $editor = Editor::getInstance($defaultEditor);
+                $config = Factory::getApplication()->getConfig();
+	            $defaultEditor = $config->get('editor');
+	            $editor = Editor::getInstance($defaultEditor);
 			}
 
 	        $buttons = isset($options['buttons']) ? $options['buttons'] : false; // Default to true (enable all buttons)
