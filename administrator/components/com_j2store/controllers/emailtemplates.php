@@ -2,10 +2,10 @@
 /**
  * @copyright Copyright (C) 2014-2019 Weblogicx India. All rights reserved.
  * @copyright Copyright (C) 2024 J2Commerce, Inc. All rights reserved.
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later
  * @website https://www.j2commerce.com
  */
-// No direct access to this file
+
 defined ( '_JEXEC' ) or die ();
 require_once JPATH_ADMINISTRATOR.'/components/com_j2store/controllers/traits/list_view.php';
 
@@ -162,8 +162,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 			]
 		];
 
-
-		$body_source = isset($emailtemplate_table->body_source) && !empty($emailtemplate_table->body_source) ? $emailtemplate_table->body_source: 'html';
+    $body_source = isset($emailtemplateTable->body_source) && !empty($emailtemplateTable->body_source) ? $emailtemplateTable->body_source: 'html';
 		$source_hide = '';
 		$body_source_file = '';
 		$body_hide = '';
@@ -171,12 +170,11 @@ class J2StoreControllerEmailtemplates extends F0FController {
 			$source_hide = 'display:none;';
 			$body_source_file = 'display:none;';
 		}elseif ($body_source == 'file'){
-			if(empty($emailtemplate_table-> body_source_file)){
+      if(empty($emailtemplateTable->body_source_file)){
 				$source_hide = 'display:none;';
 			}
 			$body_hide = 'display:none;';
 		}
-
 
 		$vars->field_sets[] = [
 			'id' => 'advanced_information',
@@ -187,7 +185,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 					'type' => 'filelist',
 					'name' => 'body_source_file',
 					'value' => $emailtemplateTable->body_source_file,
-					'style' => $bodySourceFile,
+          'style' => $body_source_file,
 					'options' => [
 						'directory' => "administrator/components/com_j2store/views/emailtemplate/tpls",
 						'filter' => "(.*?)\.(php)"
@@ -199,7 +197,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 					'name' => 'source',
 					'value' => $emailtemplateTable->body_source_file,
 					'desc' => 'J2STORE_EMAILTEMPLATE_FIELD_SOURCE_DESC',
-					'style' => $sourceHide,
+          'style' => $source_hide,
 					'options' => [
 						'editor' => 'codemirror',
 						'content' => 'from_file',
@@ -216,7 +214,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 					'type' => 'editor',
 					'name' => 'body',
 					'value' => $emailtemplateTable->body,
-					'style' => $bodyHide,
+          'style' => $body_hide,
 					'hiddenLabel' => 'true',
 					'options' => ['class' => 'input-xlarge', 'buttons' => true]
 				]
