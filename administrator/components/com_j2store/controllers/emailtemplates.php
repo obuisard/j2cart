@@ -170,7 +170,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 			$source_hide = 'display:none;';
 			$body_source_file = 'display:none;';
 		}elseif ($body_source == 'file'){
-      if(empty($emailtemplateTable->body_source_file)){
+            if(empty($emailtemplateTable->body_source_file)){
 				$source_hide = 'display:none;';
 			}
 			$body_hide = 'display:none;';
@@ -185,7 +185,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 					'type' => 'filelist',
 					'name' => 'body_source_file',
 					'value' => $emailtemplateTable->body_source_file,
-          'style' => $body_source_file,
+                    'style' => $body_source_file,
 					'options' => [
 						'directory' => "administrator/components/com_j2store/views/emailtemplate/tpls",
 						'filter' => "(.*?)\.(php)"
@@ -197,7 +197,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 					'name' => 'source',
 					'value' => $emailtemplateTable->body_source_file,
 					'desc' => 'J2STORE_EMAILTEMPLATE_FIELD_SOURCE_DESC',
-          'style' => $source_hide,
+                    'style' => $source_hide,
 					'options' => [
 						'editor' => 'codemirror',
 						'content' => 'from_file',
@@ -214,7 +214,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 					'type' => 'editor',
 					'name' => 'body',
 					'value' => $emailtemplateTable->body,
-          'style' => $body_hide,
+                    'style' => $body_hide,
 					'hiddenLabel' => 'true',
 					'options' => ['class' => 'input-xlarge', 'buttons' => true]
 				]
