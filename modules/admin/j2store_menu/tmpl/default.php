@@ -11,7 +11,18 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 $platform = J2Store::platform();
-$platform->addStyle('j2store-font-awesome-css','/media/j2store/css/font-awesome.min.css');
+
+$wa  = Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager();
+$waState = $wa->getManagerState();
+
+if ($wa->assetExists('style', 'fontawesome')) {
+	if (isset($waState['activeAssets']['style']['j2store-font-awesome-css'])) {
+		$wa->disableStyle('j2store-font-awesome-css');
+	}
+} else {
+	$platform->addStyle('j2store-font-awesome-css','/media/j2store/css/font-awesome.min.css');
+}
+
 $platform->addInlineStyle('ul.nav.j2store-admin-menu > li ul { overflow: visible; }');
 //$doc = JFactory::getDocument();
 //$doc->addStyleSheet(JUri::root().'media/j2store/css/font-awesome.min.css');
