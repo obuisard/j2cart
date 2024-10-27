@@ -2,10 +2,10 @@
 /**
  * @copyright Copyright (C) 2014-2019 Weblogicx India. All rights reserved.
  * @copyright Copyright (C) 2024 J2Commerce, Inc. All rights reserved.
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later
  * @website https://www.j2commerce.com
  */
-// No direct access
+
 defined('_JEXEC') or die ();
 
 use Joomla\CMS\Editor\Editor;
@@ -892,9 +892,14 @@ class J2Html
 		        $value = $content->source;
 	        }
 
+			if ($editor_type) {
+				$editor = Editor::getInstance($editor_type);
+			} else {
 	        $config = Factory::getApplication()->getConfig();
 	        $defaultEditor = $config->get('editor');
 	        $editor = Editor::getInstance($defaultEditor);
+			}
+
 	        $buttons = isset($options['buttons']) ? $options['buttons'] : false; // Default to true (enable all buttons)
 	        $html = $editor->display($name, $value, $width, $height, $cols, $rows, false, $id, null, $buttons, $options);
         } elseif ($type == 'filelist'){
