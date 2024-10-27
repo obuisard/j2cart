@@ -10,9 +10,10 @@
 -------------------------------------------------------------------------*/
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
 $platform = J2Store::platform();
 
-$wa  = Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager();
+$wa = Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager();
 $waState = $wa->getManagerState();
 
 if ($wa->assetExists('style', 'fontawesome')) {
