@@ -69,7 +69,7 @@ class J2StoreControllerEmailtemplates extends F0FController {
 		}
 
 		$groupList = HTMLHelper::_('user.groups');
-		$groupOptions = ['*' => Text::_('JALL')];
+		$groupOptions = ['' => Text::_('JALL')];
 		foreach ($groupList as $row) {
 			$groupOptions[$row->value] = Text::_($row->text);
 		}
