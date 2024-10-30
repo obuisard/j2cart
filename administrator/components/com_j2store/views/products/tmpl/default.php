@@ -1,11 +1,15 @@
 <?php
 /**
- * @package J2Store
- * @copyright Copyright (c)2014-17 Ramesh Elamathi / J2Store.org
- * @license GNU GPL v3 or later
+ * @copyright Copyright (C) 2014-2019 Weblogicx India. All rights reserved.
+ * @copyright Copyright (C) 2024 J2Commerce, Inc. All rights reserved.
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later
+ * @website https://www.j2commerce.com
  */
 // No direct access to this file
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Language\Text;
+
 $platform = J2Store::platform();
 $platform->loadExtra('behavior.modal');
 $sidebar = JHtmlSidebar::render();
@@ -13,10 +17,6 @@ $this->params = J2Store::config();
 $create_url = 'index.php?option=com_content&view=article&layout=edit';
 $row_class = 'row';
 $col_class = 'col-md-';
-if (version_compare(JVERSION, '3.99.99', 'lt')) {
-    $row_class = 'row-fluid';
-    $col_class = 'span';
-}
 ?>
 <div class="<?php echo $row_class; ?>">
 
@@ -41,7 +41,7 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
 
             <div class="alert alert-block alert-info">
                 <strong>
-                    <?php echo JText::_('J2STORE_PRODUCTS_LIST_VIEW_HELP_TEXT'); ?>
+                    <?php echo Text::_('J2STORE_PRODUCTS_LIST_VIEW_HELP_TEXT'); ?>
                 </strong>
             </div>
             <?php echo J2Store::help()->watch_video_tutorials(); ?>
