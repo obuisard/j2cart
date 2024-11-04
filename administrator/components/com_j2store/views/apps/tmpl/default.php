@@ -1,34 +1,44 @@
 <?php
 /**
- * @package J2Store
- * @copyright Copyright (c)2014-17 Ramesh Elamathi / J2Store.org
- * @license GNU GPL v3 or later
+ * * @package     Joomla 5.x
+ * * @subpackage  J2 Store
+ * * @copyright   Copyright (C) 2014-2017 Ramesh Elamathi All rights reserved.
+ * * @copyright   Copyright (c) 2024 J2Commerce . All rights reserved.
+ * * @license     GNU GPL v3 or later
+ * * @link        https://www.j2commerce.com
  */
+
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
+
 // load tooltip behavior
 $platform = J2Store::platform();
 $platform->loadExtra('behavior.modal');
 $platform->loadExtra('behavior.framework');
-//$platform->loadExtra('behavior.tooltip');
+$platform->loadExtra('behavior.tooltip');
 $platform->loadExtra('behavior.multiselect');
 $platform->loadExtra('dropdown.init');
 $platform->loadExtra('formbehavior.chosen', 'select');
 $sortFields = array(
-    'id' => JText::_('JGRID_HEADING_ID'),
-    'name' => JText::_('COM_ATS_TICKETS_HEADING_TITLE'),
-    'state' => JText::_('JSTATUS'),
+	'id' => Text::_('JGRID_HEADING_ID'),
+	'name' => Text::_('COM_ATS_TICKETS_HEADING_TITLE'),
+	'state' => Text::_('JSTATUS'),
 );
-$sidebar = JHtmlSidebar::render();
+
 $total = count($this->items);
 $counter = 0;
 $col = 3;
 $row_class = 'row';
-$col_class = 'col-md-';
-if (version_compare(JVERSION, '3.99.99', 'lt')) {
-    $row_class = 'row-fluid';
-    $col_class = 'span';
-}
+$col_class = 'col-lg-';
+
+HTMLHelper::_('bootstrap.tooltip', '[data-bs-toggle="tooltip"]', ['placement' => 'top']);
+$session = Factory::getApplication()->getSession();
 ?>
 <script type="text/javascript">
     Joomla.orderTable = function () {
@@ -43,152 +53,144 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
         Joomla.tableOrdering(order, dirn);
     }
 </script>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-<form action="<?php echo JRoute::_('index.php?option=com_j2store&view=apps'); ?>" method="post" name="adminForm"
-      id="adminForm" xmlns="https://www.w3.org/1999/html">
+
+
+<form action="<?php echo Route::_('index.php?option=com_j2store&view=apps'); ?>" method="post" name="adminForm" id="adminForm" xmlns="https://www.w3.org/1999/html">
     <input type="hidden" name="task" value="browse"/>
     <input type="hidden" name="boxchecked" value="0"/>
     <input type="hidden" name="filter_order" value="<?php echo $this->lists->order; ?>"/>
     <input type="hidden" name="filter_order_Dir" value="<?php echo $this->lists->order_Dir; ?>"/>
-    <input type="hidden" id="token" name="<?php echo JFactory::getSession()->getFormToken(); ?>" value="1"/>
-    <div class="<?php echo $row_class; ?>">
-        <?php if (!empty($sidebar)): ?>
-        <div id="j-sidebar-container" class="<?php echo $col_class; ?>2">
-            <?php echo $sidebar; ?>
-        </div>
-        <div id="j-main-container" class="<?php echo $col_class; ?>10">
-            <?php else : ?>
-            <div id="j-main-container">
-                <?php endif; ?>
-                <div class="j2store apps">
-                    <div class="app-search">
-                        <input type="text" name="search" id="search"
-                               value="<?php echo $this->escape($this->getModel()->getState('search', '')); ?>"
-                               class="input-large" onchange="document.adminForm.submit();"
-                               placeholder="<?php echo JText::_('J2STORE_APP_NAME'); ?>"
-                        />
-                        <nobr>
-                            <button class="btn btn-success"
-                                    type="submit"><?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
-                            <button class="btn btn-inverse" type="button"
-                                    onclick="document.id('search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
-                        </nobr>
+    <input type="hidden" id="token" name="<?php echo $session->getFormToken(); ?>" value="1"/>
+    <div id="j-main-container">
+        <div class="j2store apps">
+            <div class="js-stools" role="search">
+                <div class="js-stools-container-bar">
+                    <div class="btn-toolbar gap-2 align-items-center">
+                        <h2><?php echo Text::_('COM_J2STORE_TITLE_APPS') ?></h2>
+                        <div class="filter-search-bar btn-group app-search ms-auto">
+                            <div class="input-group">
+                                <input type="text" name="search" id="search" value="<?php echo $this->escape($this->getModel()->getState('search', '')); ?>" class="form-control" onchange="document.adminForm.submit();" placeholder="<?php echo Text::_('J2STORE_APP_NAME'); ?>"/>
 
-                    </div>
-                    <h2 class="app-heading"><?php echo JText::_('COM_J2STORE_TITLE_APPS') ?></h2>
-                    <div class="alert alert-info"> <?php echo JText::_('COM_J2STORE_EXTENSIONS_ALERT') ?></div>
-                    <?php $i = -1 ?>
-                    <?php foreach ($this->items as $i => $app): ?>
-                        <?php
-                        $i++;
-                        $app->published = $app->enabled;
-                        //load the language files
-                        JFactory::getLanguage()->load('plg_j2store_' . $app->element, JPATH_ADMINISTRATOR);
-                        //var_dump($app->manifest_cache);
-                        $params = $platform->getRegistry($app->manifest_cache);
-                        ?>
-                        <?php $rowcount = ((int)$counter % (int)$col) + 1; ?>
-                        <?php if ($rowcount == 1) : ?>
-                            <?php $row = $counter / $col; ?>
-                            <div class="j2store-apps-row <?php echo 'row-' . $row; ?> <?php echo $row_class; ?>">
-                        <?php endif; ?>
-                        <div class="<?php echo $col_class; ?><?php echo round((12 / $col)); ?>">
-                            <div class="app-container">
-                                <div class="panel panel-warning">
-                                    <div class="panel-body">
-                                        <div class="app-image">
-                                            <?php if (JFile::exists(JPATH_SITE . '/plugins/j2store/' . $app->element . '/images/' . $app->element . '.png')): ?>
-                                                <img src="<?php echo JUri::root(true) . '/plugins/j2store/' . $app->element . '/images/' . $app->element . '.png'; ?>"/>
-                                            <?php elseif (JFile::exists(JPATH_SITE . '/media/j2store/images/' . $app->element . '.png')): ?>
-                                                <img src="<?php echo JUri::root(true) . '/media/j2store/images/' . $app->element . '.png'; ?>"/>
-                                            <?php else: ?>
-                                                <img src="<?php echo JUri::root(true) . '/media/j2store/images/app_placeholder.png'; ?>"/>
-                                            <?php endif; ?>
-                                        </div>
-
-                                        <div class="app-name">
-                                            <h3 class="panel-title"><?php echo JText::_($app->name); ?></h3>
-                                        </div>
-
-                                        <div class="app-description">
-                                            <?php
-                                            $desc = $params->get('description');
-                                            echo substr(JText::_($desc), 0, 100) . '...';
-                                            ?>
-                                        </div>
-                                        <div class="app-footer">
-						<span class="author">
-							<?php echo $params->get('author'); ?>
-						</span>
-
-                                            <span class="version pull-right"><strong><?php echo JText::_('J2STORE_APP_VERSION'); ?> : <?php echo $params->get('version'); ?></strong></span>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <div class="app-action">
-                                            <?php if ($app->enabled): ?>
-                                                <a
-                                                        class="app-button app-button-open j2-flat-button"
-                                                        href="<?php echo 'index.php?option=com_j2store&view=apps&task=view&layout=view&id=' . $app->extension_id ?>">
-                                                    <?php echo JText::_('J2STORE_OPEN'); ?>
-                                                    <i class="fa fa-arrow-circle-right"></i>
-                                                </a>
-                                            <?php endif; ?>
-
-                                            <?php if ($app->enabled): ?>
-                                                <a
-                                                        class="app-button app-button-unpublish j2-flat-button"
-                                                        href="<?php echo 'index.php?option=com_j2store&view=apps&task=unpublish&id=' . $app->extension_id . '&' . JFactory::getSession()->getFormToken() . '=1'; ?>">
-                                                    <?php echo JText::_('J2STORE_DISABLE'); ?>
-                                                </a>
-                                            <?php else: ?>
-                                                <a
-                                                        class="app-button app-button-publish j2-flat-button"
-                                                        href="<?php echo 'index.php?option=com_j2store&view=apps&task=publish&id=' . $app->extension_id . '&' . JFactory::getSession()->getFormToken() . '=1'; ?>">
-                                                    <?php echo JText::_('J2STORE_ENABLE'); ?>
-                                                </a>
-                                            <?php endif; ?>
-                                        </div>
-
-
-                                    </div>
-
-
-                                </div>
+                                <button type="submit" class="filter-search-bar__button btn btn-primary" aria-label="<?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?>">
+                                    <span class="filter-search-bar__button-icon icon-search" aria-hidden="true"></span>
+                                </button>
                             </div>
-
                         </div>
-
-                        <?php $counter++; ?>
-                        <?php if (($rowcount == $col) or ($counter == $total)) : ?>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php //  echo $this->pagination->getPagesLinks(); ?>
-                    <div class="pagination">
-                        <?php echo $this->pagination->getListFooter(); ?>
-                    </div>
-                    <div class="payment-content inline-content">
-                        <div class="<?php echo $row_class;?>">
-                            <div class="<?php echo $col_class;?>12">
-                                <div class="hero-unit">
-                                    <h2>Get more apps for your store. Increase sales and customer engagement</h2>
-                                    <p class="lead">
-                                        Choose from 25 + apps that will help you boost your sales, improve customer engagement and do more
-                                        with J2Store.
-                                    </p>
-                                    <a target="_blank" class="app-button app-button-open j2-flat-button"
-                                       href="https://www.j2store.org/downloads/category/apps/"><?php echo JText::_('J2STORE_GET_MORE_APPS'); ?></a>
-                                </div>
-                            </div>
+                        <div class="filter-search-actions btn-group">
+                            <button type="button" class="filter-search-actions__button btn btn-primary js-stools-btn-clear" onclick="document.id('search').value='';this.form.submit();"><?php echo Text::_('JSEARCH_FILTER_CLEAR'); ?></button>
                         </div>
                     </div>
                 </div>
-                <?php if (!empty($sidebar)): ?>
             </div>
-                <?php else:?>
-        </div>
-                <?php endif; ?>
+            <div class="alert alert-info"> <?php echo Text::_('COM_J2STORE_EXTENSIONS_ALERT') ?></div>
+			<?php $i = -1 ?>
 
+            <table class="table itemList">
+                <thead>
+                <tr>
+                    <th scope="col" class="w-10 text-center d-none d-xxl-table-cell"><?php echo Text::_('J2STORE_APP_ID');?></th>
+                    <th scope="col" class="w-10 text-center"><?php echo Text::_('JSTATUS');?></th>
+                    <th scope="col" class="w-50"><?php echo Text::_('J2STORE_APP');?></th>
+                    <th scope="col" class="w-10 d-none d-lg-table-cell"><?php echo Text::_('J2STORE_APP_VERSION');?></th>
+
+                    <th scope="col" class="w-30 d-none d-xxl-table-cell"></th>
+                </tr>
+                </thead>
+                <tbody>
+				<?php foreach ($this->items as $i => $app):
+					$i++;
+					$app->published = $app->enabled;
+					Factory::getApplication()->getLanguage()->load('plg_j2store_' . $app->element, JPATH_ADMINISTRATOR);
+					$params = $platform->getRegistry($app->manifest_cache);
+					$desc = $params->get('description');
+
+					$imageExtensions = ['jpg', 'png', 'webp'];
+					$imagePath = '';
+
+					foreach ($imageExtensions as $extension) {
+						$path = JPATH_SITE . '/media/plg_j2store_'.$app->element.'/images/' . $app->element . '.' . $extension;
+						if (file_exists($path)) {
+							$imagePath = Uri::root(true) . '/media/plg_j2store_' . $app->element . '/images/' . $app->element . '.' . $extension;
+							break;
+						}
+					}
+					?>
+                    <tr class="row<?php echo $i;?>">
+                        <td class="text-center align-middle d-none d-xxl-table-cell">
+							<?php echo $app->extension_id;?>
+                        </td>
+                        <td class="text-center align-middle">
+							<?php if ($app->enabled): ?>
+                                <a class="js-grid-item-action tbody-icon app-button-unpublish" href="<?php echo 'index.php?option=com_j2store&view=apps&task=unpublish&id=' . $app->extension_id . '&' . $session->getFormToken() . '=1'; ?>" title="<?php echo Text::_('J2STORE_DISABLE'); ?>">
+                                    <span class="icon-publish" aria-hidden="true"></span>
+                                </a>
+							<?php else: ?>
+                                <a class="js-grid-item-action tbody-icon app-button-publish" href="<?php echo 'index.php?option=com_j2store&view=apps&task=publish&id=' . $app->extension_id . '&' . $session->getFormToken() . '=1'; ?>" title="<?php echo Text::_('J2STORE_ENABLE'); ?>">
+                                    <span class="icon-unpublish" aria-hidden="true"></span>
+                                </a>
+							<?php endif; ?>
+                        </td>
+                        <td>
+                            <div class="d-block d-lg-flex">
+                                <div class="flex-shrink-0">
+									<?php if ($app->enabled): ?>
+                                    <a href="<?php echo 'index.php?option=com_j2store&view=apps&task=view&layout=view&id=' . $app->extension_id ?>" class="d-none d-lg-inline-block d-md-block">
+										<?php else: ?>
+                                        <span class="d-none d-lg-inline-block d-md-block">
+                                        <?php endif;?>
+											<?php if($imagePath):?>
+                                                <img src="<?php echo $imagePath; ?>" class="img-fluid j2commerce-app-image" alt="<?php echo Text::_($app->name); ?>"/>
+											<?php elseif (file_exists(JPATH_SITE . '/plugins/j2store/' . $app->element . '/images/' . $app->element . '.png')): ?>
+                                                <img src="<?php echo Uri::root(true) . '/plugins/j2store/' . $app->element . '/images/' . $app->element . '.png'; ?>" class="img-fluid j2commerce-app-image" alt="<?php echo Text::_($app->name); ?>"/>
+											<?php elseif (file_exists(JPATH_SITE . '/media/j2store/images/' . $app->element . '.png')): ?>
+                                                <img src="<?php echo Uri::root(true) . '/media/j2store/images/' . $app->element . '.png'; ?>" class="img-fluid j2commerce-app-image" alt="<?php echo Text::_($app->name); ?>"/>
+
+											<?php else: ?>
+                                                <img src="<?php echo Uri::root(true) . '/media/j2store/images/app_placeholder.png'; ?>" class="img-fluid j2commerce-app-image" alt="<?php echo Text::_($app->name); ?>"/>
+											<?php endif; ?>
+											<?php if ($app->enabled): ?>
+                                    </a>
+								<?php else: ?>
+                                    </span>
+								<?php endif;?>
+                                </div>
+                                <div class="flex-grow-1 ms-lg-3 mt-2 mt-lg-0">
+                                    <div>
+										<?php if ($app->enabled): ?>
+                                            <a href="<?php echo 'index.php?option=com_j2store&view=apps&task=view&layout=view&id=' . $app->extension_id ?>"><?php echo Text::_($app->name); ?></a>
+										<?php else: ?>
+                                            <span class="text-dark"><?php echo Text::_($app->name); ?></span>
+										<?php endif;?>
+
+                                    </div>
+                                    <div class="small d-none d-md-block"><?php echo Text::_(HTMLHelper::_('string.truncate', $desc, 120, true, true));?></div>
+                                    <div class="small d-block d-lg-none"><b><?php echo Text::_('J2STORE_APP_VERSION');?>:</b> <?php echo $params->get('version'); ?></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle d-none d-lg-table-cell">
+                            <small><b><?php echo $params->get('version'); ?></b></small>
+                        </td>
+                        <td class="align-middle text-center d-none d-xxl-table-cell">
+							<?php if ($app->enabled): ?>
+                                <a class="btn btn-sm btn-primary app-button-open text-decoration-none" href="<?php echo 'index.php?option=com_j2store&view=apps&task=view&layout=view&id=' . $app->extension_id ?>" title="<?php echo Text::_('J2STORE_APP_OPEN'); ?>">
+									<?php echo Text::_('J2STORE_APP_OPEN'); ?>
+                                </a>
+							<?php endif; ?>
+                        </td>
+                    </tr>
+				<?php endforeach;?>
+                </tbody>
+            </table>
+            <nav class="pagination__wrapper" aria-label="Pagination">
+				<?php echo $this->pagination->getListFooter();?>
+            </nav>
+            <div class="text-center mt-2 mb-4 px-4">
+                <i class="fa-4x mb-2 fa-solid fa-cart-plus"></i>
+                <h2 class="fs-1 fw-bold"><?php echo Text::_('J2STORE_APP_STORE_TITLE');?></h2>
+                <p class="fs-3 text-muted"><?php echo Text::_('J2STORE_APP_STORE_DESC');?></p>
+                <a target="_blank" class="btn btn-primary app-button-open" href="https://www.j2commerce.com/extensions"><?php echo Text::_('J2STORE_GET_MORE_APPS'); ?></a>
+            </div>
+        </div>
     </div>
 </form>

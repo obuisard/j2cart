@@ -27,8 +27,8 @@ $order_status = $params->get('order_status',array('*'));
         <div class="card-header">
             <h2 class="h3 mb-0"><i class="fas fa-solid fa-line-chart me-2"></i><?php echo Text::_('J2STORE_ORDER_STATISTICS');?></h2>
         </div>
-        <div class="card-body">
-            <table class="table" id="j2commerce<?php echo $module->id;?>">
+        <div class="card-body p-0">
+            <table class="table mb-0" id="j2commerce<?php echo $module->id;?>">
                 <caption class="visually-hidden"><?php echo Text::_('J2STORE_ORDER_STATISTICS');?></caption>
                 <thead>
                 <tr>
