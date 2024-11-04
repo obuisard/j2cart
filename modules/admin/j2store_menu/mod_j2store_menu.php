@@ -16,9 +16,8 @@ use Joomla\CMS\Helper\ModuleHelper;
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// The J2Store menu will not show if no user is logged in.
-$user = Factory::getApplication()->getIdentity();
-if ($user === null || $user->id === 0) {
+// The J2Store menu will not show if the user has no access.
+if (!Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_j2store')) {
     return;
 }
 
