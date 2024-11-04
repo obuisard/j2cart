@@ -1,11 +1,19 @@
 <?php
 /**
- * @package J2Store
- * @copyright Copyright (c)2014-17 Ramesh Elamathi / J2Store.org
- * @license GNU GPL v3 or later
+ * @copyright Copyright (C) 2014-2019 Weblogicx India. All rights reserved.
+ * @copyright Copyright (C) 2024 J2Commerce, Inc. All rights reserved.
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later
+ * @website https://www.j2commerce.com
  */
 // No direct access to this file
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\Filesystem\Path;
+
+
 class J2StoreControllerProductsBase extends F0FController
 {
 
@@ -74,7 +82,7 @@ class J2StoreControllerProductsBase extends F0FController
     public function getRelatedProducts()
     {
         $app = J2Store::platform()->application();
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
         $q = $app->input->post->get('q', '', 'string');
         $ignore_product_id = $app->input->getInt('product_id');
         $json = array();
@@ -232,7 +240,7 @@ class J2StoreControllerProductsBase extends F0FController
             $fof_helper = J2Store::fof();
             $url = "index.php?option=com_j2store&view=products&task=setparentoptionvalues&productoption_id=" . $data['productoption_id'] . "&layout=parentproductopvalues&tmpl=component";
             $msgType = 'Message';
-            $msg = JText::_('J2STORE_PRODUCT_PARENT_OPTION_VALUE_SAVED');
+            $msg = Text::_('J2STORE_PRODUCT_PARENT_OPTION_VALUE_SAVED');
             $poptionvalue = $fof_helper->loadTable('Productoptionvalue', 'J2StoreTable');
             $data['parent_optionvalue'] = implode(',', $data['parent_optionvalue']);
             if (!$poptionvalue->save($data)) {
@@ -251,7 +259,7 @@ class J2StoreControllerProductsBase extends F0FController
         $platform = J2Store::platform();
         $app = $platform->application();
         $fof_helper = J2Store::fof();
-        $db = JFactory::getDbo();
+	    $db = Factory::getContainer()->get('DatabaseDriver');
         $data = $app->input->getArray($_POST);
 
         if (isset($data['product_optionvalue_attribs'])) {
@@ -269,7 +277,7 @@ class J2StoreControllerProductsBase extends F0FController
         $poptionvalue = $fof_helper->loadTable('Productoptionvalue', 'J2StoreTable');
         $url = "index.php?option=com_j2store&view=products&task=setproductoptionvalues&product_id=" . $data['product_id'] . "&productoption_id=" . $data['productoption_id'] . "&layout=productoptionvalues&tmpl=component";
         $msgType = "Message";
-        $msg = JText::_('J2STORE_PRODUCT_OPTION_SAVED_SUCCESSFULLY');
+        $msg = Text::_('J2STORE_PRODUCT_OPTION_SAVED_SUCCESSFULLY');
 
         $data['product_optionvalue_price'] = (int)isset($data['product_optionvalue_price']) && !empty($data['product_optionvalue_price'])  ? $data['product_optionvalue_price']: 0;
         $data['product_optionvalue_weight'] = (int)isset($data['product_optionvalue_weight']) && !empty($data['product_optionvalue_weight'])? $data['product_optionvalue_weight']: 0;
@@ -317,9 +325,9 @@ class J2StoreControllerProductsBase extends F0FController
             }
         }
         if ($error) {
-            $msg = JText::_('J2STORE_ERROR') . " - " . $this->message;
+            $msg = Text::_('J2STORE_ERROR') . " - " . $this->message;
         } else {
-            $msg = JText::_('J2STORE_PRODUCT_OPTION_SAVED_SUCCESSFULLY');
+            $msg = Text::_('J2STORE_PRODUCT_OPTION_SAVED_SUCCESSFULLY');
         }
         $platform->redirect($url, $msg, $msgType);
     }
@@ -337,7 +345,7 @@ class J2StoreControllerProductsBase extends F0FController
         $product->load($product_id);
         $productoption_id = $app->input->get('productoption_id');
         $cids = $app->input->get('cid', array(), 'array');
-        $message = JText::_('J2STORE_ITEMS_DELETED');
+        $message = Text::_('J2STORE_ITEMS_DELETED');
         $msgType = "notice";
         $url = "index.php?option=com_j2store&view=products&task=setproductoptionvalues&product_id=" . $product_id . "&productoption_id=" . $productoption_id . "&layout=productoptionvalues&tmpl=component";
         if (isset($cids) && count($cids)) {
@@ -350,7 +358,7 @@ class J2StoreControllerProductsBase extends F0FController
                     $message = $e->getMessage();
                     //throw new Exception($e->getMessage());
                     if ($product->product_type == 'variable') {
-                        $message = JText::_('J2STORE_DELETE_VARIANT_OPTION_ERROR_MSG');
+                        $message = Text::_('J2STORE_DELETE_VARIANT_OPTION_ERROR_MSG');
                     }
                     $msgType = 'error';
                 }
@@ -377,9 +385,9 @@ class J2StoreControllerProductsBase extends F0FController
                 $result['success'] = true;
             }
         } catch (\Exception $e) {
-            $result['error'] = JText::_('J2STORE_DELETE_PRODUCT_OPTION_ERROR_MSG');
+            $result['error'] = Text::_('J2STORE_DELETE_PRODUCT_OPTION_ERROR_MSG');
             if (isset($product_type) && $product_type == 'variable') {
-                $result['error'] = JText::_('J2STORE_DELETE_VARIANT_OPTION_ERROR_MSG');
+                $result['error'] = Text::_('J2STORE_DELETE_VARIANT_OPTION_ERROR_MSG');
             }
         }
 
@@ -400,7 +408,7 @@ class J2StoreControllerProductsBase extends F0FController
         $product_id = $app->input->getInt('product_id');
         $productoption_id = $app->input->getInt('productoption_id');
         if ($product_id && $productoption_id && $pov_id) {
-            $db = JFactory::getDbo();
+	        $db = Factory::getContainer()->get('DatabaseDriver');
             $query = $db->getQuery(true)->update('#__j2store_product_optionvalues')->set('product_optionvalue_default=0')
                 ->where('productoption_id=' . $db->q($productoption_id));
             $db->setQuery($query)->execute();
@@ -430,7 +438,7 @@ class J2StoreControllerProductsBase extends F0FController
         $data = $app->input->getArray($_POST);
         $variant_id = $app->input->getInt('variant_id');
         $product_id = $app->input->getInt('product_id');
-        $nullDate = JFactory::getDbo()->getNullDate();
+        $nullDate = Factory::getDbo()->getNullDate();
 
         $utility = J2Store::utilities();
         $data['date_from'] = (!isset($data['date_from']) || empty($data['date_from']) || $data['date_from'] == $nullDate) ? null : $utility->convert_current_to_utc($data['date_from']);
@@ -441,14 +449,14 @@ class J2StoreControllerProductsBase extends F0FController
         $data['price'] = (!isset($data['price']) || empty($data['price'])) ? 0 : (float)$data['price'];
 
         $price = $fof_helper->loadTable('ProductPrice', 'J2StoreTable');
-        $msg = JText::_('J2STORE_PRODUCT_PRICE_SAVED_SUCCESSFULLY');
+        $msg = Text::_('J2STORE_PRODUCT_PRICE_SAVED_SUCCESSFULLY');
         $msgType = "notice";
         $url = "index.php?option=com_j2store&view=products&task=setproductprice&product_id=" . $product_id . "&variant_id=" . $variant_id . "&layout=productpricing&tmpl=component";
         $data['variant_id'] = $variant_id;
         if (!$price->save($data)) {
             $errors = $price->getErrors();
             if (count($errors) > 0) {
-                $msg = JText::_('J2STORE_PRODUCT_PRICE_ERROR_IN_SAVING_PRICE');
+                $msg = Text::_('J2STORE_PRODUCT_PRICE_ERROR_IN_SAVING_PRICE');
                 $msgType = "warning";
             }
         }
@@ -499,10 +507,10 @@ class J2StoreControllerProductsBase extends F0FController
         $items = $app->input->getArray($_POST);
 
         $url = "index.php?option=com_j2store&view=products&task=setproductprice&variant_id=" . $variant_id . "&layout=productpricing&tmpl=component";
-        $msg = JText::_('J2STORE_PRODUCT_PRICE_SAVED_SUCCESSFULLY');
+        $msg = Text::_('J2STORE_PRODUCT_PRICE_SAVED_SUCCESSFULLY');
         $msgType = "notice";
         $utility = J2Store::utilities();
-        $nullDate = JFactory::getDbo()->getNullDate();
+        $nullDate = Factory::getDbo()->getNullDate();
         foreach ($items['jform']['prices'] as $item) {
             $item['date_from'] = (!isset($item['date_from']) || empty($item['date_from']) || $item['date_from'] == $nullDate) ? null : $utility->convert_current_to_utc($item['date_from']);
             $item['date_to'] = (!isset($item['date_to']) || empty($item['date_to']) || $item['date_to'] == $nullDate) ? null : $utility->convert_current_to_utc($item['date_to']);
@@ -513,7 +521,7 @@ class J2StoreControllerProductsBase extends F0FController
 
 
             if( isset(  $item['date_from']) && (  $item['date_from'] != '0000-00-00 00:00:00') && isset(  $item['date_to']) && (  $item['date_to'] != '0000-00-00 00:00:00') && (  $item['date_from'] >=   $item['date_to'] )){
-                $msg = JText::_('J2STORE_PRICE_VALID_FORM_DATE_NEED_TO_GREATER_THAN_PRICE_VALID_TO_DATE');
+                $msg = Text::_('J2STORE_PRICE_VALID_FORM_DATE_NEED_TO_GREATER_THAN_PRICE_VALID_TO_DATE');
                 $msgType = "error";
                 $platform->redirect($url, $msg, $msgType);
             }
@@ -524,7 +532,7 @@ class J2StoreControllerProductsBase extends F0FController
                 if (!$productprice->save($item)) {
                     $errors = $productprice->getErrors();
                     if (count($errors)) {
-                        $msg = JText::_('J2STORE_PRODUCT_PRICE_ERROR_IN_SAVING_PRICE');
+                        $msg = Text::_('J2STORE_PRODUCT_PRICE_ERROR_IN_SAVING_PRICE');
                         $msgType = "warning";
                     }
                 }
@@ -536,62 +544,64 @@ class J2StoreControllerProductsBase extends F0FController
 	/**
 	 * Method to get Files
 	 */
-    function getFiles()
-    {
-        $app = J2Store::platform()->application();
-        $model = $this->getModel('Products');
-        $params = J2Store::config();
-        $savefolder = $params->get('attachmentfolderpath');
-        jimport('joomla.filesystem.folder');
-        $html = '';
-        $path = JPath::clean(JPATH_ROOT . '/' . $savefolder);
-        if (empty($savefolder) || !JFolder::exists($path)) {
-            $html .= JText::_('J2STORE_ERROR_ATTACHMENT_PATH_OUTSIDE_ROOT');
-            $html .= '<br>';
-            $html .= JText::sprintf('J2STORE_MSG_WEB_ROOT', JPATH_ROOT);
-            $html .= '<br>';
-            $html .= JText::sprintf('J2STORE_MSG_GIVEN_ATTACHMENT_PATH', $savefolder);
-            $html .= '<br>';
-            echo $html;
-            $app->close();
-        }
-        $dir = $app->input->getString('dir');
-        $dir = urldecode($dir);
+	function getFiles()
+	{
+		$app = J2Store::platform()->application();
+		$model = $this->getModel('Products');
+		$params = J2Store::config();
+		$savefolder = $params->get('attachmentfolderpath');
+		$html = '';
 
-        if ($dir) {
-            $model->setState('folder', $dir);
-        }
+		// Construct the path and debug its value
+		$path = Path::clean(JPATH_ROOT . '/' . $savefolder);
 
-        //if(file_exists($root . $dir) ) {
-        $files = (array)$model->getFilesData();
-        $folders = (array)$model->getFolders();
-        natcasesort($files);
-        natcasesort($folders);
-        J2Store::plugin()->event('GetExternalFiles', array($model, &$files, &$folders));
-        if (count($files) || count($folders)) { /* The 2 accounts for . and .. */
-            $html .= "<ul class=\"jqueryFileTree\" style=\"\">";
-            // All dirs
-            foreach ($folders as $file) {
-                //if( file_exists($root . $dir . $file) && $file != '.' && $file != '..' && is_dir($root . $dir . $file) ) {
-                $html .= "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . htmlentities($dir . $file) . "/\">" . htmlentities($file) . "</a></li>";
-                //	}
-            }
-            $html .= J2Store::plugin()->eventWithHtml('DisplayExternalFile', array(&$files, $dir));
-            // All files
-            foreach ($files as $file) {
-                //	if( file_exists($root . $dir . $file) && $file != '.' && $file != '..' && !is_dir($root . $dir . $file) ) {
-                $ext = preg_replace('/^.*\./', '', $file);
-                $html .= "<li class=\"file ext_$ext\"><a href=\"#\" rel=\"" . htmlentities($dir . $file) . "\">" . htmlentities($file) . "</a></li>";
-                //	}
-            }
-            $html .= "</ul>";
-        } else {
-            $html .= JText::_('J2STORE_ERROR_IN_PATH');
-        }
-        //		}
-        echo $html;
-        $app->close();
-    }
+		// Check if the save folder is valid and exists
+		if (empty($savefolder) || !is_dir($path)) {
+			$html .= Text::_('J2STORE_ERROR_ATTACHMENT_PATH_OUTSIDE_ROOT');
+			$html .= '<br>';
+			$html .= Text::sprintf('J2STORE_MSG_WEB_ROOT', JPATH_ROOT);
+			$html .= '<br>';
+			$html .= Text::sprintf('J2STORE_MSG_GIVEN_ATTACHMENT_PATH', $savefolder);
+			$html .= '<br>';
+			echo $html;
+			$app->close();
+		}
+
+		// Fetch directory input and set state
+		$dir = $app->input->getString('dir');
+		$dir = urldecode($dir);
+
+		if ($dir) {
+			$model->setState('folder', $dir);
+		}
+
+		// Retrieve files and folders and check their contents
+		$files = (array) $model->getFilesData();
+		$folders = (array) $model->getFolders();
+
+		natcasesort($files);
+		natcasesort($folders);
+		J2Store::plugin()->event('GetExternalFiles', array($model, &$files, &$folders));
+
+		if (count($files) || count($folders)) {
+			$html .= "<ul class=\"jqueryFileTree\" style=\"\">";
+			foreach ($folders as $file) {
+				$html .= "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . htmlentities($dir . $file) . "/\">" . htmlentities($file) . "</a></li>";
+			}
+			$html .= J2Store::plugin()->eventWithHtml('DisplayExternalFile', array(&$files, $dir));
+			foreach ($files as $file) {
+				$ext = preg_replace('/^.*\./', '', $file);
+				$html .= "<li class=\"file ext_$ext\"><a href=\"#\" rel=\"" . htmlentities($dir . $file) . "\">" . htmlentities($file) . "</a></li>";
+			}
+			$html .= "</ul>";
+		} else {
+			$html .= Text::_('J2STORE_ERROR_IN_PATH');
+		}
+
+		echo $html;
+		$app->close();
+	}
+
 
 	/***
 	 * Method to delete files
@@ -605,12 +615,12 @@ class J2StoreControllerProductsBase extends F0FController
         $file_id = $app->input->getInt('productfile_id');
         $model = $this->getThisModel('products');
         $url = "index.php?option=com_j2store&view=products&task=setproductfiles&variant_id=" . $variant_id . "&product_id=" . $product_id . "&layout=productfiles&tmpl=component";
-        $msg = JText::_('J2STORE_PRODUCT_FILE_DELETED_SUCCESSFULLY');
+        $msg = Text::_('J2STORE_PRODUCT_FILE_DELETED_SUCCESSFULLY');
         $msgType = 'message';
         if (isset($product_id) && !empty($product_id)) {
             if (!$model->deleteProductFile($file_id, $product_id)) {
                 $msgType = 'warning';
-                $msg = JText::_('J2STORE_PRODUCT_FILE_DELETION_ERROR');
+                $msg = Text::_('J2STORE_PRODUCT_FILE_DELETION_ERROR');
             }
         }
         $platform->redirect($url, $msg, $msgType);
@@ -674,10 +684,10 @@ class J2StoreControllerProductsBase extends F0FController
             }
             if (!$error_status) {
                 $url = "index.php?option=com_j2store&view=products&task=setvariant&variant_id=" . $variant_id . "&layout=variant_form&tmpl=component";
-                $msg = JText::_('J2STORE_PRODUCT_SAVE_SUCCESS');
+                $msg = Text::_('J2STORE_PRODUCT_SAVE_SUCCESS');
             }
         } else {
-            $msg = JText::_('J2STORE_PRODUCT_SAVE_FAILED');
+            $msg = Text::_('J2STORE_PRODUCT_SAVE_FAILED');
             $url = "index.php?option=com_j2store&view=products";
         }
         $platform->redirect($url, $msg, $msgType);
@@ -768,12 +778,12 @@ class J2StoreControllerProductsBase extends F0FController
         $price_id = $app->input->getInt('price_id');
         $cids = $app->input->get('cid', array(), 'array');
         $price = $fof_helper->loadTable('Productprice', 'J2StoreTable');
-        $msg = JText::_('J2STORE_PRODUCT_PRICE_DELETED_SUCCESSFULLY');
+        $msg = Text::_('J2STORE_PRODUCT_PRICE_DELETED_SUCCESSFULLY');
         $msgType = "notice";
         $url = "index.php?option=com_j2store&view=products&task=setproductprice&variant_id=" . $variant_id . "&layout=productpricing&tmpl=component";
         foreach ($cids as $cid) {
             if (!$price->delete($cid)) {
-                $msg = JText::_('J2STORE_PRODUCT_PRICE_DELETE_ERROR');
+                $msg = Text::_('J2STORE_PRODUCT_PRICE_DELETE_ERROR');
                 $msgType = "warning";
             }
         }
@@ -793,7 +803,7 @@ class J2StoreControllerProductsBase extends F0FController
         $json = array();
         $json['success'] = false;
         if ($vid && $product_id) {
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $query = $db->getQuery(true);
             // Fields to update.
             $fields = array($db->qn('isdefault_variant') . ' = 0');
@@ -851,7 +861,7 @@ class J2StoreControllerProductsBase extends F0FController
         $data = $app->input->getArray($_POST);
         $product_id = $app->input->getInt('product_id');
         $product_file = $fof_helper->loadTable('ProductFile', 'J2StoreTable');
-        $msg = JText::_('J2STORE_PRODUCT_FILE_SAVED_SUCCESSFULLY');
+        $msg = Text::_('J2STORE_PRODUCT_FILE_SAVED_SUCCESSFULLY');
         $msgType = "Message";
         $url = "index.php?option=com_j2store&view=products&task=setproductfiles&product_id=" . $product_id . "&layout=productfiles&tmpl=component";
         if ($product_id) {
@@ -862,7 +872,7 @@ class J2StoreControllerProductsBase extends F0FController
             }
         } else {
             $msgType = "Warning";
-            $msg = JText::_('J2STORE_PRODUCT_FILE_ERROR_IN_SAVING_FILE');
+            $msg = Text::_('J2STORE_PRODUCT_FILE_ERROR_IN_SAVING_FILE');
         }
         $platform->redirect($url, $msg, $msgType);
     }
@@ -879,7 +889,7 @@ class J2StoreControllerProductsBase extends F0FController
         $product_id = $app->input->getInt('product_id');
         $productfile = $fof_helper->loadTable('ProductFile', 'J2StoreTable');
         $url = "index.php?option=com_j2store&view=products&task=setproductfiles&product_id=" . $product_id . "&layout=productfiles&tmpl=component";
-        $msg = JText::_('J2STORE_PRODUCT_FILE_SAVED_SUCCESSFULLY');
+        $msg = Text::_('J2STORE_PRODUCT_FILE_SAVED_SUCCESSFULLY');
         $msgType = 'message';
         if (isset($data['product_files']) && !empty($data['product_files'])) {
             foreach ($data['product_files'] as $file) {
@@ -996,7 +1006,7 @@ class J2StoreControllerProductsBase extends F0FController
             $filter_id = $app->input->getString('filter_pid', '');
             $product_list = array();
 
-            $db = JFactory::getDbo();
+            $db = Factory::getDbo();
             $query = $db->getQuery(true)->select('pa.product_id')->from('#__j2store_product_options AS pa')
                 ->where('pa.product_id !=' . $db->q($product_id))
                 ->group('pa.product_id')
@@ -1058,7 +1068,7 @@ class J2StoreControllerProductsBase extends F0FController
         $row = $product_helper->setId($product_id)->getProduct();
         if (empty($cids) || count($cids) < 1) {
             $error = true;
-            $this->message .= JText::_('J2STORE_PAI_SELECT_PRODUCT_TO_IMPORT');
+            $this->message .= Text::_('J2STORE_PAI_SELECT_PRODUCT_TO_IMPORT');
             $this->messagetype = 'notice';
         } else {
             //get the model
@@ -1071,9 +1081,9 @@ class J2StoreControllerProductsBase extends F0FController
             }
         }
         if ($error) {
-            $this->message = JText::_('J2STORE_ERROR') . " - " . $this->message;
+            $this->message = Text::_('J2STORE_ERROR') . " - " . $this->message;
         } else {
-            $this->message = JText::_('J2STORE_PAI_SELECT_ATTRIBUTES_IMPORTED');
+            $this->message = Text::_('J2STORE_PAI_SELECT_ATTRIBUTES_IMPORTED');
             $this->messageType = 'message';
         }
         $redirect = "index.php?option=com_j2store&view=products&task=setpaimport&product_type={$row->product_type}&product_id={$product_id}&tmpl=component";
@@ -1098,9 +1108,9 @@ class J2StoreControllerProductsBase extends F0FController
         $product_id = $app->input->post->get('product_id');
         $result = $fof_helper->loadTable('ProductFilter', 'J2StoreTable')->deleteFilter($filter_id, $product_id);
         if ($result) {
-            $msg = JText::_('J2STORE_PRODUCT_FILTER_DELETE_SUCCESSFUL');
+            $msg = Text::_('J2STORE_PRODUCT_FILTER_DELETE_SUCCESSFUL');
         } else {
-            $msg = JText::_('J2STORE_PRODUCT_FILTER_DELETE_ERROR');
+            $msg = Text::_('J2STORE_PRODUCT_FILTER_DELETE_ERROR');
         }
         echo json_encode(array(
             'success' => $result,
@@ -1195,7 +1205,7 @@ class J2StoreControllerProductsBase extends F0FController
         $params = J2Store::config();
         $json = array();
         $product_id = $app->input->get('product_id');
-        $global_config = JFactory::getConfig();
+        $global_config = Factory::getConfig();
         $limit = $global_config->get('list_limit', 20);
         $form_prefix = $app->input->getString('form_prefix', 'jform[attribs][j2store]');
         if (!empty($product_id)) {
