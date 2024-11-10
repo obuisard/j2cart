@@ -934,3 +934,5 @@ div.j2store-tab div.j2store-tab-content:not(.active){
 .com_j2store .form-control-qty {max-width:150px!important;}
 .com_j2store .j2commerce-app-image {width:140px;}
 .com_j2store .inventory-form-control {width:60px;}
+.com_j2store .table.itemList.options-list .field-media-wrapper .field-media-preview {height:100px;}
+.com_j2store .table.itemList.options-list joomla-field-media .field-media-preview-icon {background-size: 4rem;width: 4rem;height: 4rem;}
