@@ -23,7 +23,7 @@ $platform->loadExtra('behavior.framework');
 $platform->loadExtra('behavior.tooltip');
 $platform->loadExtra('behavior.multiselect');
 $platform->loadExtra('dropdown.init');
-$platform->loadExtra('formbehavior.chosen', 'select');
+
 $sortFields = array(
     'id' => Text::_('JGRID_HEADING_ID'),
     'name' => Text::_('COM_ATS_TICKETS_HEADING_TITLE'),
