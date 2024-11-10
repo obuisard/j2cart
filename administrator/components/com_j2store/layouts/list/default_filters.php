@@ -81,7 +81,7 @@ $fieldsearchableCount = 0;
 	        <?php echo $vars->pagination->getLimitBox();?>
         </div>
 	    <?php if($fieldsearchableCount > 1): ?>
-            <div class="js-stools-container-filters clearfix bg-white collapse w-100 mb-4 mt-3" id="collapseFilters">
+            <div class="js-stools-container-filters clearfix collapse w-100 mb-4 mt-3" id="collapseFilters">
                 <div class="px-2 pt-2 pb-0">
                     <div class="row">
                         <?php foreach ($vars->header as $name => $field):
