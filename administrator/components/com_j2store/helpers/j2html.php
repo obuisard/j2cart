@@ -611,7 +611,6 @@ class J2Html
 
         $platform = J2Store::platform();
         $platform->loadExtra('behavior.multiselect');
-        //$platform->loadExtra('formbehavior.chosen','select');
 
         // echo "<pre>";print_r($options);
         $id = isset($options['id']) && $options['id'] ? $options['id'] : $name;
@@ -963,7 +962,7 @@ class J2Html
 
         $platform = J2Store::platform();
         $platform->loadExtra('behavior.multiselect');
-        //$platform->loadExtra('formbehavior.chosen','select');
+
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('a.id AS value, a.title AS text');

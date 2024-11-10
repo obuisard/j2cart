@@ -9,7 +9,7 @@ defined('_JEXEC') or die;
 $platform = J2Store::platform();
 $platform->loadExtra('bootstrap.tooltip');
 $platform->loadExtra('behavior.multiselect');
-$platform->loadExtra('formbehavior.chosen', 'select');
+
 $sidebar = JHtmlSidebar::render();
 $row_class = 'row';
 $col_class = 'col-md-';
