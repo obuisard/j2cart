@@ -17,7 +17,7 @@
     flex:none;
 }
 
-.com_j2store  select{
+.com_j2store select:not(.form-select) {
     width: 203px;
     padding: 4px 4px;
 }
