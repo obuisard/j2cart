@@ -57,7 +57,7 @@ $wa->addInlineScript($script, [], []);
                     <div class="js-stools-container-bar">
                         <?php echo $this->loadTemplate('filters'); ?>
                     </div>
-                    <div class="js-stools-container-filters clearfix bg-white collapse<?php echo $shouldExpand ? ' show' : ''; ?>" id="collapseFilters">
+                    <div class="js-stools-container-filters clearfix collapse<?php echo $shouldExpand ? ' show' : ''; ?>" id="collapseFilters">
                         <?php echo $this->loadTemplate('advancedfilters'); ?>
                     </div>
                 </div>

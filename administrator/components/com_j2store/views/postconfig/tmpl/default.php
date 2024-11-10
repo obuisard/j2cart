@@ -92,7 +92,7 @@ JS;
 
 $wa->addInlineScript($script, [], []);
 ?>
-<div class="card mb-3 bg-white">
+<div class="card mb-3">
     <div class="card-body">
         <div class="px-2 py-2 mb-0 text-center">
             <i class="fa-4x mb-2 fa-solid fas fa-rocket"></i>
