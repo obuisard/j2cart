@@ -80,7 +80,7 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
                                         </h4>
                                     </div>
                                 </div>
-                                <?php echo J2Store::help()->watch_video_tutorials(); ?>
+                                <?php /*echo J2Store::help()->watch_video_tutorials();*/ ?>
                                 <div class="<?php echo $row_class;?>">
                                     <!-- Chart-->
                                     <div class="<?php echo $col_class;?>12 stats-mini">
