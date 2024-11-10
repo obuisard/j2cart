@@ -43,6 +43,11 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
                         <div class="<?php echo $row_class;?>">
                             <?php echo J2Store::help()->free_topbar(); ?>
                         </div>
+						<div class="<?php echo $row_class;?>">
+                        	<div class="<?php echo $col_class;?>12">
+                            	<?php echo J2Store::help()->info_j2commerce(); ?>
+                            </div>
+                        </div>
                         <div class="<?php echo $row_class;?>">
                             <div class="<?php echo $col_class;?>12">
                                 <?php echo J2Store::help()->alert(
