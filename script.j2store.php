@@ -13,7 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
-use Joomla\Database\DatabaseDriver;
+// use Joomla\Database\DatabaseDriver; // not in Joomla 3
 
 defined('_JEXEC') or die;
 
@@ -538,7 +538,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
   {
     if (\JFile::exists($sql)) {
       $db = Factory::getDbo();
-      $queries = DatabaseDriver::splitSql(file_get_contents($sql));
+      $queries = JDatabaseDriver::splitSql(file_get_contents($sql));
       foreach ($queries as $query) {
         $query = trim($query);
         if ($query != '' && $query[0] != '#') {
