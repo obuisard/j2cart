@@ -1631,7 +1631,11 @@ jQuery('.modal-backdrop').remove();
 
 		if (!empty($field['key_field']) && !empty($query) && !empty($item->$name)) {
 			// Get the database instance
-			$db = Factory::getContainer()->get('DatabaseDriver');
+			if (version_compare(JVERSION, '3.99.99', 'lt')) {
+				$db = JFactory::getDbo();
+			} else {
+				$db = Factory::getContainer()->get('DatabaseDriver');
+			}
 
 			// Properly escape column and value
 			$query .= ' WHERE ' . $db->quoteName($field['key_field']) . ' = ' . $db->quote($item->$name);
@@ -1639,7 +1643,11 @@ jQuery('.modal-backdrop').remove();
 
 		if (!empty($query)) {
 			try {
-				$db = Factory::getContainer()->get('DatabaseDriver');
+				if (version_compare(JVERSION, '3.99.99', 'lt')) {
+					$db = JFactory::getDbo();
+				} else {
+					$db = Factory::getContainer()->get('DatabaseDriver');
+				}
 				$field_data = $db->setQuery($query)->loadObject();
 				$value_field = $field['value_field'] ?? '';
 				$html = $field_data->$value_field ?? '';
