@@ -183,6 +183,10 @@ class J2Currency {
 		}
 	}
 
+	public function getThousandSysmbol($currency=''){ // kept for backwards compatibility with those who use layout overrides on the template
+		return $this->getThousandSymbol($currency);
+	}
+
   	public function getCode() {
     	return $this->code;
   	}
