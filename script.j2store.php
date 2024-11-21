@@ -616,7 +616,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
         $query->delete($db->quoteName('#__update_sites'));
         $query->where($db->quoteName('update_site_id').' = '.$db->quote($id));
         if ($location) {
-            $query->where($db->quoteName('location').' = '.$db->quote($location));
+          $query->where($db->quoteName('location').' = '.$db->quote($location));
         }
 
         $db->setQuery($query);
