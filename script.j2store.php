@@ -156,6 +156,9 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
       $app = Factory::getApplication();
       $db = Factory::getDbo();
 
+      // Remove the old j2store component update site that is now obsolete
+      $this->_removeUpdateSite('component', 'com_j2store', '', 'https://cdn.j2store.net/j2store4.xml');
+
       //check of curl is present
       if (!function_exists('curl_init') || !is_callable('curl_init')) {
 
@@ -312,9 +315,6 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
       }
       //----end of file removal//
       //all set. Lets rock..
-
-      // Remove the old j2store component update site that is now obsolete
-      $this->_removeUpdateSite('component', 'com_j2store', '', 'https://cdn.j2store.net/j2store4.xml');
 
       return true;
     }
@@ -608,12 +608,16 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
 
       if (empty($updatesite_id)) {
         return false;
-      } else if (count($updatesite_id) == 1) {
+      }
 
+      foreach ($updatesite_id as $id) {
         $query->clear();
 
         $query->delete($db->quoteName('#__update_sites'));
-        $query->where($db->quoteName('update_site_id').' = '.$db->quote($updatesite_id[0]));
+        $query->where($db->quoteName('update_site_id').' = '.$db->quote($id));
+        if ($location) {
+            $query->where($db->quoteName('location').' = '.$db->quote($location));
+        }
 
         $db->setQuery($query);
 
@@ -621,26 +625,6 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
           $db->execute();
         } catch (\RuntimeException $e) {
           Factory::getApplication()->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
-          return false;
-        }
-      } else { // several update sites exist for the same extension therefore we need to specify which to delete
-
-        if ($location) {
-          $query->clear();
-
-          $query->delete($db->quoteName('#__update_sites'));
-          $query->where($db->quoteName('update_site_id').' IN ('.implode(',', $updatesite_id).')');
-          $query->where($db->quoteName('location').' = '.$db->quote($location));
-
-          $db->setQuery($query);
-
-          try {
-            $db->execute();
-          } catch (\RuntimeException $e) {
-            Factory::getApplication()->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
-            return false;
-          }
-        } else {
           return false;
         }
       }
