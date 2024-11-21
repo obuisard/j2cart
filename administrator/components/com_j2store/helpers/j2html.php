@@ -1163,7 +1163,14 @@ class J2Html
         return $my_editor;
     }
 
-    public static function article($name, $value, $options){
+	// Kept to avoid b/c breaks;
+	public static function artical($name, $value, $options)
+	{
+		return self::article($name, $value, $options);
+	}
+
+    public static function article($name, $value, $options)
+	{
         $platform = J2Store::platform();
         //
         $allowClear     = true;
@@ -1337,7 +1344,6 @@ jQuery('.modal-backdrop').remove();
         }
 
         return $html;
-
     }
 
     public static function getOrderStatusHtml($id)

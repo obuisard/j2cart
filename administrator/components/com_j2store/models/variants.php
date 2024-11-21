@@ -84,7 +84,8 @@ class J2StoreModelVariants extends F0FModel {
 	 * @param string $column
 	 * @param string $key
 	 */
-	public function getDimensions($table_name,$column ,$key){
+	public function getDimensions($table_name, $column, $key)
+	{
 		$db= JFactory::getDbo();
 		$table = '#__j2store_'.$table_name;
 		$query = $db->getQuery(true);
@@ -94,7 +95,14 @@ class J2StoreModelVariants extends F0FModel {
 		$results =array();
 		$results[] = JText::_('J2STORE_SELECT_OPTION');
 		$results = $db->loadAssocList($column,$key);
+
 		return $results;
+	}
+
+	// Kept to avoid b/c breaks
+	public function getDimesions($table_name, $column, $key)
+	{
+		return $this->getDimensions($table_name, $column, $key);
 	}
 
 }
