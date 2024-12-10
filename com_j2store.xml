@@ -49,7 +49,7 @@
 	<!-- Administrator back-end section -->
 	<administration>
 		<!-- Administration menu -->
-		<menu view="cpanel">J2Store</menu>
+		<menu view="cpanel">COM_J2STORE</menu>
 
 		<!-- Back-end files -->
 		<files folder="administrator/components/com_j2store">
