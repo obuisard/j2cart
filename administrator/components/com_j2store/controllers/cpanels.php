@@ -287,6 +287,7 @@ class J2StoreControllerCpanels extends F0FController
 			}
 		}
 	}
+
   public function drop_indexes()
   {
     //This fix is required because multiple indexes were created in previous versions.
