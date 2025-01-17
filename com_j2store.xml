@@ -38,6 +38,12 @@
 		</sql>
 	</install>
 
+  <update>
+    <schemas>
+      <schemapath type="mysql">sql/updates/mysql</schemapath>
+    </schemas>
+  </update>
+
 	<!-- Media files -->
 	<media destination="j2store" folder="media/j2store">
 		<folder>fonts</folder>
