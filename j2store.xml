@@ -55,7 +55,7 @@
 	<!-- Administrator back-end section -->
 	<administration>
 		<!-- Administration menu -->
-		<menu view="cpanel">J2Commerce</menu>
+		<menu view="cpanel">COM_J2STORE</menu>
 
 		<!-- Back-end files -->
 		<files folder="administrator/components/com_j2store">
@@ -66,8 +66,8 @@
 			<folder>helpers</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
-      <folder>fof</folder>
-      <folder>layouts</folder>
+			<folder>fof</folder>
+			<folder>layouts</folder>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<filename>fof.xml</filename>
