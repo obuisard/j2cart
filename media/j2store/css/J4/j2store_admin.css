@@ -922,10 +922,6 @@ div.j2store-tab div.j2store-tab-content:not(.active){
 .com_j2store .table.itemList.options-list joomla-field-media .field-media-preview-icon {background-size: 4rem;width: 4rem;height: 4rem;}
 .com_j2store .text-subdued {color:#64748b;}
 .com_j2store .max-content-height {height: max-content;}
-.com_j2store .width-48 {width: 48px;}
-.com_j2store .height-48 {height: 48px;}
-.com_j2store .width-64 {width: 64px;}
-.com_j2store .height-64 {height: 64px;}
 
 @media (min-width: 300px) {
     .w-xs-25 { width: 25% !important; }

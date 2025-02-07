@@ -16,9 +16,10 @@ use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Uri\Uri;
 
-
-trait list_view {
-    function addBrowseToolBar(){
+trait list_view
+{
+    function addBrowseToolBar()
+    {
         $app = J2Store::platform()->application();
         $option = $app->input->getCmd('option', 'com_foobar');
         $subtitle_key = strtoupper($option . '_TITLE_' . $app->input->getCmd('view', 'cpanel'));
@@ -31,17 +32,19 @@ trait list_view {
         ToolbarHelper::deleteList(strtoupper($msg));
     }
 
-    private function noToolbar() {
+    private function noToolbar()
+    {
         $app = J2Store::platform()->application();
         $option = $app->input->getCmd('option', 'com_foobar');
         $componentName = str_replace('com_', '', $option);
 
         // Set toolbar title
         $subtitle_key = strtoupper($option . '_TITLE_' . F0FInflector::pluralize($this->input->getCmd('view', 'cpanel')));
-        ToolbarHelper::title(Text::_(strtoupper($option)) . ': ' . Text::_($subtitle_key), $componentName);
+        ToolBarHelper::title(Text::_(strtoupper($option)) . ': ' . Text::_($subtitle_key), $componentName);
     }
 
-    function editToolBar(){
+    function editToolBar()
+    {
         $app = J2Store::platform()->application();
         $option = $app->input->getCmd('option', 'com_foobar');
         $componentName = str_replace('com_', '', $option);
@@ -54,7 +57,9 @@ trait list_view {
         ToolbarHelper::custom('savenew', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
         ToolbarHelper::cancel();
     }
-    public function toolbarBacktodashboard(){
+
+    public function toolbarBacktodashboard()
+    {
         $app = J2Store::platform()->application();
         $option = $app->input->getCmd('option', 'com_foobar');
         $componentName = str_replace('com_', '', $option);
@@ -64,7 +69,9 @@ trait list_view {
         // Set toolbar icons
         ToolbarHelper::back(Text::_('J2STORE_BACK_TO_DASHBOARD'), 'index.php?option=com_j2store&view=cpanel');
     }
-    function getBaseVars(){
+
+    function getBaseVars()
+    {
         $platform = J2Store::platform();
         $app = $platform->application();
         $vars = new stdClass();
@@ -75,18 +82,21 @@ trait list_view {
         return $vars;
     }
 
-    function setHeader($header,&$vars){
+    function setHeader($header,&$vars)
+    {
         if(empty($header)){
             $header = array();
         }
         $vars->header = $header;
     }
-    function setItemsFormat($item_format,&$vars){
+
+    function setItemsFormat($item_format,&$vars)
+    {
         $vars->items_format = $item_format;
     }
 
-    function _getLayout($layout, $vars,$layout_type = 'list'){
-
+    function _getLayout($layout, $vars,$layout_type = 'list')
+    {
         ob_start();
         $layout = $this->_getLayoutPath( $layout,$layout_type );
         include($layout);
@@ -95,6 +105,7 @@ trait list_view {
 
         return $html;
     }
+
     function _getLayoutPath($layout = 'default',$layout_type = 'list')
     {
         $app = J2Store::platform()->application();
@@ -104,19 +115,18 @@ trait list_view {
         $defaultPath = JPATH_ADMINISTRATOR.'/components/com_j2store/layouts/'.$layout_type.'/'.$layout.'.php';
         $additional_path = JPATH_ADMINISTRATOR.'/components/com_j2store/views/'.$view.'/tmpl/'.$layout.'.php';
         // if the site template has a layout override, use it
-        if(file_exists($templatePath))
-        {
+
+        if (file_exists($templatePath)) {
             return $templatePath;
-        }elseif(file_exists($defaultPath))
-        {
+        } elseif (file_exists($defaultPath)) {
             return $defaultPath;
-        }
-        else
-        {
+        } else {
             return $additional_path ;
         }
     }
-    function getPageId(){
+
+    function getPageId()
+    {
         $app = J2Store::platform()->application();
         $id = $app->input->get('id',0);
         $task = $app->input->get('task','');
@@ -131,12 +141,14 @@ trait list_view {
         return $id;
     }
 
-    protected function exportButton($view = 'orders') {
+    protected function exportButton($view = 'orders')
+    {
         if(!isset($view) || empty($view)) return;
+
         $bar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
-        //$bar = JToolBar::getInstance('toolbar');
         // Add "Export to CSV"
         $link = Uri::getInstance();
+
         $query = $link->getQuery(true);
         $query['format'] = 'csv';
         $query['option'] = 'com_j2store';
@@ -144,7 +156,8 @@ trait list_view {
         $query['task'] = 'browse';
         $link->setQuery($query);
 
-        ToolbarHelper::divider();
+        ToolBarHelper::divider();
+
         $icon = 'download';
         $bar->appendButton('Link', $icon, Text::_('J2STORE_EXPORTCSV'), $link->toString());
     }
