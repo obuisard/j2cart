@@ -63,6 +63,7 @@ trait list_view
         $app = J2Store::platform()->application();
         $option = $app->input->getCmd('option', 'com_foobar');
         $componentName = str_replace('com_', '', $option);
+
         // Set toolbar title
         $subtitle_key = strtoupper($option . '_TITLE_' . F0FInflector::pluralize($this->input->getCmd('view', 'cpanel')));
         ToolbarHelper::title(Text::_(strtoupper($option)) . ': ' . Text::_($subtitle_key), $componentName);
