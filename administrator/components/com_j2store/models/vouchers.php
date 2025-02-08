@@ -13,7 +13,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Mail\MailerFactoryInterface;
 
-
 class J2StoreModelVouchers extends F0FModel {
 
 	public $code = '';

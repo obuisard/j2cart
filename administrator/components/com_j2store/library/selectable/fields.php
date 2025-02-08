@@ -5,16 +5,16 @@
  * @copyright Copyright (c) 2024 J2Commerce . All rights reserved.
  * @license GNU GPL v3 or later
  */
-// No direct access to this file
-defined('_JEXEC') or die('Restricted access');
+
+defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
 
-
-
 require_once (JPATH_ADMINISTRATOR.'/components/com_j2store/library/selectable/base.php');
+
 class J2StoreSelectableFields {
 
 	protected static $instance;
@@ -159,7 +159,9 @@ class j2storeCountryType{
 			}
 
 			if(!isset($sets[1])) {
+
 				$db = Factory::getContainer()->get('DatabaseDriver');
+
 				$query = $db->getQuery(true);
 
 				$query->select('a.*')->from('#__j2store_countries AS a');
@@ -179,7 +181,9 @@ class j2storeCountryType{
 				$sets1= array( );
 			}
 			if(!isset($sets1[$this->country_id])) {
+
 				$db = Factory::getContainer()->get('DatabaseDriver');
+
 				$query = $db->getQuery(true);
 				$query->select('a.*')->from('#__j2store_zones AS a');
 				$query->where('a.enabled=1')

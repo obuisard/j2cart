@@ -6,8 +6,7 @@
  * @license GNU GPL v3 or later
  */
 
-// No direct access to this file
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Session\Session;

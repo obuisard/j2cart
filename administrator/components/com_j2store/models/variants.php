@@ -63,16 +63,7 @@ class J2StoreModelVariants extends F0FModel {
 
 		$tableName = $this->getTable()->getTableName();
 		if(!isset($sets[$tableName])) {
-
-			if (version_compare(JVERSION, '3.0', 'ge'))
-			{
-				$sets[$tableName] = $this->getDbo()->getTableColumns($tableName, true);
-			}
-			else
-			{
-				$fieldsArray = $this->getDbo()->getTableFields($tableName, true);
-				$sets[$tableName] = array_shift($fieldsArray);
-			}
+			$sets[$tableName] = $this->getDatabase()->getTableColumns($tableName, true);
 		}
 		return $sets[$tableName];
 	}
@@ -84,9 +75,11 @@ class J2StoreModelVariants extends F0FModel {
 	 * @param string $column
 	 * @param string $key
 	 */
+
 	public function getDimensions($table_name, $column, $key)
 	{
-        	$db = Factory::getContainer()->get('DatabaseDriver');
+    $db = Factory::getContainer()->get('DatabaseDriver');
+
 		$table = '#__j2store_'.$table_name;
 		$query = $db->getQuery(true);
 		$query->select('*');

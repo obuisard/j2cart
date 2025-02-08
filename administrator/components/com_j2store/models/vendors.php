@@ -54,7 +54,9 @@ class J2StoreModelVendors extends F0FModel {
 
 	public function buildOrderbyQuery(&$query){
 		$state = $this->getState();
+
 		$app = Factory::getApplication();
+
         $db = Factory::getContainer()->get('DatabaseDriver');
 		$filter_order_Dir = $app->input->getString('filter_order_Dir','asc');
 		$filter_order = $app->input->getString('filter_order','j2store_vendor_id');

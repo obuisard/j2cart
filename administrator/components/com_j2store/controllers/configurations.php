@@ -5,9 +5,10 @@
  * @copyright Copyright (c) 2024 J2Commerce . All rights reserved.
  * @license GNU GPL v3 or later
  */
-// No direct access to this file
-defined('_JEXEC') or die('Restricted access');
 
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -1030,7 +1031,7 @@ class J2StoreControllerConfigurations extends F0FController
         if ($task == 'populatedata') {
             $this->getPopulatedData($data);
         }
-        $db = JFactory::getDbo();
+        $db = Factory::getContainer()->get('DatabaseDriver');
         $config = J2Store::config();
         $query = 'REPLACE INTO #__j2store_configurations (config_meta_key,config_meta_value) VALUES ';
 
