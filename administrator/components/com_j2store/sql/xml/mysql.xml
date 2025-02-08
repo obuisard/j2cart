@@ -1119,7 +1119,7 @@
                 ALTER TABLE `#__j2store_shippingrates`
                 MODIFY `shipping_rate_price` decimal(12,5) NULL DEFAULT 0.0,
                 MODIFY `shipping_rate_weight_end` decimal(11,3) NULL DEFAULT 0.0,
-                MODIFY `shipping_rate_handling` decimal(12,5) NULL DEFAULT 0.0,
+                MODIFY `shipping_rate_handling` decimal(11,3) NULL DEFAULT 0.0,
                 MODIFY `shipping_rate_weight_start` decimal(11,3) NULL DEFAULT 0.0,
                 MODIFY `created_date` datetime NULL DEFAULT NULL,
                 MODIFY `modified_date` datetime NULL DEFAULT NULL;
