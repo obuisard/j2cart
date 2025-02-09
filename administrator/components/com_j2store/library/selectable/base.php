@@ -8,6 +8,8 @@
 // No direct access to this file
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 //require_once('fields.php');
 require_once (JPATH_ADMINISTRATOR.'/components/com_j2store/library/selectable/fields.php');
 class J2StoreSelectableBase {
@@ -30,7 +32,7 @@ class J2StoreSelectableBase {
 
 
 	function __construct() {
-		$this->database = JFactory::getDbo();
+		$this->database = Factory::getContainer()->get('DatabaseDriver');
 	}
 
 	public static function getInstance()
@@ -116,7 +118,7 @@ class J2StoreSelectableBase {
 	function getFormatedDisplay($field, $value, $name, $translate=false, $options = '', $test = false, $allFields = null, $allValues = null) {
 		$label = $this->getFieldName($field);
 		$input = $this->display($field, $value, $name, $translate, $options, $test, $allFields, $allValues);
-		$html = $label.$input;
+		$html = '<div class="control-group"><div class="control-label">'.$label.'</div><div class="controls">'.$input.'</div></div>';
 		return $html;
 	}
 
@@ -423,9 +425,9 @@ class J2StoreSelectableBase {
 			$html .='<span class="j2store_field_required">*</span>';
 		}
 		if(isset($field->display_label) && strtolower($field->display_label) == 'yes'){
-			return $html.'<label for="'.$this->prefix.$field->field_namekey.$this->suffix.'">'.$this->translate($field->field_name).'</label>';
-		}elseif($platform->isClient('administrator')) return $this->translate($field->field_name);
-		return $html.'<label for="'.$this->prefix.$field->field_namekey.$this->suffix.'">'.$this->translate($field->field_name).'</label>';
+			return '<label for="'.$this->prefix.$field->field_namekey.$this->suffix.'">'.$this->translate($field->field_name).'</label>'.$html;
+		}elseif($platform->isClient('administrator')) return '<label for="'.$this->prefix.$field->field_namekey.$this->suffix.'">'.$this->translate($field->field_name).'</label>'.$html;
+		return '<label for="'.$this->prefix.$field->field_namekey.$this->suffix.'">'.$this->translate($field->field_name).'</label>'.$html;
 	}
 
 	function translate($name){
@@ -950,7 +952,7 @@ class J2StoreSelectableBase {
 			}
 
                 foreach ($tables as $table_name) {
-                    $db = JFactory::getDbo();
+                    $db = Factory::getContainer()->get('DatabaseDriver');
                     if ($table_name == 'address') $table_name = F0FInflector::pluralize($table_name);
                     $query = 'ALTER TABLE ' . $this->fieldTable($table_name) . ' ADD `' . $field->field_namekey . '` TEXT NULL';
                     $db->setQuery($query);
@@ -1040,7 +1042,7 @@ class j2storeFieldItem {
 class j2storeText extends j2storeFieldItem {
 
 	var $type = 'text';
-	var $class = 'inputbox';
+	var $class = 'form-control';
 
 	function display($field, $value, $name, $translate, $options = '', $test = false, $allFields = null, $allValues = null) {
 
@@ -1137,7 +1139,7 @@ class j2storeTextarea extends j2storeFieldItem {
 		$cols = empty($field->field_options['cols']) ? '' : 'cols="'.intval($field->field_options['cols']).'"';
 		$rows = empty($field->field_options['rows']) ? '' : 'rows="'.intval($field->field_options['rows']).'"';
 		$options .= empty($field->field_options['readonly']) ? '' : ' readonly="readonly"';
-		return '<textarea class="inputbox" id="'.$this->prefix.@$field->field_namekey.$this->suffix.'" name="'.$name.'" '.$cols.' '.$rows.' '.$js.' '.$options.'>'.$value.'</textarea>'.$html;
+		return '<textarea class="form-control" id="'.$this->prefix.@$field->field_namekey.$this->suffix.'" name="'.$name.'" '.$cols.' '.$rows.' '.$js.' '.$options.'>'.$value.'</textarea>'.$html;
 	}
 
 	function show(&$field,$value){
@@ -1187,7 +1189,7 @@ class j2storeWysiwyg extends j2storeTextarea {
 		$cols = empty($field->field_options['cols']) ? '' : 'cols="'.intval($field->field_options['cols']).'"';
 		$rows = empty($field->field_options['rows']) ? '' : 'rows="'.intval($field->field_options['rows']).'"';
 		$options .= empty($field->field_options['readonly']) ? '' : ' readonly="readonly"';
-		return '<textarea class="inputbox" id="'.$this->prefix.@$field->field_namekey.$this->suffix.'" name="'.$map.'" '.$cols.' '.$rows.' '.$js.' '.$options.'>'.$value.'</textarea>'.$html;
+		return '<textarea class="form-control" id="'.$this->prefix.@$field->field_namekey.$this->suffix.'" name="'.$map.'" '.$cols.' '.$rows.' '.$js.' '.$options.'>'.$value.'</textarea>'.$html;
 	}
 	function show(&$field,$value){
 		return $this->translate($value);
@@ -1244,7 +1246,7 @@ class j2storeDropdown extends j2storeFieldItem{
 				}
 			}
 		}
-		$string .= '<select id="'.$this->prefix.$field->field_namekey.$this->suffix.'" name="'.$map.'" '.$arg.$options.'>';
+		$string .= '<select id="'.$this->prefix.$field->field_namekey.$this->suffix.'" class="form-select" name="'.$map.'" '.$arg.$options.'>';
 		if(empty($field->field_value))
 			return $string.'</select>';
 
