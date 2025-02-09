@@ -868,6 +868,22 @@ class J2StoreControllerConfigurations extends F0FController
             )
         );
         $vars->field_sets[] = array(
+            'id' => 'update_settings',
+            'is_pro' => true,
+            'label' => 'J2STORE_UPDATE_SETTINGS',
+            'class' => 'options-form',
+            'fields' => array(
+                'downloadid' => array(
+                    'label' => 'J2STORE_CONF_UPDATE_DOWNLOADID',
+                    'type' => 'text',
+                    'name' => 'downloadid',
+                    'value' => isset($vars->item->downloadid) && !is_null($vars->item->downloadid) ? $vars->item->downloadid : '',
+                    'options' => array('id' => 'downloadid', 'class' => 'form-control'),
+                    'desc' => 'J2STORE_CONF_UPDATE_DOWNLOADID_DESC'
+                ),
+            )
+        );
+        $vars->field_sets[] = array(
             'id' => 'misc_settings',
             'label' => 'J2STORE_MISC_SETTINGS',
             'fields' => array(
