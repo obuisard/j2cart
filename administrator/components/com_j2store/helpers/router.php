@@ -13,7 +13,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Multilanguage;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Menu\AbstractMenu;
 use Joomla\Registry\Registry;
 
@@ -57,11 +56,11 @@ class J2StoreRouterHelper
 			}
 		}
 
-    foreach ($menus->getMenu() as $item) {
-        if (self::checkMenu($item, $qoptions, $params) && $item->published) {
-            return $item;
+        foreach ($menus->getMenu() as $item) {
+            if (self::checkMenu($item, $qoptions, $params) && $item->published) {
+                return $item;
+            }
         }
-    }
 
 		return null;
 	}
@@ -86,8 +85,8 @@ class J2StoreRouterHelper
 
 		if(!is_null($params))
 		{
-      $menus = AbstractMenu::getInstance('site');
-      $menuitem = $menus->getActive();
+            $menus = AbstractMenu::getInstance('site');
+            $menuitem = $menus->getActive();
 			$check =  $menu->params instanceof Registry ? $menu->params : $menus->getParams($menu->id);
 
 			foreach($params as $key => $value)
@@ -130,7 +129,7 @@ class J2StoreRouterHelper
 	}
 
 	static public function findMenuOrders($qoptions)
-  {
+    {
     $menus = AbstractMenu::getInstance('site');
 		$menu_id = null;
 		foreach($menus->getMenu() as $item)
@@ -140,7 +139,6 @@ class J2StoreRouterHelper
 					$menu_id =$item->id;
 				}
 			}
-
 		}
 		return $menu_id;
 	}
@@ -161,13 +159,12 @@ class J2StoreRouterHelper
                     break;
                 }
             }
-
         }
         return $menu;
     }
 
 	public static function checkMenuOrders($menu, $qoptions)
-  {
+    {
 		$lang = J2Store::platform()->application()->getLanguage() ;
         $langu = (isset($qoptions['lang']) && $qoptions['lang']) ? $qoptions['lang'] : $lang->getTag();
 		if($langu == $menu->language) {
@@ -180,7 +177,7 @@ class J2StoreRouterHelper
 	}
 
 	static public function findCheckoutMenu($qoptions)
-  {
+    {
         $menus = AbstractMenu::getInstance('site');
         $menu_id = null;
         $menu = null;
@@ -212,13 +209,12 @@ class J2StoreRouterHelper
                     break;
                 }
             }
-
         }
         return $menu;
     }
 
 	static public function findMenuCarts($qoptions)
-  {
+    {
     $menus = AbstractMenu::getInstance('site');
 		$menu_id = null;
 		$menu = null;
@@ -288,8 +284,8 @@ class J2StoreRouterHelper
     }
 
 	public static function findProductTagsMenu($qoptions)
-  {
-    $menus = AbstractMenu::getInstance('site');
+    {
+        $menus = AbstractMenu::getInstance('site');
 		$menu = null;
 		foreach($menus->getMenu() as $item)
 		{
@@ -306,7 +302,7 @@ class J2StoreRouterHelper
 	}
 
 	public static function checkMenuProducts($menu, $qoptions)
-  {
+    {
 		$lang = J2Store::platform()->application()->getLanguage();
 
 		//first check the category
@@ -337,7 +333,7 @@ class J2StoreRouterHelper
 	}
 
 	public static function checkMenuProductTags($menu, $qoptions)
-  {
+    {
 		    $lang = J2Store::platform()->application()->getLanguage() ;
 
 			//get tag alias
@@ -367,7 +363,7 @@ class J2StoreRouterHelper
 	}
 
 	public static function getProductTags($id,$lang = '')
-  {
+    {
         //first load the product to get the id.
         $product = J2Store::fof()->loadTable('Product', 'J2StoreTable')->getClone();
         $tags = array();
@@ -382,7 +378,7 @@ class J2StoreRouterHelper
 	}
 
 	public static function getArticleTags($id)
-  {
+    {
 	    if(empty($id)){
 	        return array();
         }
@@ -422,7 +418,7 @@ class J2StoreRouterHelper
     }
 
 	public static function getLanguageId($tag)
-  {
+    {
 		$db = Factory::getContainer()->get('DatabaseDriver');
 		$query = $db->getQuery (true);
 		$query->select('lang_id')->from ( '#__languages' )->where ( 'lang_code ='.$db->q ( $tag ) );
@@ -431,7 +427,7 @@ class J2StoreRouterHelper
 	}
 
 	public static function getItemAlias($id , $lang = '')
-  {
+    {
 		//first load the product to get the id.
 		$product = J2Store::fof()->loadTable('Product', 'J2StoreTable')->getClone();
 
@@ -475,7 +471,7 @@ class J2StoreRouterHelper
 	 * @return mixed Product ID or false on finding none
      */
 	public static function getArticleByAlias($segment, $categories = array())
-  {
+    {
 		$explode_results = explode(':', $segment);
 		$article = new stdClass();
 		if(isset($explode_results[0]) && is_numeric($explode_results[0])) {
@@ -505,18 +501,18 @@ class J2StoreRouterHelper
 	}
 
 	public static function getTagAliasByItem($id)
-  {
+    {
 		$product = J2Store::fof()->loadTable('Product', 'J2StoreTable');
 
 		if($product->load($id)) {
 			if($product->product_source === 'com_content') {
 				$db = Factory::getContainer()->get('DatabaseDriver');
-				$query = $db->getQuery (true);
-				$query->select ( 'tag.alias' )->from('#__contentitem_tag_map AS c_tag')
-					->join ( 'LEFT', '#__tags AS tag ON c_tag.tag_id = tag.id'  )
-					->where ( 'c_tag.content_item_id ='.$db->q($product->product_source_id) );
-				$db->setQuery ( $query );
-				return $db->loadResult ();
+				$query = $db->getQuery(true);
+				$query->select('tag.alias')->from('#__contentitem_tag_map AS c_tag')
+					->join('LEFT', '#__tags AS tag ON c_tag.tag_id = tag.id')
+					->where('c_tag.content_item_id ='.$db->quote($product->product_source_id));
+				$db->setQuery($query);
+				return $db->loadResult();
 			}else {
 				return '';
 			}
@@ -526,20 +522,20 @@ class J2StoreRouterHelper
 	}
 
 	public static function getFilterTagAlias($tag_id)
-  {
+    {
 		$db = Factory::getContainer()->get('DatabaseDriver');
-		$query = $db->getQuery (true);
-		$query->select ( 'alias' )->from ( '#__tags' )->where ( 'id ='.$db->q($tag_id) );
-		$db->setQuery ( $query );
-		return $db->loadResult ();
+		$query = $db->getQuery(true);
+		$query->select('alias')->from('#__tags')->where('id ='.$db->quote($tag_id));
+		$db->setQuery($query);
+		return $db->loadResult();
 	}
 
 	public static function getTagByAlias($alias)
-  {
+    {
 		$db = Factory::getContainer()->get('DatabaseDriver');
-		$query = $db->getQuery (true);
-		$query->select ( 'id' )->from ( '#__tags' )->where ( 'alias ='.$db->q($alias) );
-		$db->setQuery ( $query );
-		return $db->loadResult ();
+		$query = $db->getQuery(true);
+		$query->select('id')->from('#__tags')->where('alias ='.$db->quote($alias));
+		$db->setQuery($query);
+		return $db->loadResult();
 	}
 }

@@ -11,6 +11,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 require_once JPATH_ADMINISTRATOR.'/components/com_j2store/controllers/traits/list_view.php';
 
 class J2StoreControllerWeights extends F0FController

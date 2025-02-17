@@ -54,53 +54,54 @@ $wa->addInlineScript($script, [], []);
         echo HTMLHelper::_('uitab.startTabSet', 'configuration', array('active' => 'basic'));
         foreach ( $field_sets as $key => $attr ): ?>
             <?php echo HTMLHelper::_( 'uitab.addTab', 'configuration', $attr->name, Text::_( $attr->label, true ) );?>
-            <?php  if(J2Store::isPro() != 1 && isset($attr->ispro) && $attr->ispro ==1 ) : ?>
-            <?php echo J2Html::pro(); ?>
-        <?php else: ?>
-            <fieldset class="options-form">
-                <legend><?php echo Text::_($attr->label);?></legend>
-                <div class="form-grid">
-                    <?php
-                    $layout = '';
-                    $style = '';
-                    $fields = $vars->form->getFieldset($attr->name);
-                    foreach ($fields as $key => $field)
-                    {
-                        $pro = $field->getAttribute('pro');
-                        ?>
-                        <div class="control-group <?php echo $layout; ?>" <?php echo $style; ?>>
+            <?php if ( J2Store::isPro() != 1 && isset( $attr->ispro ) && $attr->ispro == 1 ) : ?>
+                <?php echo J2Html::pro(); ?>
+            <?php else: ?>
+                <fieldset class="options-form">
+                    <legend><?php echo Text::_($attr->label);?></legend>
+                    <div class="form-grid">
+                        <?php
+                        $layout = '';
+                        $style = '';
+                        $fields = $vars->form->getFieldset($attr->name);
+                        foreach ($fields as $key => $field)
+                        {
+                            $pro = $field->getAttribute('pro');
+                            ?>
+                            <div class="control-group <?php echo $layout; ?>" <?php echo $style; ?>>
                                 <?php if($field->label):?>
                                     <div class="control-label">
                                         <label><?php echo $field->label; ?></label>
                                     </div>
                                 <?php endif;?>
-                            <?php if(J2Store::isPro() != 1 && $pro ==1 ): ?>
-                                <?php echo J2Html::pro(); ?>
-                            <?php else: ?>
-                            <div class="controls"><?php echo $field->input; ?>
+                                <?php if(J2Store::isPro() != 1 && $pro ==1 ): ?>
+                                    <?php echo J2Html::pro(); ?>
+                                <?php else: ?>
+                                    <div class="controls">
+                                        <?php echo $field->input; ?>
                                         <?php if($field->description):?>
                                             <div class="form-text"><?php echo Text::_($field->description); ?></div>
+                                        <?php endif; ?>
+                                    </div>
                                 <?php endif; ?>
                             </div>
-                            <?php endif; ?>
-                        </div>
-                        <?php
-                    }
-                    ?>
+                            <?php
+                        }
+                        ?>
                         <div id="exchangerate_div" style="display:none;">
                             <div class="control-group ">
                                 <div class="control-label">
                                     <label><?php echo Text::_('J2STORE_EXCHANGERATE_API_KEY'); ?></label>
-                        </div>
+                                </div>
                                 <div class="controls">
                                     <input type="text" name="params[exchangerate_api_key]" id="params_exchangerate_api_key" value="<?php echo $this->params->get('exchangerate_api_key', '');?>" class="form-control">
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                             <div class="alert alert-warning mt-3" role="alert">
                                 <p class="mb-0"><?php echo Text::_('PLG_J2STORE_APP_CURRENCY_UPDATER_EXCHANGERATE_ALERT_TOP');?></p>
                                 <hr>
                                 <p class="mb-0"><?php echo Text::_('PLG_J2STORE_APP_CURRENCY_UPDATER_EXCHANGERATE_ALERT_BOTTOM');?></p>
-                        </div>
+                            </div>
                         </div>
                         <div id="currencyapi_div" style="display:none;">
                             <div class="control-group ">
@@ -109,19 +110,19 @@ $wa->addInlineScript($script, [], []);
                                 </div>
                                 <div class="controls">
                                     <input type="text" name="params[currencyapi_key]" id="params_currencyapi_key" value="<?php  echo $this->params->get ( 'currencyapi_key', '') ?>" class="form-control">
-                        </div>
-                    </div>
+                                </div>
+                            </div>
                             <div class="alert alert-warning mt-3" role="alert">
                                 <p class="mb-0"><?php echo Text::_('PLG_J2STORE_APP_CURRENCY_UPDATER_CURRENCYAPI_ALERT_TOP');?></p>
                                 <hr>
                                 <p class="mb-0"><?php echo Text::_('PLG_J2STORE_APP_CURRENCY_UPDATER_CURRENCYAPI_ALERT_BOTTOM');?></p>
+                            </div>
                         </div>
-                    </div>
                         <div id="exchangerate_host_div" style="display:none;">
                             <div class="alert alert-warning mt-3" role="alert">
                                 <p class="mb-0"><?php echo Text::_('PLG_J2STORE_APP_CURRENCY_UPDATER_EXCHANGERATEHOST_ALERT_TOP');?></p>
-                </div>
-            </div>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
         <?php endif; ?>

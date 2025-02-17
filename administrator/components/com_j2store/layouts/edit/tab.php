@@ -11,19 +11,16 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-
-defined('_JEXEC') or die;
 $platform = J2Store::platform();
 $platform->loadExtra('behavior.formvalidator');
 $row_class = 'row';
 $col_class = 'col-md-';
 $alert_html = '<joomla-alert type="danger" close-text="Close" dismiss="true" role="alert" style="animation-name: joomla-alert-fade-in;"><div class="alert-heading"><span class="error"></span><span class="visually-hidden">Error</span></div><div class="alert-wrapper"><div class="alert-message" >'.Text::_('J2STORE_INVALID_INPUT_FIELD').'</div></div></joomla-alert>' ;
 ?>
-<script  type="text/javascript">
+<script type="text/javascript">
     Joomla.submitbutton = function(pressbutton) {
         var form = document.adminForm;
         if (pressbutton == 'cancel') {

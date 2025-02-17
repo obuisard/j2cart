@@ -198,7 +198,7 @@ class j2storeCountryType
 				$query->select('a.*')->from('#__j2store_zones AS a');
 				$query->where('a.enabled=1')
 					->order('a.zone_name ASC');
-					$query->where('a.country_id='.$db->q($this->country_id));
+                $query->where('a.country_id='.$db->q($this->country_id));
 				$db->setQuery($query);
 				$sets1[$this->country_id] = $db->loadObjectList();
 			}

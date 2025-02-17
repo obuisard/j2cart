@@ -17,7 +17,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
 use Joomla\Filter\OutputFilter;
-use \J2Commerce\Helper\J2StoreRouterHelper;
 
 class J2Article
 {
@@ -25,7 +24,7 @@ class J2Article
 	protected $state;
 
 	public function __construct($properties=null)
-  {
+    {
 
 	}
 
@@ -74,7 +73,7 @@ class J2Article
 	}
 
 	public function getArticle($id)
-  {
+    {
 		static $sets;
 
 		if ( !is_array( $sets ) )
@@ -93,7 +92,7 @@ class J2Article
 	}
 
 	public function getArticleLink($id = 0)
-  {
+    {
 	    $link = '';
 	    if(empty($id)){
 	        return $link;
@@ -108,7 +107,7 @@ class J2Article
     }
 
 	public function loadFalangAliasById($id,$lang_id)
-  {
+    {
 		if (empty($id) || empty($lang_id)){
 			return '';
 		}
@@ -204,7 +203,7 @@ class J2Article
 	 * @return bool true if falng is installed
 	 * */
 	public function isFalangInstalled()
-  {
+    {
 		if(ComponentHelper::isInstalled('com_falang')) {
 			if(ComponentHelper::isEnabled('com_falang')) {
 				return true;
@@ -219,7 +218,7 @@ class J2Article
 	 * @return int    		content_id of the corresponding article or 0 if none
 	 * */
 	public function loadFalangContentID($alias='')
-  {
+    {
 		if (empty($alias)){
 			return 0;
 		}
@@ -311,7 +310,7 @@ class J2Article
     }
 
 	public function getCategoryById($id)
-  {
+    {
 		if (! is_numeric ( $id ) || empty ( $id ))
 			return new stdClass();
 

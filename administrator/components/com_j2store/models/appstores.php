@@ -11,6 +11,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\Filesystem\File;
+
 class J2StoreModelAppStores extends F0FModel
 {
     protected $_sflist = [];

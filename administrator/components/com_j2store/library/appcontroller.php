@@ -15,7 +15,6 @@ use Joomla\CMS\Factory;
 
 class J2StoreAppController extends F0FController
 {
-
     // the same as the plugin's one!
     var $_element = '';
     protected $cacheableTasks = array();

@@ -35,7 +35,7 @@ $currency_value = $currency->getValue();
 		<?php echo J2Html::hidden('task','',array('id'=>'task'));?>
 		<?php echo J2Html::hidden('email',$this->email ,array('id' =>'customer_email_id'));?>
 		<?php echo HTMLHelper::_('form.token'); ?>
-	<div class="<?php echo $row_class ?>">
+        <div class="<?php echo $row_class ?>">
 
             <div class="col-12 mb-2">
                 <div class="row">
@@ -80,7 +80,7 @@ $currency_value = $currency->getValue();
                                 <span class="fas fa-solid fa-user me-2"></span><span class="small"><?php echo Text::sprintf('J2STORE_CUSTOMER_FOR_DAYS', $customer_days_old);?></span>
                             </div>
                         </div>
-						</div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-7">
@@ -96,7 +96,7 @@ $currency_value = $currency->getValue();
                             <span class="fas fa-solid fa-envelope me-2"></span><?php echo $this->email;?>
                             <a id="customer-email-info" class="btn btn-primary btn-sm ms-2" onclick="jQuery('#customer-email-edit-info').toggle();jQuery('#customer-email-info').toggle();">
 			                    <?php echo Text::_('J2STORE_EDIT');?>
-								</a>
+                            </a>
                         </div>
                         <div class="controls align-self-end" id="customer-email-edit-info" style="display:none;">
                             <div class="input-group">
@@ -104,24 +104,24 @@ $currency_value = $currency->getValue();
                                 <button id="customer-save-btn" class="btn btn-success btn-sm" type="button" onclick="getUpdatedEmail(this,'changeEmail');"><?php echo Text::_('JAPPLY'); ?></button>
                                 <button id="customer-confirm-btn" class="btn btn-warning btn-sm" type="button" onclick="getUpdatedEmail(this,'confirmchangeEmail');" style="display:none;"><?php echo Text::_('J2STORE_CONFIRM_UPDATE'); ?></button>
                                 <button class="btn btn-primary btn-sm" type="button" onclick="canUpdate();"><?php echo Text::_('JCANCEL'); ?></button>
-						</div>
-				</div>
-		</div>
-	</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-header">
                         <h3 class="mb-0"><?php echo Text::_('J2STORE_ADDRESS_LIST');?></h3>
                     </div>
                     <div class="card-body text-subdued">
 	                    <?php if($this->addresses && !empty($this->addresses)):
-            echo J2Store::plugin()->eventWithHtml('BeforeCustomerAddressList',array($this->addresses));
-			foreach($this->addresses as $item):
-			$this->item = $item;
-		?>
-		<?php echo $this->loadTemplate('addresses');?>
-		<?php endforeach;?>
-		<?php endif;?>
-		</div>
+		                    echo J2Store::plugin()->eventWithHtml('BeforeCustomerAddressList',array($this->addresses));
+		                    foreach($this->addresses as $item):
+			                    $this->item = $item;
+			                    ?>
+			                    <?php echo $this->loadTemplate('addresses');?>
+		                    <?php endforeach;?>
+	                    <?php endif;?>
+                    </div>
                 </div>
             </div>
         </div>

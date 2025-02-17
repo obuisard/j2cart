@@ -200,7 +200,7 @@ class J2StoreControllerProducttags extends J2StoreControllerProductsBase
 				'tag' => $filter_tag,
 
 			);
-			$menu = \J2Commerce\Helper\J2StoreRouterHelper::findProductTagsMenu( $qoptions );
+			$menu = J2StoreRouterHelper::findProductTagsMenu( $qoptions );
 		}
 
 		if ($menu)
@@ -505,7 +505,7 @@ class J2StoreControllerProducttags extends J2StoreControllerProductsBase
 				'task' => 'view',
 				'tag' => $filter_tag,
 			);
-			$menu = \J2Commerce\Helper\J2StoreRouterHelper::findProductTagsMenu( $qoptions );
+			$menu = J2StoreRouterHelper::findProductTagsMenu( $qoptions );
 		}
 		$params->def('page_heading', $product->product_name);
 		$params->set('page_title', $product->product_name);
@@ -669,7 +669,7 @@ class J2StoreControllerProducttags extends J2StoreControllerProductsBase
 		}
 
 		//add class to the module for better styling control.
-		$script = '
+        $script = '
             document.addEventListener("DOMContentLoaded", function() {
                 if (typeof window.jQuery !== "undefined") {
                     document.body.classList.add(
@@ -678,8 +678,8 @@ class J2StoreControllerProducttags extends J2StoreControllerProductsBase
                         "' . $product->source->alias . '"
                     );
                 }
-		  });
-		';
+            });
+        ';
 		$document->addScriptDeclaration($script);
 
 		//add custom styles

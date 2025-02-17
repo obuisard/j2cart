@@ -68,7 +68,8 @@ class J2storeControllerShippingtroubles extends F0FController
 		return parent::browse();
 	}
 
-	public function getFilterStates() {
+	public function getFilterStates()
+    {
         $platform = J2Store::platform();
         $app = $platform->application();
 		$state = array();

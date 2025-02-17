@@ -17,21 +17,21 @@ use Joomla\CMS\Language\Text;
     <fieldset class="options-form">
         <legend><?php echo Text::_('J2STORE_VARIANT_OPTIONS');?></legend>
         <table id="attribute_options_table" class="table itemList align-middle j2store">
-			<thead>
-				<tr>
+            <thead>
+            <tr>
                 <th><?php echo Text::_('J2STORE_VARIANT_OPTION');?></th>
                 <th><?php echo Text::_('J2STORE_OPTION_ORDERING');?></th>
                 <th><?php echo Text::_('J2STORE_REMOVE'); ?> </th>
-				</tr>
-		</thead>
-		<tbody>
-		<?php if(isset($this->item->product_options ) && !empty($this->item->product_options)):?>
-			<?php foreach($this->item->product_options as $poption ):?>
-			<tr id="pao_current_option_<?php echo $poption->j2store_productoption_id;?>">
-				<td>
+            </tr>
+            </thead>
+            <tbody>
+                <?php if(isset($this->item->product_options ) && !empty($this->item->product_options)):?>
+                    <?php foreach($this->item->product_options as $poption ):?>
+                        <tr id="pao_current_option_<?php echo $poption->j2store_productoption_id;?>">
+                            <td>
                                 <?php echo $poption->option_name;?>
-					<?php echo J2Html::hidden($this->form_prefix.'[item_options]['.$poption->j2store_productoption_id .'][j2store_productoption_id]', $poption->j2store_productoption_id);?>
-					<?php echo J2Html::hidden($this->form_prefix.'[item_options]['.$poption->j2store_productoption_id .'][option_id]', $poption->option_id);?>
+                                <?php echo J2Html::hidden($this->form_prefix.'[item_options]['.$poption->j2store_productoption_id .'][j2store_productoption_id]', $poption->j2store_productoption_id);?>
+                                <?php echo J2Html::hidden($this->form_prefix.'[item_options]['.$poption->j2store_productoption_id .'][option_id]', $poption->option_id);?>
                                 <small>(<?php  echo $poption->option_unique_name;?>)</small>
                                 <small><?php Text::_('J2STORE_OPTION_TYPE');?> <?php echo Text::_('J2STORE_'.strtoupper($poption->type))?></small>
                                 <?php if(isset($poption->type) && ($poption->type =='select' || $poption->type =='radio' || $poption->type =='checkbox')):?>
@@ -39,66 +39,66 @@ use Joomla\CMS\Language\Text;
                                         <?php echo J2StorePopup::popup("index.php?option=com_j2store&view=products&task=setproductoptionvalues&product_id=".$this->item->j2store_product_id."&productoption_id=".$poption->j2store_productoption_id."&layout=productoptionvalues&tmpl=component", Text::_( "J2STORE_OPTION_SET_VALUES" ), array());?>
                                     </small>
                                 <?php endif;?>
-				</td>
-				<td>
+                            </td>
+                            <td>
                                 <?php echo J2Html::text($this->form_prefix.'[item_options]['.$poption->j2store_productoption_id .'][ordering]',$poption->ordering,array('id'=>'ordering' ,'class'=>'form-control'));?>
                             </td>
                             <td class="text-end">
                                 <span class="optionRemove" onClick="removePAOption(<?php echo $poption->j2store_productoption_id;?>)">
                                     <span class="icon icon-trash text-danger"></span>
                                 </span>
-				</td>
-			</tr>
-			<?php endforeach;?>
-			<?php endif;?>
-			<tr class="j2store_a_options">
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                <?php endif;?>
+                <tr class="j2store_a_options">
                     <td colspan="2">
                         <div class="control-group mt-4">
                             <div class="control-label"><?php echo J2Html::label(Text::_('J2STORE_SEARCH_AND_ADD_VARIANT_OPTION')); ?></div>
                             <div class="controls">
                                 <div class="input-group">
                                     <select name="option_select_id" id="option_select_id" class="form-select">
-                        <?php foreach ($this->product_option_list as $option_list):?>
-                            <option value="<?php echo $option_list->j2store_option_id?>"><?php echo $this->escape($option_list->option_name) .' ('.$this->escape($option_list->option_unique_name).')';?></option>
-                        <?php endforeach; ?>
-                    </select>
+                                        <?php foreach ($this->product_option_list as $option_list):?>
+                                            <option value="<?php echo $option_list->j2store_option_id?>"><?php echo $this->escape($option_list->option_name) .' ('.$this->escape($option_list->option_unique_name).')';?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     <a onclick="addOption()" class="btn btn-success"> <?php echo Text::_('J2STORE_ADD_OPTIONS')?></a>
                                 </div>
                             </div>
                         </div>
-				</td>
-			</tr>
-		</tbody>
-		</table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </fieldset>
 </div>
 <script type="text/javascript">
-        function removePAOption(pao_id) {
-            (function($) {
-                $.ajax({
-                    type : 'post',
-                    url :  'index.php?option=com_j2store&view=products&task=removeProductOption&product_type=advancedvariable',
-                    data : 'pao_id=' + pao_id,
-                    dataType : 'json',
-                    success : function(data) {
-                        if(data.success) {
-                            $('#pao_current_option_'+pao_id).remove();
-                        }
-                        if(data.error){
-                            $("<p class='alert alert-warning'>"+data.error+"</p>").insertBefore("#attribute_options_table");
-                        }
+    function removePAOption(pao_id) {
+        (function($) {
+            $.ajax({
+                type : 'post',
+                url :  'index.php?option=com_j2store&view=products&task=removeProductOption&product_type=advancedvariable',
+                data : 'pao_id=' + pao_id,
+                dataType : 'json',
+                success : function(data) {
+                    if(data.success) {
+                        $('#pao_current_option_'+pao_id).remove();
                     }
-                });
-            })(j2store.jQuery);
-        }
-function addOption() {
-    (function ($) {
-        var option_value = $('#option_select_id').val();
-        var option_name = $('#option_select_id option[value='+option_value+']').html();
-        console.log(option_value);
-        console.log(option_name);
-        $('<tr><td class=\"addedOption\">' + option_name+ '</td><td><input class=\"input-small\" name=\"<?php echo $this->form_prefix.'[item_options]' ;?>['+ option_value+'][ordering]\" value=\"0\"></td><td><span class=\"optionRemove\" onclick=\"j2store.jQuery(this).parent().parent().remove();\">x</span><input type=\"hidden\" value=\"' + option_value+ '\" name=\"<?php echo $this->form_prefix; ?>[item_options]['+ option_value+'][option_id]\" /><input type=\"hidden\" value="" name=\"<?php echo $this->form_prefix; ?>[item_options]['+ option_value+'][j2store_productoption_id]\" /></td></tr>').insertBefore('.j2store_a_options');
-    })(j2store.jQuery);
+                    if(data.error){
+                        $("<p class='alert alert-warning'>"+data.error+"</p>").insertBefore("#attribute_options_table");
+                    }
+                }
+            });
+        })(j2store.jQuery);
+    }
+    function addOption() {
+        (function ($) {
+            var option_value = $('#option_select_id').val();
+            var option_name = $('#option_select_id option[value='+option_value+']').html();
+            console.log(option_value);
+            console.log(option_name);
+            $('<tr><td class=\"addedOption\">' + option_name+ '</td><td><input class=\"input-small\" name=\"<?php echo $this->form_prefix.'[item_options]' ;?>['+ option_value+'][ordering]\" value=\"0\"></td><td><span class=\"optionRemove\" onclick=\"j2store.jQuery(this).parent().parent().remove();\">x</span><input type=\"hidden\" value=\"' + option_value+ '\" name=\"<?php echo $this->form_prefix; ?>[item_options]['+ option_value+'][option_id]\" /><input type=\"hidden\" value="" name=\"<?php echo $this->form_prefix; ?>[item_options]['+ option_value+'][j2store_productoption_id]\" /></td></tr>').insertBefore('.j2store_a_options');
+        })(j2store.jQuery);
 
-}
+    }
 </script>

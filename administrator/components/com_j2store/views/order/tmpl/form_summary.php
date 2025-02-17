@@ -11,7 +11,6 @@
 
 defined('_JEXEC') or die;
 
-
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -38,7 +37,6 @@ $image_path = Uri::root();
             $thumb_image = $item->params->get('thumb_image', '');
             $back_order_text = $item->params->get('back_order_item', '');
             $thumb_image_raw = $platform->getImagePath($thumb_image);
-
 
 		    $img = HTMLHelper::_('image', $thumb_image_raw, '', '', true, 1);
 		    $path = parse_url($img, PHP_URL_PATH);

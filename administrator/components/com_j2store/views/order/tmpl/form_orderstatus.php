@@ -19,7 +19,7 @@ HTMLHelper::_('bootstrap.collapse', '[data-bs-toggle="collapse"]');
 
 $order_state_save_link = Route::_('index.php?option=com_j2store&view=orders&task=orderstatesave');
 $attr = array('class'=>'form-select form-select-sm');
-$this->order_state =J2Html::select()
+$this->order_state = J2Html::select()
 	->type('genericlist')
 	->name('order_state_id')
 	->value($this->item->order_state_id)
@@ -56,9 +56,9 @@ $this->order_state =J2Html::select()
                         <label class="form-check-label cursor-pointer small" for="increase_stock"><?php echo Text::_('J2STORE_INCREASE_STOCK');?></label>
                     </div>
                 </div>
-			    <?php echo $this->order_state; ?>
+	            <?php echo $this->order_state; ?>
                 <button class="btn btn-primary btn-sm" type="submit" onclick="jQuery('#task').attr('value','saveOrderstatus');"><?php echo Text::_('J2STORE_ORDER_STATUS_SAVE'); ?></button>
-		    </div>
-		</div>
+            </div>
+        </div>
     </div>
 </div>

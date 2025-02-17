@@ -12,8 +12,8 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
 
 if (!defined('F0F_INCLUDED'))
 {
@@ -116,7 +116,7 @@ $menus = array (
 $j2StorePlugin = \J2Store::plugin();
 $j2StorePlugin->event('AddDashboardMenuInJ2Store',array(&$menus));
 // Get installed version
-	$db = Factory::getContainer()->get('DatabaseDriver');
+$db = Factory::getContainer()->get('DatabaseDriver');
 $query = $db->getQuery(true);
 $query->select($db->quoteName('manifest_cache'))->from($db->quoteName('#__extensions'))->where($db->quoteName('element').' = '.$db->quote('com_j2store'));
 $query->where('type ='.$db->q('component'));
@@ -156,112 +156,112 @@ $wa->addInlineScript("window.addEventListener('resize', function () {
         }
     });", [], []);
 ?>
-    <div id="j2store-navbar">
-            <div class="d-none d-lg-flex align-items-center mb-3">
-                <div class="j2store-social-share">
-                    <a class="btn btn-primary px-2" href="https://www.facebook.com/j2commerce" onclick="return ! window.open(this.href);">
-                        <i class="fa-brands fab fa-facebook-f fa-fw"></i>
-                    </a>
-                    <a class="btn btn-primary px-2" href="https://github.com/j2commerce" onclick="return ! window.open(this.href);">
-                        <i class="fa-brands fab fa-github fa-fw"></i>
-                    </a>
-                </div>
-                <h3 class="text-black mb-0 ms-2 fw-bolder">v <?php echo isset($row->version) ? $row->version : J2STORE_VERSION; ?>
-		            <?php if(J2Store::isPro() == 1): ?>
-			            <?php echo 'PRO'; ?>
-		            <?php else: ?>
-			            <?php echo 'CORE'; ?>
-		            <?php endif; ?>
-                </h3>
-            </div>
-            <nav class="navbar navbar-expand-lg bg-primary" role="navigation" data-bs-theme="dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand d-flex align-items-center" href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
-                        <img src="<?php echo Uri::root();?>media/j2store/images/dashboard-logo.png" class="img-fluid" alt="j2store logo" />
-                        <h5 class="mb-0 ms-2 fw-normal d-none d-sm-block d-lg-none text-white-50 small">v <?php echo isset($row->version) ? $row->version : J2STORE_VERSION; ?>
-		                    <?php if(J2Store::isPro() == 1): ?>
-			                    <?php echo 'PRO'; ?>
-		                    <?php else: ?>
-			                    <?php echo 'CORE'; ?>
-		                    <?php endif; ?>
-                        </h5>
-                    </a>
+<div id="j2store-navbar">
+    <div class="d-none d-lg-flex align-items-center mb-3">
+        <div class="j2store-social-share">
+            <a class="btn btn-primary px-2" href="https://www.facebook.com/j2commerce" onclick="return ! window.open(this.href);">
+                <i class="fa-brands fab fa-facebook-f fa-fw"></i>
+            </a>
+            <a class="btn btn-primary px-2" href="https://github.com/j2commerce" onclick="return ! window.open(this.href);">
+                <i class="fa-brands fab fa-github fa-fw"></i>
+            </a>
+        </div>
+        <h3 class="text-black mb-0 ms-2 fw-bolder">v <?php echo isset($row->version) ? $row->version : J2STORE_VERSION; ?>
+            <?php if(J2Store::isPro() == 1): ?>
+                <?php echo 'PRO'; ?>
+            <?php else: ?>
+                <?php echo 'CORE'; ?>
+            <?php endif; ?>
+        </h3>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-primary" role="navigation" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
+                <?php echo HTMLHelper::_('image', 'com_j2commerce/dashboard-logo.png', 'j2Commerce logo', ['class' => 'img-fluid'], true); ?>
+                <h5 class="mb-0 ms-2 fw-normal d-none d-sm-block d-lg-none text-white-50 small">v <?php echo isset($row->version) ? $row->version : J2STORE_VERSION; ?>
+                    <?php if(J2Store::isPro() == 1): ?>
+                        <?php echo 'PRO'; ?>
+                    <?php else: ?>
+                        <?php echo 'CORE'; ?>
+                    <?php endif; ?>
+                </h5>
+            </a>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarJ2StoreSubmenu" aria-controls="navbarJ2StoreSubmenu" aria-expanded="false" aria-label="Toggle Navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarJ2StoreSubmenu">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-xl-end">
-					        <?php $view = $app->input->getString('view');
-					        foreach($menus as $key => $value): ?>
-						        <?php if(isset($value['submenu']) && count($value['submenu'])):?>
-                                    <li class="nav-item dropdown flex-lg-grow-1 flex-xl-grow-0 me-xl-2" data-bs-toggle="tooltip" data-bs-placement="top" title="<?php echo $value['name'];?>">
-                                        <a href="javascript:void(0);" class="nav-link dropdown-toggle submenu-dropdown-toggle text-lg-center" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i>
-                                            <span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo $value['name'];?></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarJ2StoreSubmenu" aria-controls="navbarJ2StoreSubmenu" aria-expanded="false" aria-label="Toggle Navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarJ2StoreSubmenu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-xl-end">
+                    <?php $view = $app->input->getString('view');
+                    foreach($menus as $key => $value): ?>
+                        <?php if(isset($value['submenu']) && count($value['submenu'])):?>
+                            <li class="nav-item dropdown flex-lg-grow-1 flex-xl-grow-0 me-xl-2" data-bs-toggle="tooltip" data-bs-placement="top" title="<?php echo $value['name'];?>">
+                                <a href="javascript:void(0);" class="nav-link dropdown-toggle submenu-dropdown-toggle text-lg-center" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i>
+                                    <span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo $value['name'];?></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark bg-primary">
+                                    <?php foreach($value['submenu'] as $sub_key => $sub_value):?>
+                                        <?php
+                                        if(is_array ( $sub_value )): ?>
+                                            <?php $class =  '';
+                                            $appTask = $app->input->get('appTask','');
+                                            if($view == 'apps' && $appTask == $sub_key){
+                                                $class =  'active';
+                                                $collapse = 'in';
+                                            }
+                                            $link_url = isset( $sub_value['link'] ) ? $sub_value['link']: 'index.php?option=com_j2store&view='.strtolower($sub_key);
+                                            $sub_menu_span_class = isset( $sub_value['icon'] ) ? $sub_value['icon']:'';
+                                            ?>
+                                        <?php else: ?>
+                                            <?php
+                                            $class =  '';
+                                            if($view == $sub_key){
+                                                $class =  'active';
+                                                $collapse = 'in';
+                                            }
+                                            $link_url = 'index.php?option=com_j2store&view='.strtolower($sub_key);
+                                            $sub_menu_span_class = isset( $sub_value ) ? $sub_value:'';
+                                            ?>
+                                        <?php endif;?>
+                                        <li>
+                                            <a class="dropdown-item <?php echo $class ?>" href="<?php echo $link_url;?>">
+                                                <i class="fa-fw me-1 me-xxl-2 <?php echo $sub_menu_span_class;?>"></i>
+                                                <span class="fs-6"><?php echo Text::_('COM_J2STORE_TITLE_'.strtoupper($sub_key));?></span>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </li>
+                        <?php else : ?>
+                            <?php
+                            $active_class ='';
+                            if(isset($value['active']) && $value['active'] && $view =='cpanels'){
+                                $active_class ='active';
+                            }
+                            ?>
+                            <li class="nav-item <?php echo $active_class;?> flex-lg-grow-1 flex-xl-grow-0 me-xl-2 position-relative">
+                                <?php if (isset($value['link']) && $value['link'] != ''): ?>
+                                    <a class="nav-link text-lg-center text-nowrap" aria-current="page" href="<?php echo $value['link'];?>">
+                                <?php else : ?>
+                                    <?php if($value['name']=='Dashboard') : ?>
+                                        <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
+                                    <?php elseif($value['name']=='Apps') : ?>
+                                        <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=apps';?>">
+                                    <?php elseif($value['name']=='AppStore') : ?>
+                                        <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=appstores';?>">
+                                    <?php else : ?>
+                                        <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="javascript:void(0);">
+                                            <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i><span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo Text::_('COM_J2STORE_MAINMENU_'.strtoupper($value['name']));?></span>
                                         </a>
-                                        <ul class="dropdown-menu dropdown-menu-dark bg-primary">
-									        <?php foreach($value['submenu'] as $sub_key => $sub_value):?>
-										        <?php
-										        if(is_array ( $sub_value )): ?>
-											        <?php $class =  '';
-											        $appTask = $app->input->get('appTask','');
-											        if($view == 'apps' && $appTask == $sub_key){
-												        $class =  'active';
-												        $collapse = 'in';
-											        }
-											        $link_url = isset( $sub_value['link'] ) ? $sub_value['link']: 'index.php?option=com_j2store&view='.strtolower($sub_key);
-											        $sub_menu_span_class = isset( $sub_value['icon'] ) ? $sub_value['icon']:'';
-											        ?>
-										        <?php else: ?>
-											        <?php
-											        $class =  '';
-											        if($view == $sub_key){
-												        $class =  'active';
-												        $collapse = 'in';
-											        }
-											        $link_url = 'index.php?option=com_j2store&view='.strtolower($sub_key);
-											        $sub_menu_span_class = isset( $sub_value ) ? $sub_value:'';
-											        ?>
-										        <?php endif;?>
-                                                <li>
-                                                    <a class="dropdown-item <?php echo $class ?>" href="<?php echo $link_url;?>">
-                                                        <i class="fa-fw me-1 me-xxl-2 <?php echo $sub_menu_span_class;?>"></i>
-                                                        <span class="fs-6"><?php echo Text::_('COM_J2STORE_TITLE_'.strtoupper($sub_key));?></span>
-                                                    </a>
-                                                </li>
-									        <?php endforeach; ?>
-                                        </ul>
-                                    </li>
-						        <?php else:
-							        $active_class ='';
-							        if(isset($value['active']) && $value['active'] && $view =='cpanels'){
-								        $active_class ='active';
-							        }
-							        ?>
-                                    <li class="nav-item <?php echo $active_class;?> flex-lg-grow-1 flex-xl-grow-0 me-xl-2 position-relative">
-								        <?php if(isset($value['link']) && $value['link'] != ''):?>
-                                        <a class="nav-link text-lg-center text-nowrap" aria-current="page" href="<?php echo $value['link'];?>">
-									        <?php else :
-									        if($value['name']=='Dashboard'):?>
-                                            <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
-										        <?php elseif($value['name']=='Apps'): ?>
-                                                <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=apps';?>">
-											        <?php elseif($value['name']=='AppStore'): ?>
-                                                    <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="<?php echo 'index.php?option=com_j2store&view=appstores';?>">
-												        <?php else:?>
-                                                        <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page"  href="javascript:void(0);">
-													        <?php endif;?>
-													        <?php endif;?>
-                                                            <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i><span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo Text::_('COM_J2STORE_MAINMENU_'.strtoupper($value['name']));?></span>
-                                                        </a>
-                                    </li>
-						        <?php endif; ?>
-					        <?php endforeach; ?>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <?php echo J2Store::modules()->loadposition('j2store-navbar-position');?>
-
-                    </div>
+</div>

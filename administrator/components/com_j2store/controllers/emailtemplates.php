@@ -165,7 +165,7 @@ class J2StoreControllerEmailtemplates extends F0FController
 			]
 		];
 
-    $body_source = isset($emailtemplateTable->body_source) && !empty($emailtemplateTable->body_source) ? $emailtemplateTable->body_source: 'html';
+        $body_source = isset($emailtemplateTable->body_source) && !empty($emailtemplateTable->body_source) ? $emailtemplateTable->body_source: 'html';
 		$source_hide = '';
 		$body_source_file = '';
 		$body_hide = '';
@@ -226,6 +226,7 @@ class J2StoreControllerEmailtemplates extends F0FController
 
 		echo $this->_getLayout('email_tab', $vars, 'edit');
 	}
+
 	public function browse()
 	{
 		$app = Factory::getApplication();

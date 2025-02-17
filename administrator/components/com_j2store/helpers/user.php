@@ -24,7 +24,7 @@ class J2User
 	public static $instance;
 
 	public static function getInstance($properties=null)
-  {
+    {
 		if (!self::$instance)
 		{
 			self::$instance = new self($properties);
@@ -34,7 +34,7 @@ class J2User
 	}
 
 	function addCustomer($post)
-  {
+    {
 		$app = Factory::getApplication();
 		$db = Factory::getContainer()->get('DatabaseDriver');
 		$user = Factory::getApplication()->getIdentity();
@@ -60,7 +60,6 @@ class J2User
 		}
 
 		return $row->id;
-
 	}
 
 	/**
@@ -88,7 +87,8 @@ class J2User
 	 * @param $string
 	 * @return unknown_type
 	 */
-	function emailExists( $string, $table='users'  ) {
+	function emailExists($string, $table='users')
+    {
 		switch($table)
 		{
 			case  'users':
@@ -116,12 +116,12 @@ class J2User
 	 */
 	function createNewUser( $details, &$msg )
 	{
-    $userFactory = Factory::getContainer()->get(UserFactory::class);
-    $user = $userFactory->loadUserById(0);
+        $userFactory = Factory::getContainer()->get(UserFactory::class);
+        $user = $userFactory->loadUserById(0);
 		$config = ComponentHelper::getParams('com_users');
 		// Default to Registered.
 		$defaultUserGroup = $config->get('new_usertype', 2);
-    $md5_pass = UserHelper::hashPassword($details['password']);
+        $md5_pass = UserHelper::hashPassword($details['password']);
 
         $user->set('id'         , 0);
         $user->set('name'           , $details['name']);
@@ -140,7 +140,7 @@ class J2User
 			}
 		}
 		else {
-			// No existing user and autoregister off, this is a temporary user.
+			// No existing user and auto register off, this is a temporary user.
             $user->set('tmp_user', true);
 		}
 
@@ -153,7 +153,7 @@ class J2User
      * Save joomla privacy consent
      * */
 	function savePrivacyConsent()
-  {
+    {
 	    $app = Factory::getApplication();
         $privacy_plugin = $app->input->post->get('privacyconsent',0);
         $user = Factory::getApplication()->getIdentity();
@@ -182,7 +182,6 @@ class J2User
                 // Do nothing if the save fails
             }
 
-
             $message = array(
                 'action'      => 'consent',
                 'id'          => $user->id,
@@ -207,8 +206,8 @@ class J2User
 	 *
 	 * @return array
 	 */
-	function login( $credentials, $remember=true, $return='' )
-  {
+	function login($credentials, $remember=true, $return='')
+    {
 		$mainframe  = Factory::getApplication();
 
 		if (strpos( $return, 'http' ) !== false && strpos( $return, Uri::base() ) !== 0) {
@@ -239,7 +238,7 @@ class J2User
 	 * @return array
 	 */
 	function logout( $return='' )
-  {
+    {
 		$mainframe  = Factory::getApplication();
 
 		//preform the logout action//check to see if user has a joomla account
@@ -273,7 +272,7 @@ class J2User
 		if ($user->get('id')) {
 			$user->set('block', !$unblock);
 
-			if (  ! $user->save()) {
+			if (!$user->save()) {
 				return false;
 			}
 
@@ -291,7 +290,7 @@ class J2User
 	 * @return array
 	 */
 	function _sendMail( &$user, $details, $useractivation )
-  {
+    {
 		$mainframe  = Factory::getApplication();
 		$config = Factory::getApplication()->getConfig();
 
@@ -369,7 +368,7 @@ class J2User
 	 * @param array  $json 				json as a reference
 	 * */
 	function validatePassword($password,$confirm_password,&$json)
-  {
+    {
 		$config = J2Store::config();
 		$minimumLength    =  4;
 		$minimumIntegers  =  0;

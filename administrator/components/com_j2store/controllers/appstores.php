@@ -69,7 +69,6 @@ class J2StoreControllerAppStores extends F0FController
             $items = [];
         }
 
-
         $pagination = $model->getPagination();
         $view->set('items',$items);
         $view->set('plugin_types',$plugin_types);

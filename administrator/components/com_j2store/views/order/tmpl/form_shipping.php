@@ -37,7 +37,7 @@ $currency = J2Store::currency();
                 <div class="d-flex align-items-center">
 	                <?php if($image_exists):?>
                         <img src="<?php echo $imagePath; ?>" class="img-fluid me-2 order-thumb-image" alt="<?php echo Text::_($this->shipping->ordershipping_code); ?>"/>
-                    <?php endif;?>
+	                <?php endif;?>
                     <div>
                         <h6 class="mb-0"><?php echo $this->shipping->ordershipping_name; ?><span class="d-inline-block fw-medium text-success fs-6 ms-2"><?php echo $currency->format($this->shipping->ordershipping_price); ?></h6>
                         <small class="d-block"><?php echo Text::_('J2STORE_SHIPPING_TRACKING_ID'); ?><span class="d-inline-block fw-medium fs-6 ms-2"><?php echo $this->shipping->ordershipping_tracking_id; ?></span></small>

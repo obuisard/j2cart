@@ -139,7 +139,7 @@ class J2StoreControllerMyProfile extends F0FController
  		//trigger after display order event
         foreach($orders as $order){
             // results as html
-            $result = J2Store::plugin()->eventWithHtml('AfterDisplayOrder', array( $order ) );
+            $result = J2Store::plugin()->eventWithHtml('AfterDisplayOrder', array($order));
             if(!empty($result)){
                 $order->after_display_order = $result;
             }
@@ -332,14 +332,14 @@ class J2StoreControllerMyProfile extends F0FController
 		$app = Factory::getApplication();
 		$order_id = $app->input->get('order_id',0);
 		$url = 'index.php?option=com_j2store&view=myprofile';
+        $user = $app->getIdentity();
 
-		if(!$order_id || $app->getIdentity()->id < 1 || !Session::checkToken('get') ){
+		if(!$order_id || $user->id < 1 || !Session::checkToken('get') ){
 			$app->redirect ( $url, Text::_('J2STORE_INVALID_ORDER_PROFILE') );
 		}
 
 		$order = J2Store::fof()->loadTable('Order' ,'J2StoreTable')->getClone();
 		$order->load(array('order_id' => $order_id));
-		$user = $app->getIdentity();
 
 		if($order->load(array('order_id' => $order_id)) && $order->order_state_id == 5 ){
 			// variant check
@@ -349,7 +349,7 @@ class J2StoreControllerMyProfile extends F0FController
 			if(count ( $items ) > 0){
 				$cart_table = J2Store::fof()->loadTable( 'Cart', 'J2StoreTable' )->getClone ();
 				$cart_table->load(array('user_id'=>$user->id));
-                $db = Factory::getContainer()->get('DatabaseDriver');
+				$db = Factory::getContainer()->get('DatabaseDriver');
 				if(!empty($cart_table->j2store_cart_id)){
 					$db->getQuery(true);
 					$query = 'DELETE FROM #__j2store_cartitems where cart_id ='.$db->q($cart_table->j2store_cart_id);

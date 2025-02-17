@@ -9,10 +9,8 @@
  * @website https://www.j2commerce.com
  */
 
-defined ('_JEXEC') or die;
+defined('_JEXEC') or die;
 
-use Joomla\CMS\Access\Access;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\HTML\Helpers\User;
@@ -61,7 +59,6 @@ class J2StoreControllerInvoicetemplates extends F0FController
             $payment_list[$payment->element] = Text::_(strtoupper($payment->element));
         }
 
-
         $groupList = User::groups();
         $group_options = array();
         $group_options [''] =  Text::_ ( 'JALL' ) ;
@@ -69,14 +66,12 @@ class J2StoreControllerInvoicetemplates extends F0FController
             $group_options [  $row->value ] = Text::_ ( $row->text ) ;
         }
 
-
         $languages = LanguageHelper::getLanguages ( );
         $language_list = array ();
         $language_list ['*'] = Text::_ ( 'JALL_LANGUAGE' ) ;
         foreach ( $languages as  $lang ) {
             $language_list [$lang->lang_code] = Text ::_(strtoupper( $lang->title_native));
         }
-
 
         $vars->field_sets[] = array(
             'id' => 'basic_options',

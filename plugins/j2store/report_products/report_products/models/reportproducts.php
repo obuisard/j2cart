@@ -64,7 +64,6 @@ class J2storeModelReportProducts extends F0FModel
         $this->filter_order_to_qty = $app->input->getString('filter_order_to_qty');
         $this->filter_vat = $app->input->getString('filter_vat');
 
-
         $this->setState('limit', $limit);
         $this->setState('limitstart', $limitstart);
 
@@ -191,14 +190,13 @@ class J2storeModelReportProducts extends F0FModel
 
     function _buildQueryOrder($query)
     {
-        $filter_order		= $this->getState ('filter_order','orderitem.j2store_orderitem_id');
+        $filter_order = $this->getState ('filter_order','orderitem.j2store_orderitem_id');
         //$mainframe->getUserStateFromRequest( $ns.'filter_order',		'filter_order',		'orderitem.j2store_orderitem_id',	'cmd' );
-        $filter_order_Dir	= $this->getState ('filter_order_Dir','ASC');
+        $filter_order_Dir = $this->getState ('filter_order_Dir','ASC');
         //$mainframe->getUserStateFromRequest( $ns.'filter_order_Dir',	'filter_order_Dir',	'',				'word' );
 
         if(empty( $filter_order ) && empty( $filter_order_Dir )){
             $query->order('orderitem.j2store_orderitem_id');
-
         }else{
             $query->order($filter_order.' '.$filter_order_Dir);
         }

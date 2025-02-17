@@ -68,10 +68,10 @@ $wa->addInlineScript($script, [], []);
                 <?php endif; ?>
                 <?php echo J2Html::hidden('task', '', array('id'=>'task'));?>
                 <?php echo HTMLHelper::_( 'form.token' ); ?>
-                    <?php if(isset($vars->field_sets) && !empty($vars->field_sets)):?>
+                <?php if(isset($vars->field_sets) && !empty($vars->field_sets)):?>
 		            <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'basic_options', 'recall' => true, 'breakpoint' => 768]); ?>
-                        <?php foreach ($vars->field_sets as $field_set):?>
-                            <?php if(isset($field_set['fields']) && !empty($field_set['fields'])):?>
+                    <?php foreach ($vars->field_sets as $field_set):?>
+                        <?php if(isset($field_set['fields']) && !empty($field_set['fields'])):?>
 				            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', $field_set['id'], Text::_($field_set['label'])); ?>
                             <div <?php echo isset($field_set['id']) && $field_set['id'] ? 'id="'.$field_set['id'].'"': '';?>
 					            <?php echo isset($field_set['class']) && is_array($field_set['class']) ? 'class="'.implode(' ',$field_set['class']).'"': '';?>>
@@ -144,41 +144,41 @@ $wa->addInlineScript($script, [], []);
                                                                             <?php
                                                                             $i++;
                                                                         endforeach;?>
-                                                                            <?php endif;?>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                    <?php endif;?>
+                                                                        <?php endif;?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        <?php endif;?>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </div>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
                                 </fieldset>
                             </div>
-                          <?php echo HTMLHelper::_('uitab.endTab'); ?>
-                      <?php endif; ?>
-                  <?php endforeach;?>
-		              <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
+                            <?php echo HTMLHelper::_('uitab.endTab'); ?>
+                        <?php endif; ?>
+                    <?php endforeach;?>
+                    <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
                 <?php endif; ?>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    var value_type = '<?php echo $vars->item->value_type?>';
+    var value_type = '<?php echo $vars->item->value_type ?>';
     document.querySelector('select[name=value_type]').addEventListener('change', function () {
-      value_type = this.value;
-      var maxQuantityElement = document.getElementById('max_quantity');
-      if (maxQuantityElement) {
-        var controlGroup = maxQuantityElement.closest('.control-group');
-        if (controlGroup) {
-          controlGroup.style.display = 'none';
-          if (value_type === 'percentage_product' || value_type === 'fixed_product') {
-            controlGroup.style.display = ''; // Show if conditions are met
-          }
+        value_type = this.value;
+        var maxQuantityElement = document.getElementById('max_quantity');
+        if (maxQuantityElement) {
+            var controlGroup = maxQuantityElement.closest('.control-group');
+            if (controlGroup) {
+                controlGroup.style.display = 'none';
+                if (value_type === 'percentage_product' || value_type === 'fixed_product') {
+                    controlGroup.style.display = ''; // Show if conditions are met
+                }
+            }
         }
-      }
     });
     document.querySelector('select[name=value_type]').dispatchEvent(new Event('change'));
 </script>

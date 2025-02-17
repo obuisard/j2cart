@@ -29,14 +29,13 @@ class J2StoreControllerCarts extends F0FController
 		}
 		echo json_encode($result);
 		$app->close();
-
 	}
 
 	/**
 	 * apply coupon
 	 */
 	function applyCoupon()
-  {
+    {
 		$json = [];
 		//first clear cache
 		J2Store::utilities()->nocache();
@@ -60,7 +59,7 @@ class J2StoreControllerCarts extends F0FController
 	 * remove coupon
 	 *   */
 	function removeCoupon()
-  {
+    {
 		$json = [];
 		//first clear cache
 		J2Store::utilities()->nocache();
@@ -91,7 +90,7 @@ class J2StoreControllerCarts extends F0FController
 	 * apply voucher
 	 *   */
 	function applyVoucher()
-  {
+    {
 		//first clear cache
 		J2Store::utilities()->nocache();
 		J2Store::utilities()->clear_cache();
@@ -116,7 +115,7 @@ class J2StoreControllerCarts extends F0FController
 	 * remove voucher
 	 *   */
 	function removeVoucher()
-  {
+    {
 		//first clear cache
 		J2Store::utilities()->nocache();
 		J2Store::utilities()->clear_cache();
@@ -144,7 +143,7 @@ class J2StoreControllerCarts extends F0FController
 	}
 
 	function update()
-  {
+    {
 		//first clear cache
 		J2Store::utilities()->clear_cache();
 		J2Store::utilities()->nocache();

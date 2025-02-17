@@ -11,6 +11,10 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
+
 class J2Plugins
 {
 	public static $instance = null;
@@ -49,8 +53,8 @@ class J2Plugins
 				}
 			}
 		}
-        JPluginHelper::importPlugin('j2store');
-        $app = JFactory::getApplication();
+        PluginHelper::importPlugin('j2store');
+        $app = Factory::getApplication();
         $app->triggerEvent('onJ2StoreAfterGetPluginsWithEvent', array(&$return));
 		return $return;
 	}
@@ -63,7 +67,7 @@ class J2Plugins
 	 */
 	public static function getPlugins( $folder='J2Store' )
 	{
-		$database = JFactory::getDBO();
+		$database = Factory::getContainer()->get('DatabaseDriver');
 
 		$order_query = " ORDER BY ordering ASC ";
 		$folder = strtolower( $folder );

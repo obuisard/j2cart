@@ -76,7 +76,7 @@ class J2StoreControllerApps extends F0FController
 	}
 
 	function uninstall_plugin()
-  {
+    {
         $uninstall_plugins =  [
             'app_campaignrabbit' => 'j2store',
             'campaignrabbit' => 'system',
@@ -110,13 +110,12 @@ class J2StoreControllerApps extends F0FController
                 }catch (Exception $e){
 
                 }
-
             }
         }
     }
 
 	function view()
-  {
+    {
 		$model = $this->getThisModel();
 		$id = $this->input->getInt('id');
 		$row = $model->getItem($id);

@@ -20,7 +20,7 @@ class J2storeControllerShippings extends F0FController
     use list_view;
 
 	public function __construct($config)
-  {
+    {
 		parent::__construct($config);
 		$this->registerTask('apply', 'save');
 		$this->registerTask('saveNew', 'save');
@@ -118,8 +118,7 @@ class J2storeControllerShippings extends F0FController
 				$controllerName = '';
 			}
 
-			$className    = 'J2StoreControllerShipping'.$controllerName;
-
+			$className = 'J2StoreControllerShipping'.$controllerName;
 
 			if ($controllerName != '' && class_exists($className)){
 
@@ -137,20 +136,19 @@ class J2storeControllerShippings extends F0FController
 				parent::execute($task);
 			}
 		} else{
-
 			parent::execute($task);
 		}
 	}
 
-	 function view()
-	    {
-	    	$model = $this->getModel( 'shippings' );
-	    	$id = $this->input->getInt('id');
-	    	$row = $model->getItem($id);
-	    	$view   = $this->getThisView( 'shippings');
-	    	$view->setModel( $model, true );
-	    	$view->set('item', $row );
-	    	$view->setLayout( 'view' );
-	    	$view->display();
+    function view()
+    {
+        $model = $this->getModel( 'shippings' );
+        $id = $this->input->getInt('id');
+        $row = $model->getItem($id);
+        $view   = $this->getThisView( 'shippings');
+        $view->setModel( $model, true );
+        $view->set('item', $row );
+        $view->setLayout( 'view' );
+        $view->display();
 	}
 }

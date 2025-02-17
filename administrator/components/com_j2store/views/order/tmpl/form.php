@@ -87,7 +87,7 @@ $resend_email_url = Route::_( "index.php?option=com_j2store&view=orders&task=res
                             </div>
                         </div>
                     </div>
-			</div>
+                </div>
             </div>
 		</div>
 		<div class="row">
@@ -107,24 +107,24 @@ $resend_email_url = Route::_( "index.php?option=com_j2store&view=orders&task=res
                             <span class="fas fa-solid fa-download me-2" aria-hidden="true"></span><?php echo Text::_('J2STORE_DOWNLOAD').' '.Text::_('J2STORE_ACTIONS');?>
                             <span class="visually-hidden"><?php echo Text::_('J2STORE_DOWNLOAD').' '.Text::_('J2STORE_ACTIONS');?></span>
                         </button>
-				<?php endif;?>
+	                <?php endif;?>
 	                <?php if($this->order->has_downloadable_item()): ?>
                     <div class="collapse" id="collapseDownloads">
                         <div class="d-flex align-items-center">
                             <div class="form-check form-switch me-2 me-lg-3">
                                 <input class="form-check-input cursor-pointer" type="checkbox" role="switch" name="grant_download_access" id="grant_download_access" value="1">
                                 <label class="form-check-label cursor-pointer small" for="grant_download_access"><?php echo Text::_('J2STORE_GRANT_DOWNLOAD_PERMISSION');?></label>
-			</div>
+                            </div>
                             <div class="form-check form-switch me-2 me-lg-3">
                                 <input class="form-check-input cursor-pointer" type="checkbox" role="switch" name="reset_download_expiry" id="reset_download_expiry" value="1">
                                 <label class="form-check-label cursor-pointer small" for="reset_download_expiry"><?php echo Text::_('J2STORE_RESET_DOWNLOAD_EXPIRY');?></label>
-		</div>
+                            </div>
                             <div class="form-check form-switch">
                                 <input class="form-check-input cursor-pointer" type="checkbox" role="switch" name="reset_download_limit" id="reset_download_limit" value="1">
                                 <label class="form-check-label cursor-pointer small" for="reset_download_limit"><?php echo Text::_('J2STORE_RESET_DOWNLOAD_LIMIT');?></label>
-		</div>
-					</div>
-				</div>
+                            </div>
+                        </div>
+                    </div>
 	                <?php endif;?>
                 </div>
                 <div class="card mb-4 j2store-customer-notes">
@@ -134,12 +134,12 @@ $resend_email_url = Route::_( "index.php?option=com_j2store&view=orders&task=res
                     </div>
                     <div class="card-body">
                         <textarea class="form-control small" aria-invalid="false" name="customer_note" placeholder="<?php echo Text::_("J2STORE_ORDER_CUSTOMER_NOTE_EMPTY"); ?>"><?php echo $this->item->customer_note; ?></textarea>
-					</div>
-				</div>
+                    </div>
+                </div>
                 <div class="j2store-general-order">
 		            <?php echo $this->loadTemplate('general');?>
-			</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
 	</form>
 </div>

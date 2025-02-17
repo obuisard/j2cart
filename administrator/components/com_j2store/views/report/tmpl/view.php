@@ -27,10 +27,12 @@ Factory::getApplication()->getLanguage()->load('plg_j2store_' . $row->element, J
 
 PluginHelper::importPlugin('j2store');
 ?>
-<div class="j2store j2store-report">
-    <div id="j-sidebar-container">
-        <?php echo $sidebar ; ?>
+<?php if (!empty($sidebar)): ?>
+    <div id="j2c-menu" class="mb-4">
+        <?php echo $sidebar; ?>
     </div>
+<?php endif; ?>
+<div class="j2store j2store-report">
     <div class="js-stools mt-4 mb-3">
         <div class="js-stools-container-bar">
             <div class="btn-toolbar gap-2 align-items-center">

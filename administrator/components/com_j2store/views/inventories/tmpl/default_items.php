@@ -116,10 +116,10 @@ $selected = "selected='selected'";
                                             <div id="variantListTable-<?php echo $item->j2store_product_id;?>" class="list-group">
                                                 <div class="list-group-item mb-1">
                                                     <div class="d-flex w-100 justify-content-between align-items-start mb-2">
-                                                                <div class="variant-title">
-                                                                    <h5 class="lh-1 mb-0"><?php echo J2Store::product()->getVariantNamesByCSV($variant->variant_name); ?></h5>
-                                                                    <div class="small text-capitalize"><?php echo $variant->sku; ?></div>
-                                                                </div>
+                                                        <div class="variant-title">
+                                                            <h5 class="lh-1 mb-0"><?php echo J2Store::product()->getVariantNamesByCSV($variant->variant_name); ?></h5>
+                                                            <div class="small text-capitalize"><?php echo $variant->sku; ?></div>
+                                                        </div>
                                                         <a class="btn btn-success btn-sm" onclick="j2storesaveinventory(<?php echo $variant->j2store_variant_id;?>)"><?php echo Text::_ ( 'JAPPLY' );?></a>
                                                     </div>
 

@@ -81,7 +81,7 @@ class J2Help
 	        return $html;
 	    }
 
-	        $class = 'alert alert-info';
+        $class = 'alert alert-info';
 
 	    $url = Route::_ ('index.php?option=com_j2store&view=cpanels&task=notifications&message_type=' . $type . '&' . Session::getFormToken() . '=1');
 

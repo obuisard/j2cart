@@ -168,9 +168,9 @@ class J2StoreControllerCarts extends F0FController
 		J2Store::utilities()->nocache();
 		//initialise system objects
 		$app = Factory::getApplication();
-		$document = Factory::getApplication()->getDocument();
+		$document = $app->getDocument();
         $db = Factory::getContainer()->get('DatabaseDriver');
-		$language = Factory::getApplication()->getLanguage()->getTag();
+		$language = $app->getLanguage()->getTag();
 		$query = $db->getQuery(true);
 		$query->select('*')->from('#__modules')->where('module='.$db->q('mod_j2store_cart'))->where('published=1')
             ->where('(language="*" OR language='.$db->q($language).')');
@@ -324,7 +324,7 @@ class J2StoreControllerCarts extends F0FController
 
 		$model = $this->getModel('Carts' ,'J2StoreModel');
 		$app = Factory::getApplication();
-		$session = Factory::getApplication()->getSession();
+		$session = $app->getSession();
 		$country_id = $this->input->getInt('country_id', 0);
 		$zone_id = $this->input->getInt('zone_id', 0);
 		$postcode  = $this->input->getString('postcode', 0);

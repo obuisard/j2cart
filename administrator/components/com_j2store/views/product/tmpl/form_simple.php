@@ -11,6 +11,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 $this->variant = $this->item->variants;
 
 //lengths
@@ -31,7 +34,6 @@ $this->lengths = J2Html::select()->clearState()
     )->getHtml();
 
 //weights
-
 $this->weights = J2Html::select()->clearState()
     ->type('genericlist')
     ->name($this->form_prefix.'[weight_class_id]')
@@ -78,71 +80,71 @@ $col_class = 'col-md-';
 ?>
 <div class="<?php echo $row_class;?>">
     <div class="<?php echo $col_class;?>12">
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.startTabSet', 'j2storetab', ['active' => 'generalTab', 'recall' => true, 'breakpoint' => 768]); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'generalTab', Text::_('J2STORE_PRODUCT_TAB_GENERAL')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <input type="hidden" name="<?php echo $this->form_prefix.'[j2store_variant_id]'; ?>" value="<?php echo isset($this->variant->j2store_variant_id) && !empty($this->variant->j2store_variant_id) ? $this->variant->j2store_variant_id: 0; ?>" />
-                    <?php echo $this->loadTemplate('general');?>
-                </div>
+        <?php echo HTMLHelper::_('uitab.startTabSet', 'j2storetab', ['active' => 'generalTab', 'recall' => true, 'breakpoint' => 768]); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'generalTab', Text::_('J2STORE_PRODUCT_TAB_GENERAL')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="hidden" name="<?php echo $this->form_prefix.'[j2store_variant_id]'; ?>" value="<?php echo isset($this->variant->j2store_variant_id) && !empty($this->variant->j2store_variant_id) ? $this->variant->j2store_variant_id: 0; ?>" />
+                <?php echo $this->loadTemplate('general');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'pricingTab', Text::_('J2STORE_PRODUCT_TAB_PRICE')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('pricing');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'pricingTab', Text::_('J2STORE_PRODUCT_TAB_PRICE')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('pricing');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'inventoryTab', Text::_('J2STORE_PRODUCT_TAB_INVENTORY')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('inventory');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'inventoryTab', Text::_('J2STORE_PRODUCT_TAB_INVENTORY')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('inventory');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'imagesTab', Text::_('J2STORE_PRODUCT_TAB_IMAGES')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('images');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'imagesTab', Text::_('J2STORE_PRODUCT_TAB_IMAGES')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('images');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'shippingTab', Text::_('J2STORE_PRODUCT_TAB_SHIPPING')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('shipping');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'shippingTab', Text::_('J2STORE_PRODUCT_TAB_SHIPPING')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('shipping');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'optionsTab', Text::_('J2STORE_PRODUCT_TAB_OPTIONS')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('options');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'optionsTab', Text::_('J2STORE_PRODUCT_TAB_OPTIONS')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('options');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'filterTab', Text::_('J2STORE_PRODUCT_TAB_FILTER')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('filters');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'filterTab', Text::_('J2STORE_PRODUCT_TAB_FILTER')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('filters');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'relationsTab', Text::_('J2STORE_PRODUCT_TAB_RELATIONS')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('relations');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'relationsTab', Text::_('J2STORE_PRODUCT_TAB_RELATIONS')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('relations');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-        <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.addTab', 'j2storetab', 'appsTab', Text::_('J2STORE_PRODUCT_TAB_APPS')); ?>
-            <div class="row">
-                <div class="col-lg-12">
-                    <?php  echo $this->loadTemplate('apps');?>
-                </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'j2storetab', 'appsTab', Text::_('J2STORE_PRODUCT_TAB_APPS')); ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?php  echo $this->loadTemplate('apps');?>
             </div>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTab'); ?>
-            <?php echo \Joomla\CMS\HTML\HTMLHelper::_('uitab.endTabSet'); ?>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
     </div>
 </div>

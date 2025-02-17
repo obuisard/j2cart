@@ -23,11 +23,11 @@ class J2StoreControllerCustomers extends F0FController
 {
     use list_view;
 
-	  public function __construct($config = [])
-	  {
-		    parent::__construct($config);
-		    $this->registerTask('confirmchangeEmail','changeEmail');
-	  }
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+        $this->registerTask('confirmchangeEmail','changeEmail');
+    }
 
     public function browse()
     {
@@ -123,7 +123,7 @@ class J2StoreControllerCustomers extends F0FController
 	 * @return boolean
 	 */
 	function viewOrder()
-  {
+    {
 		$email  = $this->input->getString('email_id');
 		$user_id = $this->input->getInt('user_id');
 		$this->layout='view';
@@ -168,7 +168,7 @@ class J2StoreControllerCustomers extends F0FController
 		// Initialise the App variables
 		$app = Factory::getApplication();
 		// Assign the get Id to the Variable
-		$id=$app->input->getInt('id');
+		$id = $app->input->getInt('id');
 
 		if($id && J2Store::platform()->isClient('administrator'))
 		{	// store the table in the variable
@@ -188,7 +188,7 @@ class J2StoreControllerCustomers extends F0FController
 	}
 
 	function editAddress()
-  {
+    {
 		// Initialise the App variables
 		$app = Factory::getApplication();
 		// Assign the get Id to the Variable
@@ -255,7 +255,7 @@ class J2StoreControllerCustomers extends F0FController
     }
 
 	function changeEmail()
-  {
+    {
 		// Initialise the App variables
 		$app = Factory::getApplication();
 		if(J2Store::platform()->isClient('administrator')){
@@ -289,7 +289,7 @@ class J2StoreControllerCustomers extends F0FController
 	}
 
 	function validateEmailexists($new_email)
-  {
+    {
 		$json = [];
 		$success = true;
 		$model = $this->getThisModel();

@@ -37,24 +37,24 @@ $pay_html = trim(J2Store::getSelectableBase()->getFormatedCustomFields($this->or
             <div class="d-flex align-items-center">
                 <?php if($image_exists):?>
                     <img src="<?php echo $imagePath; ?>" class="img-fluid me-2 order-thumb-image" alt="<?php echo Text::_($this->item->orderpayment_type); ?>"/>
-		<?php endif; ?>
+		        <?php endif; ?>
                 <div>
                     <h6 class="mb-0"><?php echo Text::_($this->item->orderpayment_type); ?></h6>
                     <small class="d-block"><?php echo Text::_('J2STORE_ORDER_TRANSACTION_ID'); ?> : <span class="d-inline-block fw-medium text-success fs-6"><?php echo $this->item->transaction_id; ?></span>
-				<?php if($pay_html ):?>
+	                    <?php if($pay_html ):?>
                             <?php echo J2StorePopup::popupAdvanced("index.php?option=com_j2store&view=orders&task=setOrderinfo&order_id=".$this->item->order_id."&address_type=payment&layout=address&tmpl=component",'',array('class'=>'fa fa-pencil','refresh'=>true,'id'=>'fancybox ms-2','width'=>700,'height'=>600));?>
 	                    <?php endif;?>
                     </small>
                 </div>
-                    </div>
+            </div>
             <div class="mt-4 mt-lg-0">
                 <a data-fancybox data-src="#myTransaction" type="button" class="btn btn-outline-primary btn-sm"><?php echo Text::_('J2STORE_VIEW_PRODUCT_DETAILS');?></a>
             </div>
         </div>
     </div>
 	<?php if($pay_html ):?>
-        <?php echo $pay_html; ?>
-    <?php endif;?>
+		<?php echo $pay_html; ?>
+	<?php endif;?>
 </div>
 
 <!-- Transaction log modal window -->
@@ -64,25 +64,25 @@ $pay_html = trim(J2Store::getSelectableBase()->getFormatedCustomFields($this->or
             <div class="<?php echo $row_class ?>">
                 <div class="<?php echo $col_class ?>12">
                     <div class="alert alert-info">
-                    <?php echo Text::_('J2STORE_TRANSACTION_LOG_HELP_MSG');?>
+                        <?php echo Text::_('J2STORE_TRANSACTION_LOG_HELP_MSG');?>
                     </div>
                     <ul>
-                    <li><?php echo Text::_('J2STORE_ORDER_TRANSACTION_STATUS'); ?>
+                        <li><?php echo Text::_('J2STORE_ORDER_TRANSACTION_STATUS'); ?>
                             <div class="alert alert-warning">
-                            <small><?php echo Text::_('J2STORE_ORDER_TRANSACTION_STATUS_HELP_MSG'); ?>
+                                <small><?php echo Text::_('J2STORE_ORDER_TRANSACTION_STATUS_HELP_MSG'); ?>
                                 </small>
                             </div>
                             <p>
-                            <?php echo Text::_($this->item->transaction_status); ?>
+                                <?php echo Text::_($this->item->transaction_status); ?>
                             </p>
                         </li>
                         <li><?php echo Text::_('J2STORE_ORDER_TRANSACTION_DETAILS'); ?> <br>
                             <div class="alert alert-warning">
-                            <small><?php echo Text::_('J2STORE_ORDER_TRANSACTION_DETAILS_HELP_MSG'); ?>
+                                <small><?php echo Text::_('J2STORE_ORDER_TRANSACTION_DETAILS_HELP_MSG'); ?>
                                 </small>
                             </div>
                             <p>
-                            <?php echo Text::_($this->item->transaction_details); ?>
+                                <?php echo Text::_($this->item->transaction_details); ?>
                             </p>
                         </li>
                     </ul>

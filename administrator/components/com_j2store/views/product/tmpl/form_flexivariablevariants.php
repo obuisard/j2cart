@@ -296,14 +296,14 @@ $wa->addInlineStyle($style, [], []);
         function toggleButtonState() {
             const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
             deleteButton.disabled = !isAnyChecked; // Enable if any checkbox is checked, disable otherwise
-                        }
+        }
 
         // Add event listeners to each checkbox
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener("change", function () {
                 toggleButtonState();
             });
-                });
+        });
 
         // Disable the button if all checkboxes are unchecked initially
         toggleButtonState();

@@ -26,11 +26,11 @@ class JFormFieldOrderstatusform extends F0FFormFieldText
 	{
 
 		$cont_saving = Text::_('J2STORE_SAVING_CHANGES').'...';
-		$html ='';
-		$html .='<div class="j2store-order-status-form">';
+		$html = '';
+		$html .= '<div class="j2store-order-status-form">';
 		$html .= Text::_('J2STORE_CHANGE_ORDER_STATUS');
-		$html .='<script type="text/javascript">
-				function submitOrderState(id){
+        $html .= '<script type="text/javascript">
+				function submitOrderState(id) {
 					var orderStateElement = document.getElementById("order_state_id_" + id);
 					var notifyCustomerCheckbox = document.getElementById("notify_customer_" + id);
 					var saveButton = document.getElementById("order-list-save_" + id);
@@ -50,8 +50,8 @@ class JFormFieldOrderstatusform extends F0FFormFieldText
 								}
 							} catch (e) {
 								console.error("Invalid JSON response", e);
-					}
-								}
+							}
+						}
 					};
 
 					xhr.onerror = function () {
@@ -61,7 +61,7 @@ class JFormFieldOrderstatusform extends F0FFormFieldText
 					if (saveButton) {
 						saveButton.disabled = true;
 						saveButton.value = "' . $cont_saving . '";
-							}
+					}
 
 					var postData = "id=" + encodeURIComponent(id) +
 						"&return=orders" +
@@ -69,9 +69,11 @@ class JFormFieldOrderstatusform extends F0FFormFieldText
 						"&order_state_id=" + encodeURIComponent(order_state);
 
 					xhr.send(postData);
-						}
+				}
 		</script>';
-		$html .=J2Html::select()->clearState()
+
+		$html .= J2Html::select()
+            ->clearState()
             ->type('genericlist')
             ->name('order_state_id')
             ->value($this->item->order_state_id)
@@ -89,7 +91,7 @@ class JFormFieldOrderstatusform extends F0FFormFieldText
 		$html .='<button class="btn btn-primary btn-sm" id="order-list-save_'.$this->item->j2store_order_id.'" type="button" onclick="submitOrderState('.$this->item->j2store_order_id.')" >';
         $html .= Text::_('J2STORE_ORDER_STATUS_SAVE');
         $html .= '</button>';
-		$html .='</div>';
+		$html .= '</div>';
 		return $html;
 	}
 }

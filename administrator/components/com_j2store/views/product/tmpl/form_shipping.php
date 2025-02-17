@@ -49,20 +49,20 @@ $wa->addInlineScript($script, [], []);
 	                    <?php echo J2Html::text($this->form_prefix.'[width]',(isset($this->variant->width)) ? $this->variant->width:'',array('class'=>'form-control', 'placeholder'=>Text::_('J2STORE_WIDTH'),'field_type'=>'integer'));?>
 	                    <?php echo J2Html::text($this->form_prefix.'[height]',(isset($this->variant->height)) ? $this->variant->height : '',array('class'=>'form-control', 'placeholder'=>Text::_('J2STORE_HEIGHT'),'field_type'=>'integer'));?>
                     </div>
-	            </div>
+                </div>
             </div>
             <div class="control-group">
                 <div class="control-label"><?php echo J2Html::label(Text::_('J2STORE_PRODUCT_LENGTH_CLASS'), 'length_class'); ?></div>
                 <div class="controls">
-			    <?php echo $this->lengths ;?>
-		        </div>
-		    </div>
-	        <div class="control-group">
+	                <?php echo $this->lengths ;?>
+                </div>
+            </div>
+            <div class="control-group">
                 <div class="control-label"><?php echo J2Html::label(Text::_('J2STORE_PRODUCT_WEIGHT'), 'weight'); ?></div>
                 <div class="controls">
 	                <?php echo J2Html::text($this->form_prefix.'[weight]',(isset($this->variant->weight))?$this->variant->weight:'',array('class'=>'form-control','field_type'=>'integer'));?>
                 </div>
-	        </div>
+            </div>
             <div class="control-group">
                 <div class="control-label"><?php echo J2Html::label(Text::_('J2STORE_PRODUCT_WEIGHT_CLASS'), 'weight_class'); ?></div>
                 <div class="controls">

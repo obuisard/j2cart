@@ -28,62 +28,60 @@ $col_class = 'col-md-';
 		background-color: #46a546 !important;
 	}
 </style>
-<form action="<?php echo Route::_('index.php?option=com_j2store&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
-        <?php if(!empty( $sidebar )): ?>
-        <div id="j2c-menu">
-            <?php echo $sidebar ; ?>
-        </div>
-        <?php endif;?>
-        <div id="j2c-main-container">
-                <div  class ="box-widget-body ">
+<?php if(!empty( $sidebar )): ?>
+    <div id="j2c-menu" class="mb-4">
+        <?php echo $sidebar ; ?>
+    </div>
+<?php endif;?>
+<div class="j2store">
+    <form action="<?php echo Route::_('index.php?option=com_j2store&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
+        <div  class ="box-widget-body ">
             <div id="container" class ="box-widget-body">
-                            <?php echo J2Store::plugin()->eventWithHtml('BeforeCpanelView'); ?>
-                            <?php echo J2Store::help()->free_topbar(); ?>
-                                <?php echo J2Store::help()->info_j2commerce(); ?>
-                            <?php if(PluginHelper::isEnabled('system', 'cache')): ?>
-                                    <?php echo J2Store::help()->alert_with_static_message(
-                                        'danger',
-                                        Text::_('J2STORE_ATTENTION'),
-                                        Text::_('J2STORE_SYSTEM_CACHE_ENABLED_NOTIFICATION')
-                                    ); ?>
-                                <?php endif; ?>
-                                <?php $content_plugin = PluginHelper::isEnabled('content', 'socialshare'); ?>
-                                <?php if($content_plugin):?>
-                                    <?php echo J2Store::help()->alert_with_static_message(
-                                        'danger',
-                                        Text::_('J2STORE_ATTENTION'),
-                                        Text::_('J2STORE_CONTENT_SOCIAL_SHARE_ENABLED_WARNING')
-                                    );
-                                    ?>
-                                <?php endif; ?>
-
-                                <div class="subscription_message" style="display:none;">
-                                    <div class="alert alert-block alert-warning">
-                                        <h4>
-                                            <span class="subscription"></span>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="stats-mini">
-                                        <?php echo J2Store::modules()->loadposition('j2store-module-position-1');?>
-                                </div>
-                                <div class="chart">
-                                    <?php echo J2Store::modules()->loadposition('j2store-module-position-3');?>
-                                </div>
-
-                                <div class="<?php echo $row_class;?>">
-                                    <div class="<?php echo $col_class;?>6 statistics">
-                                        <?php echo J2Store::modules()->loadposition('j2store-module-position-5');?>
-                                    </div>
-                                    <div class="<?php echo $col_class;?>6 latest_orders">
-                                        <?php echo J2Store::modules()->loadposition('j2store-module-position-4');?>
-                                </div>
-                            </div>
+                <?php echo J2Store::plugin()->eventWithHtml('BeforeCpanelView'); ?>
+                <?php echo J2Store::help()->free_topbar(); ?>
+                <?php //echo J2Store::help()->info_j2commerce(); ?>
+                <?php if(PluginHelper::isEnabled('system', 'cache')): ?>
+                    <?php echo J2Store::help()->alert_with_static_message(
+                        'danger',
+                        Text::_('J2STORE_ATTENTION'),
+                        Text::_('J2STORE_SYSTEM_CACHE_ENABLED_NOTIFICATION')
+                    ); ?>
+                <?php endif; ?>
+                <?php $content_plugin = PluginHelper::isEnabled('content', 'socialshare'); ?>
+                <?php if($content_plugin):?>
+                    <?php echo J2Store::help()->alert_with_static_message(
+                        'danger',
+                        Text::_('J2STORE_ATTENTION'),
+                        Text::_('J2STORE_CONTENT_SOCIAL_SHARE_ENABLED_WARNING')
+                    );
+                    ?>
+                <?php endif; ?>
+                <div class="subscription_message" style="display:none;">
+                    <div class="alert alert-block alert-warning">
+                        <h4>
+                            <span class="subscription"></span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="stats-mini">
+                    <?php echo J2Store::modules()->loadposition('j2store-module-position-1');?>
+                </div>
+                <div class="chart">
+                    <?php echo J2Store::modules()->loadposition('j2store-module-position-3');?>
+                </div>
+                <div class="<?php echo $row_class;?>">
+                    <div class="<?php echo $col_class;?>6 statistics">
+                        <?php echo J2Store::modules()->loadposition('j2store-module-position-5');?>
+                    </div>
+                    <div class="<?php echo $col_class;?>6 latest_orders">
+                        <?php echo J2Store::modules()->loadposition('j2store-module-position-4');?>
+                    </div>
+                </div>
                 <?php /*echo J2Store::help()->watch_video_tutorials();*/ ?>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 <?php
 $platform->addInlineScript('
     setTimeout(function () {

@@ -30,35 +30,34 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
 	}
 
 	public function create()
-  {
+    {
 		$url = 'index.php?option=com_content&view=article&layout=edit';
 		$this->setRedirect($url);
 	}
 
 	public function browse()
 	{
-		    $app = Factory::getApplication();
-			$model = $this->getThisModel();
-			$state = $this->getFilterStates();
-			foreach($state as $key => $value){
-				$model->setState($key,$value);
-			}
-			$product_types  = $model->getProductTypes();
-			array_unshift($product_types, Text::_('J2STORE_SELECT_OPTION'));
+        $app = Factory::getApplication();
+        $model = $this->getThisModel();
+        $state = $this->getFilterStates();
+        foreach($state as $key => $value){
+            $model->setState($key,$value);
+        }
+        $product_types  = $model->getProductTypes();
+        array_unshift($product_types, Text::_('J2STORE_SELECT_OPTION'));
 
-			$products = $model->getProductList();
+        $products = $model->getProductList();
 
-			$view = $this->getThisView();
-			$view->setModel($model);
-			$view->set('products',$products);
-			$view->set('state', $model->getState());
-			$view->set('product_types',$product_types);
-			return parent::browse();
-
+        $view = $this->getThisView();
+        $view->setModel($model);
+        $view->set('products',$products);
+        $view->set('state', $model->getState());
+        $view->set('product_types',$product_types);
+        return parent::browse();
 	}
 
 	function setCouponProducts()
-  {
+    {
 		//get variant id
 		$model = J2Store::fof()->getModel('Products', 'J2StoreModel');
 		$limit = $this->input->getInt('limit',20);

@@ -35,7 +35,7 @@ class J2StoreModelAddresses extends F0FModel
 		if (isset ( $data ) && count ( $data )) {
 			$post = $data;
 		} else {
-			$post = $app->input->getArray ( $_POST );
+			$post = $app->input->getArray( $_POST );
 		}
 
 		foreach ( $post as $key => $value ) {

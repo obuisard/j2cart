@@ -32,22 +32,22 @@ class J2ViewHelper extends JObject
 	}
 
 	public function setTemplateOverridePath($path)
-  {
-			$this->template_path = $path;
+    {
+        $this->template_path = $path;
 	}
 
 	public function getTemplateOverridePath()
-  {
+    {
 		return $this->template_path;
 	}
 
 	public function setDefaultViewPath($path)
-  {
+    {
 		$this->default_path = $path;
 	}
 
 	public function getDefaultViewPath()
-  {
+    {
 		return $this->default_path;
 	}
 
@@ -101,7 +101,7 @@ class J2ViewHelper extends JObject
 	}
 
 	public function getTemplate($client = 'site')
-  {
+    {
 		if($client === 'admin') {
 			$app_client = 1;
 		}else{

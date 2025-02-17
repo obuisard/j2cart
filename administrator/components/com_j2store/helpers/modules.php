@@ -11,13 +11,16 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ModuleHelper;
+
 class J2Modules
 {
 	public static $instance = null;
 	protected $state;
 
 	public function __construct($properties=null)
-  {
+    {
 
 	}
 

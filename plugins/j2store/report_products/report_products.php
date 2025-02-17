@@ -168,7 +168,7 @@ class plgJ2StoreReport_Products extends J2StoreReportPlugin
         $without_tax = Text::_('J2STORE_REPORT_PRODUCT_WITHOUT_TAX');
         $with_tax =Text::_('J2STORE_REPORT_PRODUCT_WITH_TAX');
         $total_text = Text::_('J2STORE_TOTAL');
-        $currency = J2Store::currency ();
+        $currency = J2Store::currency();
         $export = array();
         $qty_total = 0;
         $discount_total = 0;

@@ -224,11 +224,11 @@ class J2StoreControllerCpanels extends F0FController
 
 				if (count ( $migrated_vouchers )) {
 					// now delete the records of successfully migrated order coupons
-					$query = $db->getQuery ( true )->delete ( '#__j2store_voucherhistories' )->where ( 'j2store_voucherhistory_id IN (' . implode ( ',', $migrated_vouchers ) . ')' );
+					$query = $db->getQuery(true)->delete('#__j2store_voucherhistories')->where('j2store_voucherhistory_id IN (' . implode ( ',', $migrated_vouchers ) . ')' );
 					$db->setQuery ( $query );
 					try {
-						$db->execute ();
-					} catch ( Exception $e ) {
+						$db->execute();
+					} catch (Exception $e) {
 						// was not able to delete. So remove one by one.
 						$model = J2Store::fof()->getModel('Voucherhistories', 'J2StoreModel');
 						$model->setIds ( $migrated_vouchers );

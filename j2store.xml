@@ -49,11 +49,9 @@
 		<folder>fonts</folder>
 		<folder>css</folder>
 		<folder>images</folder>
+        <folder>j2commerce</folder>
 		<folder>js</folder>
 	</media>
-    <media destination="com_j2commerce" folder="media">
-        <folder>js</folder>
-    </media>
 
 	<!-- Administrator back-end section -->
 	<administration>

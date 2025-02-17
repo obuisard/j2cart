@@ -19,7 +19,7 @@ class J2Weight
 	protected static $instance;
 
 	public function __construct()
-  {
+    {
         $db = Factory::getContainer()->get('DatabaseDriver');
 		$query = $db->getQuery(true)->select('*')
 					->from('#__j2store_weights');
@@ -68,7 +68,7 @@ class J2Weight
   	}
 
 	public function format($value, $weight_class_id, $decimal_point = '.', $thousand_point = ',')
-  {
+    {
 		if (isset($this->weights[$weight_class_id])) {
     		return number_format($value, 2, $decimal_point, $thousand_point) . $this->weights[$weight_class_id]['unit'];
 		} else {
@@ -77,7 +77,7 @@ class J2Weight
 	}
 
 	public function getUnit($weight_class_id)
-  {
+    {
 		if (isset($this->weights[$weight_class_id])) {
     		return $this->weights[$weight_class_id]['unit'];
 		} else {

@@ -936,7 +936,7 @@ class J2Email
 	function loadLanguageOverrides($order)
   {
 		$extension = 'com_j2store';
-		$jlang = JFactory::getLanguage();
+		$jlang = Factory::getLanguage();
 		// -- English (default fallback)
 		$jlang->load($extension, JPATH_ADMINISTRATOR, 'en-GB', true);
 		$jlang->load($extension.'.override', JPATH_ADMINISTRATOR, 'en-GB', true);

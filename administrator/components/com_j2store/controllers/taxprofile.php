@@ -63,7 +63,7 @@ class J2StoreControllerTaxprofile extends F0FController
 	}
 
 	function deleteTaxRule()
-  {
+    {
 		$app = Factory::getApplication();
 		$taxrule_id = $app->input->getInt('taxrule_id');
 		$taxrule = J2Store::fof()->loadTable('taxrules','Table');

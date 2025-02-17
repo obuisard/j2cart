@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
 class J2StoreControllerInventories extends F0FController
 {
 	public function getFilterStates()
-  {
+    {
 		$app = Factory::getApplication();
 		$state = [];
         $state['search']= $app->input->getString('search','');
@@ -52,7 +52,7 @@ class J2StoreControllerInventories extends F0FController
 	}
 
 	public function update_inventory()
-  {
+    {
 		$app = Factory::getApplication();
 		$quantity = $app->input->getInt('quantity');
 		$availability = $app->input->getInt('availability');
@@ -92,7 +92,7 @@ class J2StoreControllerInventories extends F0FController
 	}
 
 	public function saveAllVariantInventory()
-  {
+    {
 		$app = Factory::getApplication();
 		$variant_list = $app->input->get('list',array(),'ARRAY');
 		$json = [];

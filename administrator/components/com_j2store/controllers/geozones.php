@@ -66,7 +66,7 @@ class J2StoreControllerGeozones extends F0FController
     }
 
 	function getZone()
-  {
+    {
 	    $app = Factory::getApplication();
 		$data = $app->input->post->get('jform',array(),'array');
 		$country_id =isset($data['country_id'])?$data['country_id']:$app->input->getInt('country_id', '0');
@@ -108,7 +108,7 @@ class J2StoreControllerGeozones extends F0FController
 	 * @params
 	 */
 	function removeGeozoneRule()
-  {
+    {
 		$app = Factory::getApplication();
 		$post = $app->input->getArray($_POST);
 		$georule_id = $post['rule_id'];
