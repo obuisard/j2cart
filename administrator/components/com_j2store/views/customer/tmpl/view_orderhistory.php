@@ -35,26 +35,26 @@ $dateFormat = $j2params->get('date_format');
                         </tr>
                     </thead>
                     <tbody>
-	                <?php if($this->orders && !empty($this->orders)):
-			            foreach($this->orders as $order):?>
-	                        <tr>
+                    <?php if($this->orders && !empty($this->orders)):
+	                    foreach($this->orders as $order):?>
+                            <tr>
                                 <td class="text-subdued">
 	                                <?php echo HTMLHelper::_('date',$order->created_on, $dateFormat); ?>
-		                        </td>
-		                        <td>
-			                        <a href="<?php echo 'index.php?option=com_j2store&view=order&id='.$order->j2store_order_id;?>">
+                                </td>
+                                <td>
+                                    <a href="<?php echo 'index.php?option=com_j2store&view=order&id='.$order->j2store_order_id;?>">
 					                    <?php echo $order->order_id;?>
                                     </a>
                                 </td>
                                 <td class="text-subdued">
-                                    <?php echo $this->currency->format($order->order_total,$order->currency_code,$order->currency_value);?>
+				                    <?php echo $this->currency->format($order->order_total,$order->currency_code,$order->currency_value);?>
                                 </td>
                                 <td>
-                                    <?php echo J2Html::getOrderStatusHtml($order->order_state_id);?>
+				                    <?php echo J2Html::getOrderStatusHtml($order->order_state_id);?>
                                 </td>
-	                        </tr>
+                            </tr>
 	                    <?php endforeach;?>
-	                <?php endif;?>
+                    <?php endif;?>
                     </tbody>
                 </table>
             </div>
@@ -62,5 +62,3 @@ $dateFormat = $j2params->get('date_format');
         </div>
     </div>
 </div>
-
-

@@ -69,6 +69,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
    */
   protected $componentTitle = 'J2Commerce Joomla Shopping Cart';
 
+  protected $minimumPHPVersion = '7.4.0';
   protected $minimumJoomlaVersion = '4.0.0';
   protected $maximumJoomlaVersion = '5.99.99';
 
@@ -101,7 +102,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
    *
    * @var   array
    */
-  protected $installation_queue = array(        // modules => { (folder) => { (module) => { (position), (published) } }* }*
+  protected $installation_queue = array(
     'modules' => array(
       'admin' => array(
         'mod_j2commerce_chart' => array('j2store-module-position-3', 1),
@@ -110,7 +111,6 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
         'j2store_stats' => array('j2store-module-position-5', 1),
         'j2store_menu' => array('menu', 1)
       ),
-
       'site' => array(
         'mod_j2store_currency' => array('left', 0),
         'mod_j2store_cart' => array('left', 0),
@@ -149,6 +149,43 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
       )
     )
   );
+
+    function _deleteFolder($folderPath) {
+        if (!is_dir($folderPath)) {
+            return false;
+        }
+
+        $files = array_diff(scandir($folderPath), ['.', '..']);
+        foreach ($files as $file) {
+            $filePath = $folderPath . DIRECTORY_SEPARATOR . $file;
+            is_dir($filePath) ? $this->_deleteFolder($filePath) : unlink($filePath);
+        }
+        return rmdir($folderPath);
+    }
+
+  public function postflight($type, $parent)
+  {
+      parent::postflight($type, $parent);
+
+      // TODO remove once we are done moving files from j2store to com_j2commerce
+      $source = JPATH_SITE . '/media/j2store/j2commerce';
+      $destination = JPATH_SITE . '/media/com_j2commerce';
+
+      $move_files = true;
+      if (is_dir($destination)) {
+          // make sure we remove the old folder to make sure we add all new files
+          if (!$this->_deleteFolder($destination)) {
+              $move_files = false;
+              Factory::getApplication()->enqueueMessage('Could not delete J2Commerce media folder');
+          }
+      }
+
+      if ($move_files) {
+          if (!rename($source, $destination)) {
+              Factory::getApplication()->enqueueMessage('Could not move J2Commerce media files');
+          }
+      }
+  }
 
   public function preflight($type, $parent)
   {
@@ -305,7 +342,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
         }
       }
 
-      if (version_compare(JVERSION, '3.99.99', 'ge') && isset($this->installation_queue) && isset($this->installation_queue['modules']['admin']['j2store_menu'])) {
+      if (version_compare(JVERSION, '4.0.0', 'ge') && isset($this->installation_queue) && isset($this->installation_queue['modules']['admin']['j2store_menu'])) {
         $this->installation_queue['modules']['admin']['j2store_menu'] = array('status', 1);
       }
       //----end of file removal//

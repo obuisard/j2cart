@@ -204,7 +204,7 @@ $menus = array (
     <button class="dropdown-toggle d-flex align-items-center ps-0 py-0" data-bs-toggle="dropdown" type="button"
             title="<?php echo JText::_('COM_J2STORE'); ?>">
         <div class="header-item-icon">
-            <span class="icon-th-large" aria-hidden="true"></span>
+            <span class="fa fa-cart-shopping fa-shopping-cart" aria-hidden="true"></span>
         </div>
         <div class="header-item-text">
             <?php echo JText::_('COM_J2STORE'); ?>

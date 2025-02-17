@@ -61,79 +61,81 @@ $wa->addInlineStyle($style, [], []);
                     </div>
                 </div>
                 <script>
-                    const ctx = document.getElementById('dayChart').getContext('2d');
-                    const myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: <?php echo $chartDays;?>,
-                            datasets: [{
-                                label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_REVENUE");?>',
-                                data: <?php echo $chartTotal;?>,
-                                backgroundColor: [
-                                    'rgba(75, 192, 192, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(75, 192, 192, 1)'
-
-                                ],
-                                borderWidth: 1,
-                                yAxisID: 'y-left'
-                            },
-                                {
-                                    label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_COUNT");?>',
-                                    data: <?php echo $chartQty; ?>,
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const ctx = document.getElementById('dayChart').getContext('2d');
+                        const myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: <?php echo $chartDays;?>,
+                                datasets: [{
+                                    label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_REVENUE");?>',
+                                    data: <?php echo $chartTotal;?>,
                                     backgroundColor: [
-                                        'rgba(54, 162, 235, 0.2)'
+                                        'rgba(75, 192, 192, 0.2)'
                                     ],
                                     borderColor: [
-                                        'rgba(54, 162, 235, 1)'
+                                        'rgba(75, 192, 192, 1)'
+
                                     ],
                                     borderWidth: 1,
-                                    type: 'line',
-                                    yAxisID: 'y-right'
-                                }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                'y-left': {
-                                    beginAtZero: true,
-                                    position: 'left',
-                                    ticks: {
-                                        callback: function(value) {
-                                            return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
+                                    yAxisID: 'y-left'
+                                },
+                                    {
+                                        label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_COUNT");?>',
+                                        data: <?php echo $chartQty; ?>,
+                                        backgroundColor: [
+                                            'rgba(54, 162, 235, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(54, 162, 235, 1)'
+                                        ],
+                                        borderWidth: 1,
+                                        type: 'line',
+                                        yAxisID: 'y-right'
+                                    }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    'y-left': {
+                                        beginAtZero: true,
+                                        position: 'left',
+                                        ticks: {
+                                            callback: function(value) {
+                                                return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
+                                            }
+                                        }
+                                    },
+                                    'y-right': {
+                                        beginAtZero: true,
+                                        position: 'right',
+                                        ticks: {
+                                            callback: function(value) {
+                                                return value.toLocaleString();
+                                            }
+                                        },
+                                        grid: {
+                                            drawOnChartArea: false
                                         }
                                     }
                                 },
-                                'y-right': {
-                                    beginAtZero: true,
-                                    position: 'right',
-                                    ticks: {
-                                        callback: function(value) {
-                                            return value.toLocaleString();
-                                        }
-                                    },
-                                    grid: {
-                                        drawOnChartArea: false
-                                    }
-                                }
-                            },
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: function (context) {
-                                            const value = context.raw || 0;
-                                            if (context.datasetIndex === 0) {
-                                                return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
-                                            } else {
-                                                return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function (context) {
+                                                const value = context.raw || 0;
+                                                if (context.datasetIndex === 0) {
+                                                    return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
+                                                } else {
+                                                    return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
+                        });
                     });
                 </script>
             </div>
@@ -160,94 +162,96 @@ $wa->addInlineStyle($style, [], []);
                     </div>
                 </div>
                 <script>
-                    const mtx = document.getElementById('monthChart').getContext('2d');
-                    const monthChart = new Chart(mtx, {
-                        type: 'bar',
-                        data: {
-                            labels: <?php echo $chartMonthsJson;?>,
-                            datasets: [{
-                                label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_REVENUE");?>',
-                                data: <?php echo $chartMonthsTotal;?>,
-                                backgroundColor: [
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)',
-                                    'rgba(255, 205, 86, 0.2)',
-                                    'rgba(201, 203, 207, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)',
-                                    'rgba(255, 205, 86, 1)',
-                                    'rgba(201, 203, 207, 1)'
-                                ],
-                                borderWidth: 1,
-                                yAxisID: 'y-left'
-                            },
-                                {
-                                    label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_COUNT");?>',
-                                    data: <?php echo $chartMonthsQty; ?>,
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const mtx = document.getElementById('monthChart').getContext('2d');
+                        const monthChart = new Chart(mtx, {
+                            type: 'bar',
+                            data: {
+                                labels: <?php echo $chartMonthsJson;?>,
+                                datasets: [{
+                                    label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_REVENUE");?>',
+                                    data: <?php echo $chartMonthsTotal;?>,
                                     backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
                                         'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)'
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(255, 205, 86, 0.2)',
+                                        'rgba(201, 203, 207, 0.2)'
                                     ],
                                     borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
                                         'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)'
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(255, 205, 86, 1)',
+                                        'rgba(201, 203, 207, 1)'
                                     ],
                                     borderWidth: 1,
-                                    type: 'line',
-                                    yAxisID: 'y-right'
-                                }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                'y-left': {
-                                    beginAtZero: true,
-                                    position: 'left',
-                                    ticks: {
-                                        callback: function(value) {
-                                            return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
+                                    yAxisID: 'y-left'
+                                },
+                                    {
+                                        label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_COUNT");?>',
+                                        data: <?php echo $chartMonthsQty; ?>,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)'
+                                        ],
+                                        borderWidth: 1,
+                                        type: 'line',
+                                        yAxisID: 'y-right'
+                                    }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    'y-left': {
+                                        beginAtZero: true,
+                                        position: 'left',
+                                        ticks: {
+                                            callback: function(value) {
+                                                return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
+                                            }
+                                        }
+                                    },
+                                    'y-right': {
+                                        beginAtZero: true,
+                                        position: 'right',
+                                        ticks: {
+                                            callback: function(value) {
+                                                return value.toLocaleString();
+                                            }
+                                        },
+                                        grid: {
+                                            drawOnChartArea: false
                                         }
                                     }
                                 },
-                                'y-right': {
-                                    beginAtZero: true,
-                                    position: 'right',
-                                    ticks: {
-                                        callback: function(value) {
-                                            return value.toLocaleString();
-                                        }
-                                    },
-                                    grid: {
-                                        drawOnChartArea: false
-                                    }
-                                }
-                            },
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: function (context) {
-                                            const value = context.raw || 0;
-                                            if (context.datasetIndex === 0) {
-                                                return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
-                                            } else {
-                                                return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function (context) {
+                                                const value = context.raw || 0;
+                                                if (context.datasetIndex === 0) {
+                                                    return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
+                                                } else {
+                                                    return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
+                        });
                     });
                 </script>
             </div>
@@ -273,101 +277,99 @@ $wa->addInlineStyle($style, [], []);
                     </div>
                 </div>
                 <script>
-                    const ytx = document.getElementById('yearChart').getContext('2d');
-                    const yearChart = new Chart(ytx, {
-                        type: 'bar',
-                        data: {
-                            labels: <?php echo $chartYearsJson;?>,
-                            datasets: [{
-                                label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_REVENUE");?>',
-                                data: <?php echo $chartYearsTotal;?>,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)'
-                                ],
-                                borderWidth: 1,
-                                yAxisID: 'y-left'
-                            },
-                                {
-                                    label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_COUNT");?>',
-                                    data: <?php echo $chartYearsQty; ?>,
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const ytx = document.getElementById('yearChart').getContext('2d');
+                        const yearChart = new Chart(ytx, {
+                            type: 'bar',
+                            data: {
+                                labels: <?php echo $chartYearsJson;?>,
+                                datasets: [{
+                                    label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_REVENUE");?>',
+                                    data: <?php echo $chartYearsTotal;?>,
                                     backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
                                         'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)',
-                                        'rgba(255, 205, 86, 0.2)',
-                                        'rgba(201, 203, 207, 0.2)'
+                                        'rgba(153, 102, 255, 0.2)'
                                     ],
                                     borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
                                         'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)',
-                                        'rgba(255, 205, 86, 1)',
-                                        'rgba(201, 203, 207, 1)'
+                                        'rgba(153, 102, 255, 1)'
                                     ],
                                     borderWidth: 1,
-                                    type: 'line',
-                                    yAxisID: 'y-right'
-                                }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                'y-left': {
-                                    beginAtZero: true,
-                                    position: 'left',
-                                    ticks: {
-                                        callback: function(value) {
-                                            return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
+                                    yAxisID: 'y-left'
+                                },
+                                    {
+                                        label: '<?php echo Text::_("MOD_J2COMMERCE_CHART_TOTAL_COUNT");?>',
+                                        data: <?php echo $chartYearsQty; ?>,
+                                        backgroundColor: [
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(255, 205, 86, 0.2)',
+                                            'rgba(201, 203, 207, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)',
+                                            'rgba(255, 205, 86, 1)',
+                                            'rgba(201, 203, 207, 1)'
+                                        ],
+                                        borderWidth: 1,
+                                        type: 'line',
+                                        yAxisID: 'y-right'
+                                    }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    'y-left': {
+                                        beginAtZero: true,
+                                        position: 'left',
+                                        ticks: {
+                                            callback: function (value) {
+                                                return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
+                                            }
+                                        }
+                                    },
+                                    'y-right': {
+                                        beginAtZero: true,
+                                        position: 'right',
+                                        ticks: {
+                                            callback: function (value) {
+                                                return value.toLocaleString();
+                                            }
+                                        },
+                                        grid: {
+                                            drawOnChartArea: false
                                         }
                                     }
                                 },
-                                'y-right': {
-                                    beginAtZero: true,
-                                    position: 'right',
-                                    ticks: {
-                                        callback: function(value) {
-                                            return value.toLocaleString();
-                                        }
-                                    },
-                                    grid: {
-                                        drawOnChartArea: false
-                                    }
-                                }
-                            },
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: function (context) {
-                                            const value = context.raw || 0;
-                                            if (context.datasetIndex === 0) {
-                                                return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
-                                            } else {
-                                                return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function (context) {
+                                                const value = context.raw || 0;
+                                                if (context.datasetIndex === 0) {
+                                                    return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
+                                                } else {
+                                                    return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
+                        });
                     });
                 </script>
             </div>
         <?php endif;?>
     </div>
 </div>
-
-
-
-

@@ -17,6 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Mail\MailerFactoryInterface;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Uri\Uri;
 
 require_once JPATH_ADMINISTRATOR . '/components/com_j2store/controllers/traits/list_view.php';
 
@@ -972,13 +973,13 @@ class J2StoreControllerConfigurations extends F0FController
                         } else if (this.value === "url") {
                             if (continueShoppingUrl) continueShoppingUrl.style.display = "";
                             if (continueShoppingMenu) continueShoppingMenu.style.display = "none";
-		                    }
-	                  });
+                        }
+                    });
                 }
 
                 if (cartEmptyRedirect) {
                     cartEmptyRedirect.addEventListener("change", function() {
-	                      console.log(this.value);
+                        console.log(this.value);
                         const cartRedirectMenu = document.querySelector("#continue_cart_redirect_menu")?.closest(".control-group");
                         const cartRedirectPageUrl = document.querySelector("#cart_redirect_page_url")?.closest(".control-group");
 
@@ -991,11 +992,11 @@ class J2StoreControllerConfigurations extends F0FController
                         } else if (this.value === "url") {
                             if (cartRedirectPageUrl) cartRedirectPageUrl.style.display = "";
                             if (cartRedirectMenu) cartRedirectMenu.style.display = "none";
-		                    }
+                        }
                     });
-		            }
-	          });
-	      ');
+                }
+            });
+        ');
 
         $platform->addInlineScript("(function($) {
 		$(document).on('click', '#j2store_testemail', function(e) {
@@ -1006,7 +1007,7 @@ class J2StoreControllerConfigurations extends F0FController
 				dataType: 'json',
 				beforeSend: function() {
 					$('#email_message').remove();
-					$('#j2store_testemail').after('<span class=\"wait\">&nbsp;<img src=\"" . JUri::root(true) . "/media/j2store/images/loader.gif\" alt=\"\" /></span>');
+					$('#j2store_testemail').after('<span class=\"wait\">&nbsp;<img src=\"" . Uri::root(true) . "/media/j2store/images/loader.gif\" alt=\"\" /></span>');
                 },
                 complete: function() {
                     $('.wait').remove();

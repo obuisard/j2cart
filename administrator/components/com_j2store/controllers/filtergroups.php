@@ -68,7 +68,7 @@ class J2StoreControllerFiltergroups extends F0FController
 	 * @return array json
 	 */
 	function deleteproductfiltervalues()
-  {
+    {
 		$o_id = $this->input->getInt('productfiltervalue_id');
 		$productfilter = J2Store::fof()->loadTable('filter','J2StoreTable');
 		$json = array();

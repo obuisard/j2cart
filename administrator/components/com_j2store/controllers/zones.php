@@ -147,7 +147,8 @@ class J2StoreControllerZones extends F0FController
         echo $this->_getLayout('default',$vars);
     }
 
-	function getZoneList(){
+	function getZoneList()
+    {
 		$app = Factory::getApplication();
 		$post = $app->input->getArray($_POST);
 		if($post['country_id']) {
@@ -171,7 +172,7 @@ class J2StoreControllerZones extends F0FController
 	}
 
 	public function getCountry()
-  {
+    {
 		$app = Factory::getApplication();
 		$country_id = $this->input->getInt('country_id');
 		$zone_id = $this->input->getInt('zone_id');
@@ -189,7 +190,7 @@ class J2StoreControllerZones extends F0FController
 	 * @return boolean
 	 */
 	function elements()
-  {
+    {
 		$geozone_id = $this->input->getInt('geozone_id');
 		$model = J2Store::fof()->getModel('Zones','J2StoreModel');
 		$filter =array();

@@ -12,6 +12,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 $platform = J2Store::platform();
 $platform->loadExtra('behavior.modal');
@@ -20,35 +21,35 @@ $this->params = J2Store::config();
 
 $shouldExpand = $this->state->since || $this->state->until || $this->state->paykey || $this->state->moneysum || $this->state->toinvoice || $this->state->coupon_code || $this->state->user_id;
 ?>
-    <?php if (!empty($sidebar)): ?>
+<?php if (!empty($sidebar)): ?>
     <div id="j2c-menu" class="mb-4">
         <?php echo $sidebar; ?>
     </div>
 <?php endif;?>
-        <div class="j2store">
-            <form action="index.php?option=com_j2store&view=orders" method="post" name="adminForm" id="adminForm">
-                <?php echo J2Html::hidden('option', 'com_j2store'); ?>
-                <?php echo J2Html::hidden('view', 'orders'); ?>
-                <?php echo J2Html::hidden('task', 'browse', array('id' => 'task')); ?>
-                <?php echo J2Html::hidden('boxchecked', '0'); ?>
-                <?php echo J2Html::hidden('filter_order', ''); ?>
-                <?php echo J2Html::hidden('filter_order_Dir', ''); ?>
-                <?php echo JHTML::_('form.token'); ?>
-                <div class="j2store-order-filters">
-                    <div class="j2store-alert-box" style="display:none;"></div>
-                    <div class="js-stools">
-                        <div class="js-stools-container-bar">
-			                <?php echo $this->loadTemplate('filters'); ?>
-                        </div>
-                        <div class="js-stools-container-filters clearfix bg-white collapse<?php echo $shouldExpand ? ' show' : ''; ?>" id="collapseFilters">
-			                <?php echo $this->loadTemplate('advancedfilters'); ?>
-                        </div>
-                    </div>
+<div class="j2store">
+    <form action="index.php?option=com_j2store&view=orders" method="post" name="adminForm" id="adminForm">
+        <?php echo J2Html::hidden('option', 'com_j2store'); ?>
+        <?php echo J2Html::hidden('view', 'orders'); ?>
+        <?php echo J2Html::hidden('task', 'browse', array('id' => 'task')); ?>
+        <?php echo J2Html::hidden('boxchecked', '0'); ?>
+        <?php echo J2Html::hidden('filter_order', ''); ?>
+        <?php echo J2Html::hidden('filter_order_Dir', ''); ?>
+        <?php echo HTMLHelper::_('form.token'); ?>
+        <div class="j2store-order-filters">
+            <div class="j2store-alert-box" style="display:none;"></div>
+            <div class="js-stools">
+                <div class="js-stools-container-bar">
+                    <?php echo $this->loadTemplate('filters'); ?>
                 </div>
-                <div class="j2store-order-list">
-                    <?php echo $this->loadTemplate('items'); ?>
+                <div class="js-stools-container-filters clearfix bg-white collapse<?php echo $shouldExpand ? ' show' : ''; ?>" id="collapseFilters">
+                    <?php echo $this->loadTemplate('advancedfilters'); ?>
                 </div>
-            </form>
+            </div>
+        </div>
+        <div class="j2store-order-list">
+            <?php echo $this->loadTemplate('items'); ?>
+        </div>
+    </form>
 </div>
 <script type="text/javascript">
     /**

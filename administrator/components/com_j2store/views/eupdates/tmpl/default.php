@@ -37,88 +37,87 @@ $col_class = 'col-md-';
     <div id="j2c-menu" class="mb-4">
       <?php echo $sidebar ; ?>
    </div>
-    <?php endif;?>
-
-<form action="<?php echo Route::_('index.php?option=com_j2store&view=eupdates'); ?>" method="post" name="adminForm" id="adminForm" xmlns="http://www.w3.org/1999/html">
+<?php endif;?>
 <div class="j2store updates">
-		<?php if(isset($updateInfo['hasUpdate']) && $updateInfo['hasUpdate']) : ?>
+    <form action="<?php echo Route::_('index.php?option=com_j2store&view=eupdates'); ?>" method="post" name="adminForm" id="adminForm" xmlns="http://www.w3.org/1999/html">
+        <?php if(isset($updateInfo['hasUpdate']) && $updateInfo['hasUpdate']) : ?>
             <fieldset class="options-form">
                 <legend><?php echo Text::_('J2STORE_COMPONENT_UPDATE')?></legend>
                 <div class="table-responsive">
                     <table class="table itemList align-middle">
-				<thead>
-				<tr>
+                        <thead>
+                            <tr>
                                 <th scope="col">
-						<?php echo '' ?>
-					</th>
+                                    <?php echo '' ?>
+                                </th>
                                 <th scope="col">
                                     <?php echo Text::_('J2STORE_EXISTING_VERSION');?>
-					</th>
+                                </th>
                                 <th scope="col">
                                     <?php echo Text::_('J2STORE_NEW_VERSION');?>
-					</th>
+                                </th>
                                 <th scope="col">
                                     <?php echo Text::_('J2STORE_DOWNLOAD');?>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-                <tr>
-                    <td><?php echo Text::_('COM_J2STORE'); ?></td>
-					<td><?php echo J2STORE_VERSION; ?></td>
-					<td><?php echo $updateInfo['version']; ?></td>
-					<td>
-                        <a class="btn btn-primary" href="<?php echo 'index.php?option=com_installer&view=update' ?>"><?php echo Text::_('J2STORE_UPDATE_TO_VERSION').' '.$updateInfo['version']; ?></a>
-					</td>
-                </tr>
-			</tbody>
-		</table>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?php echo Text::_('COM_J2STORE'); ?></td>
+                                <td><?php echo J2STORE_VERSION; ?></td>
+                                <td><?php echo $updateInfo['version']; ?></td>
+                                <td>
+                                    <a class="btn btn-primary" href="<?php echo 'index.php?option=com_installer&view=update' ?>"><?php echo Text::_('J2STORE_UPDATE_TO_VERSION').' '.$updateInfo['version']; ?></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </fieldset>
-		<?php endif; ?>
+        <?php endif; ?>
         <fieldset class="options-form">
             <legend><?php echo Text::_('J2STORE_PLUGIN_APP_UPDATES')?></legend>
-			<div class="alert alert-block alert-info">
+            <div class="alert alert-block alert-info">
                 <?php echo Text::_('J2STORE_PLUGIN_APP_UPDATES_HELP')?>
-			</div>
+            </div>
             <div class="table-responsive">
                 <table class="table itemList align-middle">
-			<thead>
-				<tr>
+                    <thead>
+                        <tr>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_PLUGIN_APP_NAME');?>
-					</th>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_EXISTING_VERSION');?>
-					</th>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_NEW_VERSION');?>
-					</th>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_DOWNLOAD');?>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-			<?php if($updates):?>
-			<?php foreach($updates as $ext): ?>
-				<tr>
-					<td>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php if($updates):?>
+                        <?php foreach($updates as $ext): ?>
+                            <tr>
+                                <td>
                                     <?php echo Text::_($ext->name); ?>
-					</td>
-					<td><?php echo $ext->current_version;?></td>
-					<td><?php echo $ext->new_version;?></td>
-					<td>
-					 	<a class="btn btn-success" target="_blank" href="<?php echo $update_link;?>">
+                                </td>
+                                <td><?php echo $ext->current_version;?></td>
+                                <td><?php echo $ext->new_version;?></td>
+                                <td>
+                                    <a class="btn btn-success" target="_blank" href="<?php echo $update_link;?>">
                                         <span class="fa fa-refresh"></span> <?php echo Text::_('J2STORE_DOWNLOAD');?>
-					 	</a>
-					</td>
-				</tr>
-			        <?php endforeach; ?>
-			    <?php endif;?>
-			    </tbody>
-		    </table>
-	    </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif;?>
+                    </tbody>
+                </table>
+            </div>
         </fieldset>
-    </div>
-</form>
+    </form>
+</div>

@@ -12,13 +12,13 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
 
 class J2StoreControllerOrders extends F0FController
 {
 	public function __construct($config)
-  {
+    {
 		parent::__construct($config);
 		$this->registerTask('apply', 'save');
 		$this->registerTask('saveNew', 'save');
@@ -34,7 +34,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	protected function onBeforeEdit()
-  {
+    {
 		if(!$this->checkACL('j2store.vieworder'))
 		{
 			return false;
@@ -43,7 +43,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	public function onBeforeCreateOrder()
-  {
+    {
 		if(!$this->checkACL('core.edit'))
 		{
 			return false;
@@ -52,7 +52,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	public function saveOrderFee()
-  {
+    {
 		$app = Factory::getApplication();
 		$data = $app->input->getArray($_POST);
 		$order_id = $app->input->getString('order_id','');
@@ -79,7 +79,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	public function removeOrderFee()
-  {
+    {
 		$app = Factory::getApplication();
 		$fee_id = $app->input->getInt('fee_id',0);
 		if(!empty($fee_id)) {
@@ -100,7 +100,7 @@ class J2StoreControllerOrders extends F0FController
 	 * Method to save Order status
 	*/
 	public function saveOrderstatus()
-  {
+    {
 		$data = $this->input->getArray($_POST);
 		$id = $this->input->getInt('id');
 		$status =false;
@@ -152,7 +152,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	public function resendEmail()
-  {
+    {
 		$app = Factory::getApplication ();
 		$id = $app->input->getInt('id',0);
 		$message = '';
@@ -170,7 +170,7 @@ class J2StoreControllerOrders extends F0FController
 	 * Method to save Order Customer Note
 	 */
 	public function saveOrderCnote()
-  {
+    {
 		$data = $this->input->getArray($_POST);
 		$id = $this->input->getInt('id');
 		$order = J2Store::fof()->loadTable('Order' ,'J2StoreTable');
@@ -198,7 +198,7 @@ class J2StoreControllerOrders extends F0FController
 	 * Method to save shipping tracking id
 	 */
 	public function saveTrackingId()
-  {
+    {
 		$data = $this->input->getArray($_POST);
 		$id = $this->input->getInt('id');
 		$order = J2Store::fof()->loadTable('Order' ,'J2StoreTable');
@@ -234,7 +234,7 @@ class J2StoreControllerOrders extends F0FController
 	 *
 	 */
 	function setOrderinfo()
-  {
+    {
 		$order_id  = $this->input->getString('order_id');
 		$address_type = $this->input->getString('address_type');
 		$orderinfo = J2Store::fof()->loadTable('Orderinfo','J2StoreTable');
@@ -264,7 +264,8 @@ class J2StoreControllerOrders extends F0FController
 	/**
 	 * Method to save orderinfo
 	 */
-	function saveOrderinfo(){
+	function saveOrderinfo()
+    {
 		$data = $this->input->getArray($_POST);
 		$order_id = $this->input->getString('order_id');
 		$order = J2Store::fof()->loadTable('Order','J2StoreTable');
@@ -291,10 +292,10 @@ class J2StoreControllerOrders extends F0FController
 	 * @param unknown_type $prefix
 	 */
 	public function removePrefix($input ,$prefix)
-  {
+    {
 		$keys = array_keys($input);
 		$values =array();
-		$return = new JObject();
+		$return = new \stdClass();
 		foreach($input as $k =>$value){
 			if (strpos($k,$prefix.'_') === 0){
 				$key =  str_replace($prefix.'_','',$k);
@@ -309,7 +310,7 @@ class J2StoreControllerOrders extends F0FController
 	 * Method to get Countrylist
 	 */
 	public function getCountry()
-  {
+    {
 		$app = Factory::getApplication();
 		$country_id = $this->input->getInt('country_id');
 		$zone_id = $this->input->getInt('zone_id');
@@ -323,7 +324,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	function download()
-  {
+    {
 		$app = Factory::getApplication();
 		$ftoken = $app->input->getString('ftoken', '');
 
@@ -335,7 +336,7 @@ class J2StoreControllerOrders extends F0FController
 				$file = $table->saved_name;
 				jimport('joomla.filesystem.file');
 				$path = JPATH_ROOT.'/media/j2store/uploads/'.$file;
-				if(JFile::exists($path)) {
+				if(file_exists($path)) {
 					J2Store::fof()->getModel('Orderdownloads', 'J2StoreModel')->downloadFile($path, $mask);
 					$app->close();
 				}
@@ -344,7 +345,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	public function printOrder()
-  {
+    {
 		$app = Factory::getApplication();
 		$order_id = $this->input->getString('order_id');
 		$view = $this->getThisView();
@@ -364,7 +365,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	public function printShipping()
-  {
+    {
 		$app = Factory::getApplication();
 		$order_id = $this->input->getString('order_id');
 		$view = $this->getThisView();
@@ -394,7 +395,7 @@ class J2StoreControllerOrders extends F0FController
 	 *
 	 */
 	public function createOrder()
-  {
+    {
 		$option = $this->input->getCmd('option', 'com_j2store');
 		$componentName = str_replace('com_', '', $option);
 		$app = Factory::getApplication();
@@ -443,13 +444,13 @@ class J2StoreControllerOrders extends F0FController
 		switch($sublayout){
 			case 'basic':
 				$update_history = 0;
-				$native = JLanguageHelper::detectLanguage();
+				$native = LanguageHelper::detectLanguage();
 				if (empty($native))
 				{
 					$native = 'en-GB';
 				}
 				// Get the list of available languages.
-				$languages_list = JLanguageHelper::createLanguageList($native);
+				$languages_list = LanguageHelper::createLanguageList($native);
 				$languages = array();
 				foreach ($languages_list as $language){
 					$languages[$language['value']] = $language['text'];
@@ -568,7 +569,7 @@ class J2StoreControllerOrders extends F0FController
 	 * @return null
 	*/
 	function checkBillingInfo($order)
-  {
+    {
 		$app = Factory::getApplication();
 		$orderinfo = $order->getOrderInformation();
 		if(empty( $orderinfo ) || empty( $orderinfo->billing_first_name )){
@@ -585,7 +586,7 @@ class J2StoreControllerOrders extends F0FController
 	 * @return result array()
 	 */
 	public function saveAdminOrder()
-  {
+    {
 		$app = Factory::getApplication();
 		// get the session object
 		$session = Factory::getApplication()->getSession();
@@ -662,7 +663,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	function calculateTax()
-  {
+    {
 		$app = Factory::getApplication();
 		$order_id = $app->input->get('oid',0);
 		$order = J2Store::fof()->loadTable('Order' ,'J2StoreTable');
@@ -693,7 +694,7 @@ class J2StoreControllerOrders extends F0FController
 	 * validate order address
 	 *   */
 	public function validate_address()
-  {
+    {
 		$app = Factory::getApplication();
 		$data = $app->input->getArray($_POST);
 		$json = array();
@@ -721,7 +722,7 @@ class J2StoreControllerOrders extends F0FController
 	 * get product list in search
 	 *    */
 	public function getproducts()
-  {
+    {
 		$app = Factory::getApplication();
 		$q = $app->input->post->getString('q');
 		$json = array();
@@ -739,7 +740,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	function removeOrderitem()
-  {
+    {
 		$app = Factory::getApplication();
 		$item_ids = $app->input->get('cid',array(),"ARRAY");
 		$order_id = $app->input->get('oid',0);
@@ -785,7 +786,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	function updateInventry($type)
-  {
+    {
 		$app = Factory::getApplication();
 		$variant_id = $app->input->getInt('variant_id',0);
 		$qty = $app->input->getInt('qty',0);
@@ -830,7 +831,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	function addInventry()
-  {
+    {
 		$app = Factory::getApplication();
 		$json = $this->updateInventry('add');
 		echo json_encode($json);
@@ -838,7 +839,7 @@ class J2StoreControllerOrders extends F0FController
 	}
 
 	function removeInventry()
-  {
+    {
 		$app = Factory::getApplication();
 		$json = $this->updateInventry('remove');
 		echo json_encode($json);

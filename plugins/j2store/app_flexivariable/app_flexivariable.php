@@ -90,8 +90,8 @@ class plgJ2StoreApp_flexivariable extends J2StoreAppPlugin
     {
         $is_pro = J2Store::isPro();
         if ($is_pro) {
-	        $wa  = Factory::getApplication()->getDocument()->getWebAssetManager();
-            $wa->registerAndUseScript('j2-flexivariable-script', Uri::root() .'media/plg_j2store_' . $this->_element . '/js/flexivariable.js', [], [], []);
+	        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+            $wa->registerAndUseScript('plg_j2store_' . $this->_element . '.flexivariable', 'plg_j2store_' . $this->_element . '/flexivariable.js', [], ['defer' => true]);
         }
     }
 

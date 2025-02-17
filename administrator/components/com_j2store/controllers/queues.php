@@ -19,19 +19,19 @@ class J2StoreControllerQueues extends F0FController
 	protected $cacheableTasks = [];
 
 	function __construct()
-  {
+    {
 		$config['csrfProtection'] = 0;
 		parent::__construct($config);
 		$this->cacheableTasks = [];
 	}
 
 	function execute($task)
-  {
+    {
 		$this->processQueue();
 	}
 
 	public function processQueue()
-  {
+    {
 		$app = Factory::getApplication();
 		J2Store::utilities()->nocache();
 		$app->setHeader('X-Cache-Control', 'False', true);
@@ -44,7 +44,7 @@ class J2StoreControllerQueues extends F0FController
 			header('HTTP/1.1 503 Service unavailable due to queue key invalid');
 			$app->close ();
 		}
-		$store_queue_key = J2Store::config ()->get ( 'queue_key','' );
+		$store_queue_key = J2Store::config()->get ( 'queue_key','' );
 		if($queue_key != $store_queue_key){
 			header('HTTP/1.1 503 Service unavailable due to queue key not match');
 			$app->close ();
@@ -65,14 +65,14 @@ class J2StoreControllerQueues extends F0FController
 				$model->setState('queue_type',$queue_type);
 			}
 			$model->setState('limit',$queue_limit);
-			$queue_lists = $model->getList ();
+			$queue_lists = $model->getList();
 			if(!empty( $queue_lists )){
-				J2Store::plugin ()->event ( 'BeforeProcessQueue',array($queue_lists) );
+				J2Store::plugin ()->event('BeforeProcessQueue',array($queue_lists) );
 				// process queue
 				foreach ($queue_lists as $queue_list){
-					J2Store::plugin ()->event ( 'ProcessQueue',array(&$queue_list) );
+					J2Store::plugin ()->event('ProcessQueue',array(&$queue_list) );
 				}
-				J2Store::plugin ()->event ( 'AfterProcessQueue',array($queue_lists) );
+				J2Store::plugin ()->event('AfterProcessQueue',array($queue_lists) );
 			}
 
 		}else{

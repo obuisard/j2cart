@@ -19,23 +19,23 @@ class J2StoreControllerCrons extends F0FController
 	protected $cacheableTasks = [];
 
 	function __construct()
-  {
+    {
 		$config['csrfProtection'] = 0;
 		parent::__construct($config);
 		$this->cacheableTasks = [];
 	}
 
 	function execute($task)
-  {
+    {
 		$this->cron();
 	}
 
 	public function cron()
-  {
+    {
 		// Makes sure SiteGround's SuperCache doesn't cache the CRON view
 		$app = Factory::getApplication();
 		$app->setHeader('X-Cache-Control', 'False', true);
-		$cron_key = J2Store::config ()->get ( 'queue_key','' );
+		$cron_key = J2Store::config()->get( 'queue_key','' );
 
 		if (empty($cron_key))
 		{
@@ -62,11 +62,10 @@ class J2StoreControllerCrons extends F0FController
             'url' => isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI']: '',
             'ip' => $_SERVER['REMOTE_ADDR']
         );
-        J2Store::config ()->saveOne('cron_last_trigger',json_encode ( $last_trigger ));
+        J2Store::config()->saveOne('cron_last_trigger',json_encode ( $last_trigger ));
 
-		J2Store::plugin ()->event ( 'ProcessCron',array($command) );
+		J2Store::plugin()->event ( 'ProcessCron',array($command) );
 		echo "$command OK";
 		$app->close ();
 	}
-
 }

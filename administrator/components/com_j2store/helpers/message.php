@@ -19,7 +19,7 @@ use Joomla\CMS\Language\Text;
 class J2StoreMessage
 {
 	public static function getMessageTags()
-  {
+    {
 		return array(
 					'billing'	 => self::billingTags(),
 					'shipping'	 =>	self::shippingTags(),
@@ -28,7 +28,7 @@ class J2StoreMessage
 	}
 
 	public static function additionalTags()
-  {
+    {
 		$result = 	array(
 				"[SITENAME]" 		=> Text::_('J2STORE_EMAILTEMPLATE_TAG_SITENAME'),
 				"[SITEURL]"	 		=> Text::_('J2STORE_EMAILTEMPLATE_TAG_SITEURL'),
@@ -50,7 +50,7 @@ class J2StoreMessage
 	}
 
 	public static function shippingTags()
-  {
+    {
 		return $result =array(
 				"[SHIPPING_FIRSTNAME]" => Text::_('J2STORE_EMAILTEMPLATE_TAG_SHIPPING_FIRSTNAME'),
 				"[SHIPPING_LASTNAME]" => Text::_('J2STORE_EMAILTEMPLATE_TAG_SHIPPING_LASTNAME'),
@@ -69,7 +69,7 @@ class J2StoreMessage
 	}
 
 	public static function billingTags()
-  {
+    {
 			return $result = array(
 				"[CUSTOMER_NAME]" 		=> Text::_('J2STORE_CUSTOMER_NAME'),
 				"[BILLING_FIRSTNAME]" => Text::_('J2STORE_EMAILTEMPLATE_TAG_BILLING_FIRSTNAME'),

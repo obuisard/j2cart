@@ -25,7 +25,7 @@ class J2storeControllerReports extends F0FController
     use list_view;
 
 	public function __construct($config)
-  {
+    {
 		parent::__construct($config);
 		$this->registerTask('apply', 'save');
 		$this->registerTask('saveNew', 'save');
@@ -65,7 +65,6 @@ class J2storeControllerReports extends F0FController
 			$controllerName = ucfirst($controllerName);
 
 			$path = JPATH_SITE.'/plugins/j2store/';
-
 
 			$controllerPath = $path.$element.'/'.$element.'/controller.php';
 
@@ -323,18 +322,18 @@ class J2storeControllerReports extends F0FController
 
     function view()
     {
-		    if(!$this->checkACL('j2store.reports'))
-		    {
-			 	return false;
-		    }
+        if(!$this->checkACL('j2store.reports'))
+        {
+            return false;
+        }
 
-	    	$model = $this->getThisModel();
-	    	$id = $this->input->getInt('id');
-	    	$row = $model->getItem($id);
-	    	$view   = $this->getThisView('Report');
-	    	$view->setModel( $model, true );
-	    	$view->set('row', $row );
-	    	$view->setLayout( 'view' );
-	    	$view->display();
-	    }
+        $model = $this->getThisModel();
+        $id = $this->input->getInt('id');
+        $row = $model->getItem($id);
+        $view   = $this->getThisView('Report');
+        $view->setModel( $model, true );
+        $view->set('row', $row );
+        $view->setLayout( 'view' );
+        $view->display();
+    }
 }

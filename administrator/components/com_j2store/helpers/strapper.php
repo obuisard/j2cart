@@ -11,6 +11,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+
 require_once(JPATH_ADMINISTRATOR.'/components/com_j2store/helpers/j2store.php');
 
 class J2StoreStrapper

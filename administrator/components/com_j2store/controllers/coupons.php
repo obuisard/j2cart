@@ -14,7 +14,6 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\Toolbar;
-use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Helper\UserGroupsHelper;
 
@@ -149,12 +148,12 @@ class J2StoreControllerCoupons extends F0FController
                 ),
             ),
         );
-	      $userGroupsHelper = UserGroupsHelper::getInstance();
-	      $groupList = $userGroupsHelper->getAll();
+        $userGroupsHelper = UserGroupsHelper::getInstance();
+        $groupList = $userGroupsHelper->getAll();
         $group_options = array();
-        $group_options [] =  Text::_ ( 'JALL' ) ;
-	      foreach ($groupList as $group) {
-		        $group_options[$group->id] = Text::_(strtoupper($group->title));
+        $group_options[] = Text::_('JALL');
+        foreach ($groupList as $group) {
+            $group_options[$group->id] = Text::_(strtoupper($group->title));
         }
         $items =  J2Store::fof()->getModel('Manufacturers','J2StoreModel')->getItemList();
         $new_options  = array();
@@ -340,8 +339,8 @@ class J2StoreControllerCoupons extends F0FController
      * Method to set view to add products
      *
      */
-
-function setProducts(){
+    function setProducts()
+    {
 		//get variant id
 		$model = J2Store::fof()->getModel('Products', 'J2StoreModel');
 		$limit = $this->input->getInt('limit',20);
@@ -365,7 +364,8 @@ function setProducts(){
 		$view->display();
 	}
 
-	public function history() {
+	public function history()
+    {
 		$app = Factory::getApplication();
 		$coupon_id = $app->input->getInt('coupon_id');
 		$view = $this->getThisView();

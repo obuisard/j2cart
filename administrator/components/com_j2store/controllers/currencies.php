@@ -196,9 +196,9 @@ class J2StoreControllerCurrencies extends F0FController
 
     protected function onBeforeBrowse()
     {
-      $model = J2Store::fof()->getModel('Currencies', 'J2StoreModel');
-      $model->updateCurrencies(false);
+        $model = J2Store::fof()->getModel('Currencies', 'J2StoreModel');
+        $model->updateCurrencies(false);
 
-      return parent::onBeforeBrowse();
+        return parent::onBeforeBrowse();
     }
 }

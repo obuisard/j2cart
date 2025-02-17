@@ -25,7 +25,7 @@ class J2Utilities
 	private $_is_cleaned = false;
 
 	public function __construct($properties=null)
-  {
+    {
 
 	}
 
@@ -40,7 +40,7 @@ class J2Utilities
 	}
 
 	public function clear_cache()
-  {
+    {
 		try{
 			//clean it just once.
 			if(!$this->_is_cleaned) {
@@ -56,7 +56,7 @@ class J2Utilities
 	}
 
 	public function nocache()
-  {
+    {
 			if(headers_sent()) return false;
 			header('Cache-Control: no-store, no-cache, must-revalidate');
 			header('Cache-Control: post-check=0, pre-check=0', false);
@@ -66,7 +66,7 @@ class J2Utilities
 	}
 
 	public function isJson($string)
-  {
+    {
 		json_decode($string);
 		if(function_exists('json_last_error')) {
 			return (json_last_error() == JSON_ERROR_NONE);
@@ -80,7 +80,7 @@ class J2Utilities
 	 * @return string comma separated value
 	 */
 	public function to_csv($data)
-  {
+    {
 		$csv = '';
 
 		//data is set ?
@@ -106,14 +106,14 @@ class J2Utilities
 	 */
 
 	public function stock_qty($qty)
-  {
+    {
 		//allow plugins to modify
 		Factory::getApplication('OnJ2StoreFilterQuantity', array(&$qty));
 		return (int)$qty;
 	}
 
 	public function errors_to_string($errors)
-  {
+    {
 		return $this->toString($errors);
 	}
 
@@ -176,7 +176,7 @@ class J2Utilities
 	}
 
 	public function cleanIntArray($array, $db = null)
-  {
+    {
 		if (! $db)
 			$db = Factory::getContainer()->get('DatabaseDriver');
 		if (is_array ( $array )) {
@@ -194,7 +194,7 @@ class J2Utilities
 	}
 
 	public function getContext($prefix='')
-  {
+    {
 		$app = Factory::getApplication();
 		$context = array();
 		$context[] = 'j2store';
@@ -210,7 +210,7 @@ class J2Utilities
 	}
 
 	public function get_formatted_date($local=true, $options=array())
-  {
+    {
 		$tz = Factory::getApplication()->getConfig()->get('offset');
 		$date = Factory::getDate('now', $tz);
 
@@ -226,7 +226,7 @@ class J2Utilities
 	}
 
 	public function generateId($string)
-  {
+    {
 		if(empty( $string )){
 			return $string;
 		}
@@ -237,131 +237,131 @@ class J2Utilities
 	}
 
 	public function activeMenu($options = array())
-  {
+    {
 		$app = Factory::getApplication('site');
 		return $app->getMenu()->getActive()->id;
 	}
 
 	public function world_currencies()
-  {
-		return [
-			'USD' => 'United States Dollar',
+    {
+        return [
+            'USD' => 'United States Dollar',
 			'EUR' => 'Euro Member Countries',
 			'GBP' => 'United Kingdom Pound',
 			'AUD' => 'Australia Dollar',
 			'NZD' => 'New Zealand Dollar',
 			'CHF' => 'Switzerland Franc',
 			'RUB' => 'Russia Ruble',
-      'ALL' => 'Albania Lek',
+            'ALL' => 'Albania Lek',
 			'AED' => 'Emirati Dirham',
-      'AFN' => 'Afghanistan Afghani',
-      'ARS' => 'Argentina Peso',
-      'AWG' => 'Aruba Guilder',
-      'AZN' => 'Azerbaijan New Manat',
-      'BSD' => 'Bahamas Dollar',
-      'BBD' => 'Barbados Dollar',
-      'BDT' => 'Bangladeshi taka',
-      'BYN' => 'Belarus Ruble',
-      'BZD' => 'Belize Dollar',
-      'BMD' => 'Bermuda Dollar',
-      'BOB' => 'Bolivia Boliviano',
-      'BAM' => 'Bosnia and Herzegovina Convertible Marka',
-      'BWP' => 'Botswana Pula',
-      'BGN' => 'Bulgaria Lev',
-      'BRL' => 'Brazil Real',
-      'BND' => 'Brunei Darussalam Dollar',
-      'KHR' => 'Cambodia Riel',
-      'CAD' => 'Canada Dollar',
-      'KYD' => 'Cayman Islands Dollar',
-      'CLP' => 'Chile Peso',
-      'CNY' => 'China Yuan Renminbi',
-      'COP' => 'Colombia Peso',
-      'CRC' => 'Costa Rica Colon',
-      'HRK' => 'Croatia Kuna',
-      'CUP' => 'Cuba Peso',
-      'CZK' => 'Czech Republic Koruna',
-      'DKK' => 'Denmark Krone',
-      'DOP' => 'Dominican Republic Peso',
-      'XCD' => 'East Caribbean Dollar',
-      'EGP' => 'Egypt Pound',
-      'SVC' => 'El Salvador Colon',
-      'EEK' => 'Estonia Kroon',
-      'FKP' => 'Falkland Islands (Malvinas) Pound',
-      'FJD' => 'Fiji Dollar',
-      'GHC' => 'Ghana Cedis',
-      'GIP' => 'Gibraltar Pound',
-      'GTQ' => 'Guatemala Quetzal',
-      'GGP' => 'Guernsey Pound',
-      'GYD' => 'Guyana Dollar',
-      'HNL' => 'Honduras Lempira',
-      'HKD' => 'Hong Kong Dollar',
-      'HUF' => 'Hungary Forint',
-      'ISK' => 'Iceland Krona',
-      'INR' => 'India Rupee',
-      'IDR' => 'Indonesia Rupiah',
-      'IRR' => 'Iran Rial',
-      'IMP' => 'Isle of Man Pound',
-      'ILS' => 'Israel Shekel',
-      'JMD' => 'Jamaica Dollar',
-      'JPY' => 'Japan Yen',
-      'JEP' => 'Jersey Pound',
-      'KZT' => 'Kazakhstan Tenge',
-      'KPW' => 'Korea (North) Won',
-      'KRW' => 'Korea (South) Won',
-      'KGS' => 'Kyrgyzstan Som',
-      'LAK' => 'Laos Kip',
-      'LVL' => 'Latvia Lat',
-      'LBP' => 'Lebanon Pound',
-      'LRD' => 'Liberia Dollar',
-      'LTL' => 'Lithuania Litas',
-      'MKD' => 'Macedonia Denar',
-      'MYR' => 'Malaysia Ringgit',
-      'MUR' => 'Mauritius Rupee',
-      'MXN' => 'Mexico Peso',
-      'MNT' => 'Mongolia Tughrik',
-      'MZN' => 'Mozambique Metical',
-      'NAD' => 'Namibia Dollar',
-      'NPR' => 'Nepal Rupee',
-      'ANG' => 'Netherlands Antilles Guilder',
-      'NIO' => 'Nicaragua Cordoba',
-      'NGN' => 'Nigeria Naira',
-      'NOK' => 'Norway Krone',
-      'OMR' => 'Oman Rial',
-      'PKR' => 'Pakistan Rupee',
-      'PAB' => 'Panama Balboa',
-      'PYG' => 'Paraguay Guarani',
-      'PEN' => 'Peru Nuevo Sol',
-      'PHP' => 'Philippines Peso',
-      'PLN' => 'Poland Zloty',
-      'QAR' => 'Qatar Riyal',
-      'RON' => 'Romania New Leu',
-      'SHP' => 'Saint Helena Pound',
-      'SAR' => 'Saudi Arabia Riyal',
-      'RSD' => 'Serbia Dinar',
-      'SCR' => 'Seychelles Rupee',
-      'SGD' => 'Singapore Dollar',
-      'SBD' => 'Solomon Islands Dollar',
-      'SOS' => 'Somalia Shilling',
-      'ZAR' => 'South Africa Rand',
-      'LKR' => 'Sri Lanka Rupee',
-      'SEK' => 'Sweden Krona',
-      'SRD' => 'Suriname Dollar',
-      'SYP' => 'Syria Pound',
-      'SDG' => 'Sudanese Pound',
-      'TWD' => 'Taiwan New Dollar',
-      'THB' => 'Thailand Baht',
-      'TTD' => 'Trinidad and Tobago Dollar',
-      'TRY' => 'Turkey Lira',
-      'TRL' => 'Turkey Lira',
-      'TVD' => 'Tuvalu Dollar',
-      'UAH' => 'Ukraine Hryvna',
-      'UYU' => 'Uruguay Peso',
-      'UZS' => 'Uzbekistan Som',
-      'VEF' => 'Venezuela Bolivar',
-      'VND' => 'Viet Nam Dong',
-      'YER' => 'Yemen Rial',
-      'ZWD' => 'Zimbabwe Dollar',
-    ];
+            'AFN' => 'Afghanistan Afghani',
+            'ARS' => 'Argentina Peso',
+            'AWG' => 'Aruba Guilder',
+            'AZN' => 'Azerbaijan New Manat',
+            'BSD' => 'Bahamas Dollar',
+            'BBD' => 'Barbados Dollar',
+            'BDT' => 'Bangladeshi taka',
+            'BYN' => 'Belarus Ruble',
+            'BZD' => 'Belize Dollar',
+            'BMD' => 'Bermuda Dollar',
+            'BOB' => 'Bolivia Boliviano',
+            'BAM' => 'Bosnia and Herzegovina Convertible Marka',
+            'BWP' => 'Botswana Pula',
+            'BGN' => 'Bulgaria Lev',
+            'BRL' => 'Brazil Real',
+            'BND' => 'Brunei Darussalam Dollar',
+            'KHR' => 'Cambodia Riel',
+            'CAD' => 'Canada Dollar',
+            'KYD' => 'Cayman Islands Dollar',
+            'CLP' => 'Chile Peso',
+            'CNY' => 'China Yuan Renminbi',
+            'COP' => 'Colombia Peso',
+            'CRC' => 'Costa Rica Colon',
+            'HRK' => 'Croatia Kuna',
+            'CUP' => 'Cuba Peso',
+            'CZK' => 'Czech Republic Koruna',
+            'DKK' => 'Denmark Krone',
+            'DOP' => 'Dominican Republic Peso',
+            'XCD' => 'East Caribbean Dollar',
+            'EGP' => 'Egypt Pound',
+            'SVC' => 'El Salvador Colon',
+            'EEK' => 'Estonia Kroon',
+            'FKP' => 'Falkland Islands (Malvinas) Pound',
+            'FJD' => 'Fiji Dollar',
+            'GHC' => 'Ghana Cedis',
+            'GIP' => 'Gibraltar Pound',
+            'GTQ' => 'Guatemala Quetzal',
+            'GGP' => 'Guernsey Pound',
+            'GYD' => 'Guyana Dollar',
+            'HNL' => 'Honduras Lempira',
+            'HKD' => 'Hong Kong Dollar',
+            'HUF' => 'Hungary Forint',
+            'ISK' => 'Iceland Krona',
+            'INR' => 'India Rupee',
+            'IDR' => 'Indonesia Rupiah',
+            'IRR' => 'Iran Rial',
+            'IMP' => 'Isle of Man Pound',
+            'ILS' => 'Israel Shekel',
+            'JMD' => 'Jamaica Dollar',
+            'JPY' => 'Japan Yen',
+            'JEP' => 'Jersey Pound',
+            'KZT' => 'Kazakhstan Tenge',
+            'KPW' => 'Korea (North) Won',
+            'KRW' => 'Korea (South) Won',
+            'KGS' => 'Kyrgyzstan Som',
+            'LAK' => 'Laos Kip',
+            'LVL' => 'Latvia Lat',
+            'LBP' => 'Lebanon Pound',
+            'LRD' => 'Liberia Dollar',
+            'LTL' => 'Lithuania Litas',
+            'MKD' => 'Macedonia Denar',
+            'MYR' => 'Malaysia Ringgit',
+            'MUR' => 'Mauritius Rupee',
+            'MXN' => 'Mexico Peso',
+            'MNT' => 'Mongolia Tughrik',
+            'MZN' => 'Mozambique Metical',
+            'NAD' => 'Namibia Dollar',
+            'NPR' => 'Nepal Rupee',
+            'ANG' => 'Netherlands Antilles Guilder',
+            'NIO' => 'Nicaragua Cordoba',
+            'NGN' => 'Nigeria Naira',
+            'NOK' => 'Norway Krone',
+            'OMR' => 'Oman Rial',
+            'PKR' => 'Pakistan Rupee',
+            'PAB' => 'Panama Balboa',
+            'PYG' => 'Paraguay Guarani',
+            'PEN' => 'Peru Nuevo Sol',
+            'PHP' => 'Philippines Peso',
+            'PLN' => 'Poland Zloty',
+            'QAR' => 'Qatar Riyal',
+            'RON' => 'Romania New Leu',
+            'SHP' => 'Saint Helena Pound',
+            'SAR' => 'Saudi Arabia Riyal',
+            'RSD' => 'Serbia Dinar',
+            'SCR' => 'Seychelles Rupee',
+            'SGD' => 'Singapore Dollar',
+            'SBD' => 'Solomon Islands Dollar',
+            'SOS' => 'Somalia Shilling',
+            'ZAR' => 'South Africa Rand',
+            'LKR' => 'Sri Lanka Rupee',
+            'SEK' => 'Sweden Krona',
+            'SRD' => 'Suriname Dollar',
+            'SYP' => 'Syria Pound',
+            'SDG' => 'Sudanese Pound',
+            'TWD' => 'Taiwan New Dollar',
+            'THB' => 'Thailand Baht',
+            'TTD' => 'Trinidad and Tobago Dollar',
+            'TRY' => 'Turkey Lira',
+            'TRL' => 'Turkey Lira',
+            'TVD' => 'Tuvalu Dollar',
+            'UAH' => 'Ukraine Hryvna',
+            'UYU' => 'Uruguay Peso',
+            'UZS' => 'Uzbekistan Som',
+            'VEF' => 'Venezuela Bolivar',
+            'VND' => 'Viet Nam Dong',
+            'YER' => 'Yemen Rial',
+            'ZWD' => 'Zimbabwe Dollar',
+        ];
 	}
 
 	/**
@@ -370,13 +370,13 @@ class J2Utilities
      * @return string
 	*/
 	function text_sanitize($str)
-  {
+    {
         $str = $this->remove_unwanted_text($str);
         return $str;
     }
 
 	function remove_unwanted_text($str, $keep_newlines = true)
-  {
+    {
         $filtered = $this->convert_utf8( $str );
         if ( strpos( $filtered, '<' ) !== false ) {
             // This will strip extra whitespace for us.

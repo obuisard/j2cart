@@ -57,29 +57,28 @@ $wa->addInlineStyle($style, [], []);
 $wa->registerAndUseScript('com_j2commerce.chart', 'com_j2commerce/chart.js', [], ['defer' => true]);
 ?>
     <div class="j2store">
-        <form class="form-horizontal" method="post"
-              action="<?php echo $form['action']; ?>" name="adminForm" id="adminForm">
+        <form class="form-horizontal" method="post" action="<?php echo $form['action']; ?>" name="adminForm" id="adminForm">
             <div class="js-stools">
                 <div class="js-stools-container-bar">
                     <div class="btn-toolbar w-100 justify-content-end mb-3">
                         <div id="toolbar-icon icon-download" class="me-auto">
                             <button class="btn btn-success" onclick="jQuery('.csvdiv').html('<input type=\'hidden\' name=\'format\' value=\'csv\'>');this.form.submit();"><span class="icon-icon icon-download me-2"></span><?php echo Text::_('JTOOLBAR_EXPORT');?>
-				</button>
-                </div>
+                            </button>
+                        </div>
                         <div class="filter-search-bar btn-group flex-grow-1 flex-lg-grow-0 mb-2 mb-lg-0">
                             <div class="input-group w-100">
                                 <input type="text" name="filter_search" id="search" value="<?php echo htmlspecialchars($vars->state->get('filter_search')); ?>" class="text_area form-control j2store-product-filters" onchange="document.adminForm.submit();" placeholder="<?php echo Text::_( 'J2STORE_FILTER_SEARCH' ); ?>"/>
                                 <button type="button" class="btn btn-primary" onclick="jQuery('.csvdiv').html('');this.form.submit();"><span class="filter-search-bar__button-icon icon-search" aria-hidden="true" title="<?php echo Text::_( 'J2STORE_FILTER_GO' ); ?>"></span></button>
                                 <button class="btn btn-primary" onclick="document.getElementById('search').value='';jQuery('.csvdiv').html('');this.form.submit();"><?php echo Text::_( 'J2STORE_FILTER_RESET' ); ?></button>
                             </div>
-                </div>
-				<?php if ($vars->state->get('filter_datetype') == 'custom'): ?>
+                        </div>
+                        <?php if ($vars->state->get('filter_datetype') == 'custom'): ?>
                             <div class="filter-search-actions btn-group ms-lg-2 flex-grow-1 flex-lg-grow-0 mb-2 mb-lg-0">
                                 <button type="button" class="filter-search-actions__button btn btn-primary js-stools-btn-filter w-100" data-bs-toggle="collapse" data-bs-target="#advanced-search-controls" aria-expanded="false" aria-controls="advanced-search-controls">
                                     <?php echo Text::_('JFILTER_OPTIONS');?><span class="icon-angle-down ms-1" aria-hidden="true"></span>
-				</button>
+                                </button>
                             </div>
-                <?php endif; ?>
+                        <?php endif;?>
 
                             <div class="ordering-select d-flex gap-2 ms-lg-2 flex-grow-1 flex-lg-grow-0">
                                 <?php
@@ -120,47 +119,46 @@ $wa->registerAndUseScript('com_j2commerce.chart', 'com_j2commerce/chart.js', [],
                     </div>
                     <div class="col-lg-2 col-md-4 mb-2">
                         <?php echo HTMLHelper::calendar($vars->state->get('filter_order_to_date'), 'filter_order_to_date', 'filter_order_to_date', '%Y-%m-%d', array('class' => 'form-control','placeholder' => Text::_('J2STORE_ORDERS_EXPORT_TO_DATE'))); ?>
-                </div>
+                    </div>
                     <div class="col-lg-2 col-md-4 mb-2">
                         <button class="btn btn-primary" onclick="document.getElementById('filter_order_from_date').value='',document.getElementById('filter_order_to_date').value='';this.form.submit();">
                             <i class="icon icon-remove me-2"></i>
                             <?php echo Text::_( 'J2STORE_FILTER_RESET' ); ?>
-                    </button>
+                        </button>
+                    </div>
                 </div>
-            </div>
             </div>
             <?php if (count($vars->products)): ?>
                 <div class="card mb-4">
                     <div class="card-body chart-body">
                         <canvas id="barChart"></canvas>
+                    </div>
                 </div>
-
-            </div>
             <?php endif; ?>
 
             <div class="table-responsive">
                 <table class="table itemList align-middle">
                     <thead>
-                    <tr>
+                        <tr>
                             <th scope="col">
                                 <?php echo HTMLHelper::_('grid.sort', 'PLG_J2STORE_PRODUCT_NAME', 'orderitem.orderitem_name', $vars->state->get('filter_order_Dir'), $vars->state->get('filter_order')); ?>
-                        </th>
+                            </th>
                             <th scope="col">
                                 <?php echo HTMLHelper::_('grid.sort', 'J2STORE_REPORT_TOTAL_QUANTITY', 'orderitem.orderitem_quantity', $vars->state->get('filter_order_Dir'), $vars->state->get('filter_order'));?>
-                        </th>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_REPORT_PRODUCT_DISCOUNT'); ?>
-                        </th>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_REPORT_PRODUCT_TAX'); ?>
-                        </th>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_REPORT_PRODUCT_WITHOUT_TAX'); ?>
-                        </th>
+                            </th>
                             <th scope="col">
                                 <?php echo Text::_('J2STORE_REPORT_PRODUCT_WITH_TAX'); ?>
-                        </th>
-                    </tr>
+                            </th>
+                        </tr>
                     </thead>
                     <?php if (count($vars->products)): ?>
                         <?php
@@ -216,110 +214,110 @@ $wa->registerAndUseScript('com_j2commerce.chart', 'com_j2commerce/chart.js', [],
             <input type="hidden" name="report_id" value=" <?php echo $vars->id; ?>"/>
             <input type="hidden" name="boxchecked" value=""/>
             <input type="hidden" name="order_change" value="0"/>
-            <div class="csvdiv">
-
-            </div>
+            <div class="csvdiv"></div>
             <?php echo HTMLHelper::_('form.token'); ?>
         </form>
     </div>
 <?php if (!empty($vars->product_amount)): ?>
     <script>
-        const ctx = document.getElementById('barChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode($vars->product_name);?>,
-                datasets: [{
-                    label: '<?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_REVENUE");?>',
-                    data: <?php echo json_encode($vars->product_amount);?>,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1,
-                    yAxisID: 'y-left'
-                },
-                {
-                    label: '<?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>',
-                    data: <?php echo json_encode($vars->product_qty); ?>,
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 205, 86, 0.2)',
-                        'rgba(201, 203, 207, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 205, 86, 1)',
-                        'rgba(201, 203, 207, 1)'
-                    ],
-                    borderWidth: 1,
-                    type: 'line',
-                    yAxisID: 'y-right'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    'y-left': {
-                        beginAtZero: true,
-                        position: 'left',
-                        ticks: {
-                            callback: function(value) {
-                                return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
-                            }
-                        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('barChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: <?php echo json_encode($vars->product_name);?>,
+                    datasets: [{
+                        label: '<?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_REVENUE");?>',
+                        data: <?php echo json_encode($vars->product_amount);?>,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1,
+                        yAxisID: 'y-left'
                     },
-                    'y-right': {
-                        beginAtZero: true,
-                        position: 'right',
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString();
-                            }
-                        },
-                        grid: {
-                            drawOnChartArea: false
-                        }
-                    }
+                        {
+                            label: '<?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>',
+                            data: <?php echo json_encode($vars->product_qty); ?>,
+                            backgroundColor: [
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 205, 86, 1)',
+                                'rgba(201, 203, 207, 1)'
+                            ],
+                            borderWidth: 1,
+                            type: 'line',
+                            yAxisID: 'y-right'
+                        }]
                 },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                const value = context.raw || 0;
-                                if (context.datasetIndex === 0) {
-                                    return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
-                                } else {
-                                    return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        'y-left': {
+                            beginAtZero: true,
+                            position: 'left',
+                            ticks: {
+                                callback: function (value) {
+                                    return '<?php echo $currency_symbol; ?>' + value.toLocaleString();
                                 }
                             }
+                        },
+                        'y-right': {
+                            beginAtZero: true,
+                            position: 'right',
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString();
+                                }
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
                         }
                     },
-                    subtitle: {
-                        display: true,
-                        text: '<?php echo Text::_("J2STORE_J2C_REPORT_PRODUCTS");?>',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw || 0;
+                                    if (context.datasetIndex === 0) {
+                                        return `<?php echo $currency_symbol; ?>${value.toLocaleString()}`; // Dollar amounts
+                                    } else {
+                                        return value.toLocaleString() + ' <?php echo Text::_("J2STORE_REPORT_PRODUCT_CHART_PRODUCTS_SOLD");?>'; // Quantity amounts
+                                    }
+                                }
+                            }
+                        },
+                        subtitle: {
+                            display: true,
+                            text: '<?php echo Text::_("J2STORE_J2C_REPORT_PRODUCTS");?>',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
                         }
                     }
                 }
-            }
+            });
         });
     </script>
 <?php endif; ?>

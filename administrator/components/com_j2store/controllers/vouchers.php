@@ -214,7 +214,7 @@ class J2StoreControllerVouchers extends F0FController
 	 * Method to send Voucher Email
 	 */
 	public function send()
-  {
+    {
 		$app = Factory::getApplication();
 		$cids = $app->input->get('cid',array(),'');
 		if(count($cids)) {
@@ -231,7 +231,7 @@ class J2StoreControllerVouchers extends F0FController
 	}
 
 	public function history()
-  {
+    {
 		$app = Factory::getApplication();
 		$cid = $app->input->get('cid', array(), 'array');
 		//take the first one

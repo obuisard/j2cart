@@ -331,7 +331,7 @@ class J2StoreControllerCheckouts extends F0FController
 
 			if($privacy_plugin_enabled && !$privacy_plugin){
                 $privacy_plugin = PluginHelper::getPlugin('system', 'privacyconsent');
-                $privacy_params = J2Store::platform()->getRegistry($privacy_plugin->params);//Joomla 1.6 Onward
+                $privacy_params = J2Store::platform()->getRegistry($privacy_plugin->params);
                 $json['error']['privacyconsent'] = Text::_($privacy_params->get('messageOnRedirect','PLG_SYSTEM_PRIVACYCONSENT_REDIRECT_MESSAGE_DEFAULT'));
             }
 		}
@@ -1734,7 +1734,7 @@ class J2StoreControllerCheckouts extends F0FController
 			default :
 				$rates = J2Store::fof()->getModel('Shippings', 'J2StoreModel')->getShippingRates($order);
 				$default_rate = [];
-                $session = Factory::getApplication()->getSession();
+				$session = Factory::getApplication()->getSession();
 				$shipping_values = $session->get ( 'shipping_values', [], 'j2store' );
 				if(count($rates)){
 					$order->show_payment_method = 1;
@@ -1800,7 +1800,7 @@ class J2StoreControllerCheckouts extends F0FController
 			$response ['msg'] = $html;
 
 			// encode and echo (need to echo to send back to browser)
-			echo json_encode ( $response );
+			echo json_encode($response);
 			$app->close ();
 		}
 		// return;
@@ -1844,12 +1844,12 @@ class J2StoreControllerCheckouts extends F0FController
 
 		if (isset ( $values ['shippingrequired'] )) {
 			if ($values ['shippingrequired'] === 1 && empty ( $values ['shipping_plugin'] )) {
-				throw new Exception ( Text::_ ( 'J2STORE_CHECKOUT_SELECT_A_SHIPPING_METHOD' ) );
+				throw new Exception (Text::_('J2STORE_CHECKOUT_SELECT_A_SHIPPING_METHOD'));
 				return false;
 			}
 		}
 
-		if (( float ) $order->order_total == ( float ) '0.00') {
+		if ((float) $order->order_total == (float)'0.00') {
 			return true;
 		}
 
@@ -1863,7 +1863,7 @@ class J2StoreControllerCheckouts extends F0FController
 		for($i = 0, $iMax = count($results); $i < $iMax; $i ++) {
 			$result = $results [$i];
 			if (! empty ( $result->error )) {
-				throw new Exception ( $result->message );
+				throw new Exception ($result->message);
 				return false;
 			}
 		}

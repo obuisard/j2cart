@@ -58,42 +58,42 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
         </div>
         <div class="table-responsive">
             <table class="table itemList">
-			<thead>
-				<tr>
-                    <th scope="col" class="w-1 text-center">
-                        <?php echo HTMLHelper::_('grid.checkall'); ?>
-					</th>
-                    <th scope="col" class="w-30 title">
-                        <?php echo Text::_('J2STORE_PRODUCT_NAME'); ?>
-					</th>
-                    <th scope="col" class="center nowrap">
-                        <?php echo Text::_('J2STORE_PRODUCT_SKU'); ?>
-					</th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="3">
-						<?php echo $this->pagination->getListFooter(); ?>
-					</td>
-				</tr>
-			</tfoot>
+                <thead>
+                    <tr>
+                        <th scope="col" class="w-1 text-center">
+                            <?php echo HTMLHelper::_('grid.checkall'); ?>
+                        </th>
+                        <th scope="col" class="w-30 title">
+                            <?php echo Text::_('J2STORE_PRODUCT_NAME'); ?>
+                        </th>
+                        <th scope="col" class="center nowrap">
+                            <?php echo Text::_('J2STORE_PRODUCT_SKU'); ?>
+                        </th>
+                    </tr>
+			    </thead>
+			    <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <?php echo $this->pagination->getListFooter(); ?>
+                        </td>
+                    </tr>
+			    </tfoot>
 			<tbody>
 				<?php foreach($this->productitems as $key=>$item):?>
 				<?php $canChange  = 1;?>
 				<tr>
 					<td>
-                            <input data-product-title="<?php echo $item->product_name;?>" id="cb<?php echo $item->j2store_product_id;?>" type="checkbox" onclick="Joomla.isChecked(this.checked);" value="<?php echo $item->j2store_product_id;?>" name="cid[]" class="form-check-input">
+                        <input data-product-title="<?php echo $item->product_name;?>" id="cb<?php echo $item->j2store_product_id;?>" type="checkbox" onclick="Joomla.isChecked(this.checked);" value="<?php echo $item->j2store_product_id;?>" name="cid[]" class="form-check-input">
 						<?php echo J2html::hidden('tmp_product_title['.$item->j2store_product_id.']', $item->product_name ,array('class'=>'tmp_product_title')); ?>
 					</td>
 					<td>
-                            <a href="javascript:if (window.parent) window.parent.<?php echo $db->escape($function);?>('<?php echo $item->j2store_product_id; ?>','<?php echo $item->product_name;?>' ,'<?php echo $field;?>');">
+                        <a href="javascript:if (window.parent) window.parent.<?php echo $db->escape($function);?>('<?php echo $item->j2store_product_id; ?>','<?php echo $item->product_name;?>' ,'<?php echo $field;?>');">
 							<?php echo $item->product_name; ?>
 						</a>
 					</td>
 					<td>
 						<?php if($item->product_type == 'variable'):?>
-                                <h5 class="fs-5"><?php echo Text::_('J2STORE_HAS_VARIANTS'); ?></h5>
+                            <h5 class="fs-5"><?php echo Text::_('J2STORE_HAS_VARIANTS'); ?></h5>
 								<?php
 										$variant_model = F0FModel::getTmpInstance('Variants', 'J2StoreModel');
 										$variant_model->setState('product_type', $item->product_type);
@@ -121,15 +121,15 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 			</tbody>
 		</table>
         </div>
-		<?php echo J2Html::hidden('option','com_j2store');?>
-		<?php echo J2Html::hidden('view','coupons');?>
-		<?php echo J2Html::hidden('tmpl','component');?>
-		<?php echo J2Html::hidden('task','setProducts',array('id'=>'task'));?>
-		<?php echo J2Html::hidden('layout','products');?>
-		<?php echo J2Html::hidden('boxchecked',0);?>
-		<?php echo J2Html::hidden('filter_order',$listOrder);?>
-		<?php echo J2Html::hidden('filter_order_Dir',$listDirn);?>
-		<?php echo J2Html::hidden('field',$field);?>
+        <?php echo J2Html::hidden('option','com_j2store');?>
+        <?php echo J2Html::hidden('view','coupons');?>
+        <?php echo J2Html::hidden('tmpl','component');?>
+        <?php echo J2Html::hidden('task','setProducts',array('id'=>'task'));?>
+        <?php echo J2Html::hidden('layout','products');?>
+        <?php echo J2Html::hidden('boxchecked',0);?>
+        <?php echo J2Html::hidden('filter_order',$listOrder);?>
+        <?php echo J2Html::hidden('filter_order_Dir',$listDirn);?>
+        <?php echo J2Html::hidden('field',$field);?>
         <?php echo HTMLHelper::_('form.token'); ?>
     </fieldset>
 </form>

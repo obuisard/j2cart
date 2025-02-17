@@ -29,7 +29,7 @@ class J2StoreControllerPostconfig extends F0FController
 	}
 
 	public function browse()
-  {
+    {
 		if(parent::browse()) {
 			$config = J2Store::config();
 			$complete = $config->get('installation_complete', 0);
@@ -44,7 +44,7 @@ class J2StoreControllerPostconfig extends F0FController
 	}
 
 	public function saveConfig()
-  {
+    {
 		//first CSRF check
 		Session::checkToken() or die( 'Invalid Token' );
 
@@ -141,7 +141,7 @@ class J2StoreControllerPostconfig extends F0FController
 	}
 
 	protected function validate_field($field, $values)
-  {
+    {
 		if(!isset($values[$field]) || empty($values[$field])) {
 			return false;
 		}
@@ -149,7 +149,7 @@ class J2StoreControllerPostconfig extends F0FController
 	}
 
 	protected function set_default_taxrate($rate, $values)
-  {
+    {
 		// get the country id
 		$country_id = $values ['country_id'];
 
@@ -164,7 +164,7 @@ class J2StoreControllerPostconfig extends F0FController
 		$geozone->enabled = 1;
 
 		try {
-			$geozone->store ();
+			$geozone->store();
 		} catch ( Exception $e ) {
 			return false;
 		}
@@ -177,7 +177,7 @@ class J2StoreControllerPostconfig extends F0FController
 			$geozonerule->zone_id = 0;
 
 			try {
-				$geozonerule->store ();
+				$geozonerule->store();
 			} catch ( Exception $e ) {
 				return false;
 			}

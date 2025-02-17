@@ -42,42 +42,42 @@ if(!empty($row->$field) && strlen($row->$field) > 0) {
 
 <?php if(isset($fields) && count($fields)) :?>
     <div class="small">
-<?php foreach($fields as $namekey=>$field) : ?>
-	<?php if(is_object($field)): ?>
+        <?php foreach($fields as $namekey=>$field) : ?>
+            <?php if(is_object($field)): ?>
                 <div>
                     <strong><?php echo Text::_($field->label);?>:</strong>
-		<?php
-		if(is_array($field->value)) {
-			echo '<br>';
-			foreach($field->value as $value) {
+                    <?php
+                    if(is_array($field->value)) {
+                        echo '<br>';
+                        foreach($field->value as $value) {
                             echo '- '.Text::_($value).'<br>';
-			}
+                        }
 
-		}elseif(is_object($field->value)) {
-                //convert the object into an array
-            $obj_array = $platform->fromObject($field->value);
-            echo '<br>';
-            foreach($obj_array as $value) {
+                    }elseif(is_object($field->value)) {
+                        //convert the object into an array
+                        $obj_array = $platform->fromObject($field->value);
+                        echo '<br>';
+                        foreach($obj_array as $value) {
                             echo '- '.Text::_($value).'<br>';
-            }
+                        }
 
-		}elseif(is_string($field->value) && J2Store::utilities()->isJson(stripslashes($field->value))) {
-			$json_values = json_decode(stripslashes($field->value));
+                    }elseif(is_string($field->value) && J2Store::utilities()->isJson(stripslashes($field->value))) {
+                        $json_values = json_decode(stripslashes($field->value));
 
-		if(is_array($json_values)) {
-			foreach($json_values as $value){
+                        if(is_array($json_values)) {
+                            foreach($json_values as $value){
                                 echo '- '.Text::_($value).'<br>';
-			}
-		} else {
+                            }
+                        } else {
                             echo Text::_(nl2br($field->value));
-			}
+                        }
 
-		} else {
+                    } else {
                         echo Text::_(nl2br($field->value));
-		}
-		?>
+                    }
+                    ?>
                 </div>
-<?php endif; ?>
-<?php endforeach; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
     </div>
 <?php endif; ?>

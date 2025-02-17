@@ -26,8 +26,8 @@ class JFormFieldQueuekey extends FormField
 		$url = 'index.php?option=com_j2store&view=configuration&task=regenerateQueuekey';
 		if(empty( $queue_key )){
 			$queue_string = Factory::getApplication()->getConfig()->get('sitename','').time();
-			$queue_key = md5 ( $queue_string );
-			$config->saveOne ( 'queue_key', $queue_key );
+			$queue_key = md5($queue_string);
+			$config->saveOne('queue_key', $queue_key);
 		}
         $script = "<script>
 		function regenerateQueueKey() {

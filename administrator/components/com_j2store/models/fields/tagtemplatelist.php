@@ -23,7 +23,7 @@ class JFormFieldTagTemplateList extends ListField
 	public function getInput()
     {
 		$fieldName = $this->name;
-			$db = Factory::getContainer()->get('DatabaseDriver');
+        $db = Factory::getContainer()->get('DatabaseDriver');
 
 		// Query to get the default template
 		$query = $db->getQuery(true)
@@ -66,6 +66,5 @@ class JFormFieldTagTemplateList extends ListField
 		}
 		array_unshift($options, HTMLHelper::_('select.option', 'tag_default', Text::_('J2STORE_USE_DEFAULT')));
 		return HTMLHelper::_('select.genericlist', $options, $fieldName, 'class="form-select"', 'value', 'text', $this->value, $this->control_name . $this->name);
-
 	}
 }

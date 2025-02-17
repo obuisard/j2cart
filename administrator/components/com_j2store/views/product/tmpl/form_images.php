@@ -30,11 +30,11 @@ $wa->addInlineStyle($style, [], []);
         <div class="col-lg-6 mb-4">
             <fieldset class="options-form">
                 <legend><?php echo Text::_('J2STORE_PRODUCT_THUMB_IMAGE');?></legend>
-            <div class="control-group">
+                <div class="control-group">
                     <div class="control-label"><?php echo J2Html::label(Text::_('J2STORE_PRODUCT_THUMB_IMAGE'), 'thumb_image'); ?></div>
                     <div class="controls">
-                <?php echo J2Html::media($this->form_prefix . '[thumb_image]', $this->item->thumb_image, array('id' => 'thumb_image', 'image_id' => 'input-thumb-image', 'no_hide' => '')); ?>
-            </div>
+			            <?php echo J2Html::media($this->form_prefix . '[thumb_image]', $this->item->thumb_image, array('id' => 'thumb_image', 'image_id' => 'input-thumb-image', 'no_hide' => '')); ?>
+                    </div>
                 </div>
                 <div class="control-group align-items-center">
                     <div class="control-label"><?php echo J2Html::label(Text::_('JFIELD_MEDIA_ALT_LABEL'), 'thumb_image_alt'); ?></div>
@@ -43,22 +43,22 @@ $wa->addInlineStyle($style, [], []);
                     </div>
                 </div>
             </fieldset>
-            </div>
+        </div>
         <div class="col-lg-6 mb-4">
             <fieldset class="options-form">
                 <legend><?php echo Text::_('J2STORE_PRODUCT_MAIN_IMAGE');?></legend>
-            <div class="control-group">
+                <div class="control-group">
                     <div class="control-label"><?php echo J2Html::label(Text::_('J2STORE_PRODUCT_MAIN_IMAGE'), 'main_image'); ?></div>
                     <div class="controls">
-                <?php echo J2Html::media($this->form_prefix . '[main_image]', $this->item->main_image, array('id' => 'main_image', 'image_id' => 'input-main-image', 'no_hide' => '')); ?>
-                <?php echo J2Html::hidden($this->form_prefix . '[j2store_productimage_id]', $this->item->j2store_productimage_id); ?>
-            </div>
-            </div>
+	                    <?php echo J2Html::media($this->form_prefix . '[main_image]', $this->item->main_image, array('id' => 'main_image', 'image_id' => 'input-main-image', 'no_hide' => '')); ?>
+	                    <?php echo J2Html::hidden($this->form_prefix . '[j2store_productimage_id]', $this->item->j2store_productimage_id); ?>
+                    </div>
+                </div>
                 <div class="control-group align-items-center">
                     <div class="control-label"><?php echo J2Html::label(Text::_('JFIELD_MEDIA_ALT_LABEL'), 'main_image_alt'); ?></div>
                     <div class="controls">
 	                    <?php echo J2Html::text($this->form_prefix . '[main_image_alt]', $this->item->main_image_alt, array('id' => 'main_image_alt', 'class'=>'form-control')); ?>
-                        </div>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -73,29 +73,28 @@ $wa->addInlineStyle($style, [], []);
                             <span id="filteredBy"><?php echo Text::_('JGLOBAL_FILTERED_BY'); ?></span>
                         </caption>
                         <thead>
-                <tr>
+                        <tr>
                             <th scope="col"></th>
                             <th scope="col">
 		                        <?php echo J2Html::label(Text::_('J2STORE_PRODUCT_ADDITIONAL_IMAGE'), 'additioanl_image_label'); ?>
-                    </th>
+                            </th>
                             <th scope="col">
 		                        <?php echo J2Html::label(Text::_('JFIELD_MEDIA_ALT_LABEL'), 'additioanl_image_label'); ?>
-                    </th>
+                            </th>
                             <th scope="col" class="text-end">
                                 <button type="button" id="addImagBtn" class="btn btn-success btn-sm"><span class="fas fa-solid fa-plus me-2"></span><?php echo Text::_('J2STORE_PRODUCT_ADDITIONAL_IMAGES_ADD') ?></button>
-                    </th>
-                </tr>
+                            </th>
+                        </tr>
                         </thead>
                         <tbody>
                             <?php if (isset($this->item->additional_images) && !empty($this->item->additional_images)):?>
-                    <?php
-                    $add_image = json_decode($this->item->additional_images);
-                    $add_image_alt = json_decode($this->item->additional_images_alt,true);
-                    ?>
-                <?php endif;
-                if (isset($add_image) && !empty($add_image)):
+                                <?php
+                                $add_image = json_decode($this->item->additional_images);
+                                $add_image_alt = json_decode($this->item->additional_images_alt,true);
+                                ?>
+                            <?php endif;
+                            if (isset($add_image) && !empty($add_image)):
                                 foreach ($add_image as $key => $img):
-
                                     ?>
                                     <tr class="tr-additional-image" id="additional-image-<?php echo $key; ?>">
                                         <td>
@@ -114,49 +113,48 @@ $wa->addInlineStyle($style, [], []);
                                             <?php } ?>
 
                                         </td>
-                            <td colspan="1">
-                                <?php echo J2Html::media($this->form_prefix . '[additional_images][' . $key . ']', $img, array('id' => 'additional_image_' . $key, 'class' => 'image-input', 'image_id' => 'input-additional-image-' . $key, 'no_hide' => '')); ?>
-                            </td>
-                            <td>
+                                        <td colspan="1">
+			                                <?php echo J2Html::media($this->form_prefix . '[additional_images][' . $key . ']', $img, array('id' => 'additional_image_' . $key, 'class' => 'image-input', 'image_id' => 'input-additional-image-' . $key, 'no_hide' => '')); ?>
+                                        </td>
+                                        <td>
 			                                <?php echo J2Html::text($this->form_prefix . '[additional_images_alt][' . $key . ']', isset($add_image_alt[$key])?$add_image_alt[$key]:'', array('id' => 'additional_image_alt_' . $key, 'class'=>'form-control w-100')); ?>
-                            </td>
+                                        </td>
                                         <td class="text-end">
                                             <input type="button" onclick="deleteImageRow(this)" class="btn btn-danger btn-sm" value="<?php echo Text::_('J2STORE_DELETE') ?>"/>
-                            </td>
-                        </tr>
-                        <?php
-                        if ($key >= $image_counter)
-                        {
-                            $image_counter = $key;
-                        }
-                        $image_counter++;
-                        ?>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr class="tr-additional-image" id="additional-image-0">
-                        <td>
+                                        </td>
+                                    </tr>
+	                                <?php if ($key >= $image_counter)
+	                                {
+		                                $image_counter = $key;
+	                                }
+	                                $image_counter++;
+	                                ?>
+                                <?php endforeach;?>
+                            <?php else: ?>
+                                <tr class="tr-additional-image" id="additional-image-0">
+                                    <td>
 
-                        </td>
-                        <td colspan="1">
-                            <?php echo J2Html::media($this->form_prefix . '[additional_images][0]', '', array('id' => 'additional_image_0', 'class' => 'image-input', 'image_id' => 'input-additional-image-0', 'no_hide' => '')); ?>
-                        </td>
-                        <td>
-                            <?php echo J2Html::text($this->form_prefix . '[additional_images_alt][0]', '', array('id' => 'additional_image_alt_0', 'class'=>'form-control w-100')); ?>
-                        </td>
-                        <td><input type="button" onclick="deleteImageRow(this)" class="btn btn-success" value="<?php echo Text::_('J2STORE_DELETE')?>"/></td>
-                    </tr>
-                <?php endif; ?>
+                                    </td>
+                                    <td colspan="1">
+			                            <?php echo J2Html::media($this->form_prefix . '[additional_images][0]', '', array('id' => 'additional_image_0', 'class' => 'image-input', 'image_id' => 'input-additional-image-0', 'no_hide' => '')); ?>
+                                    </td>
+                                    <td>
+			                            <?php echo J2Html::text($this->form_prefix . '[additional_images_alt][0]', '', array('id' => 'additional_image_alt_0', 'class'=>'form-control w-100')); ?>
+                                    </td>
+                                    <td><input type="button" onclick="deleteImageRow(this)" class="btn btn-success" value="<?php echo Text::_('J2STORE_DELETE')?>"/></td>
+                                </tr>
+	                        <?php endif; ?>
                             <input type="hidden" id="additional_image_counter" name="additional_image_counter" value="<?php echo $image_counter; ?>"/>
                             <tr class="tr-additional-image" id="additional-image-template" style="display: none;">
                                 <td></td>
-                    <td colspan="1">
-                        <?php echo J2Html::media('additional_image_tmpl', '', array('id' => 'additional_image_', 'class' => 'image-input', 'image_id' => 'input-additional-image-', 'no_hide' => '')); ?>
-                    </td>
-                    <td>
-                        <?php echo J2Html::text('additional_images_alt_tmpl', '', array('id' => 'additional_image_alt_', 'class' => 'image-alt-text')); ?>
-                    </td>
-                    <td class="text-end"><input type="button" onclick="deleteImageRow(this)" class="btn btn-danger btn-sm" value="<?php echo Text::_('J2STORE_DELETE') ?>"/></td>
-                </tr>
+                                <td colspan="1">
+		                            <?php echo J2Html::media('additional_image_tmpl', '', array('id' => 'additional_image_', 'class' => 'image-input', 'image_id' => 'input-additional-image-', 'no_hide' => '')); ?>
+                                </td>
+                                <td>
+		                            <?php echo J2Html::text('additional_images_alt_tmpl', '', array('id' => 'additional_image_alt_', 'class' => 'image-alt-text')); ?>
+                                </td>
+                                <td class="text-end"><input type="button" onclick="deleteImageRow(this)" class="btn btn-danger btn-sm" value="<?php echo Text::_('J2STORE_DELETE') ?>"/></td>
+                            </tr>
                     </table>
                 </div>
             </fieldset>

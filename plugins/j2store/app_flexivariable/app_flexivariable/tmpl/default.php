@@ -39,8 +39,7 @@ $script = "Joomla.submitbutton = function(pressbutton) {
 $wa->addInlineScript($script, [], []);
 ?>
 <div class="j2store-configuration">
-    <form action="<?php echo $vars->action; ?>" method="post" name="adminForm" id="adminForm"
-          class="form-horizontal form-validate">
+    <form action="<?php echo $vars->action; ?>" method="post" name="adminForm" id="adminForm" class="form-horizontal form-validate">
         <?php echo J2Html::hidden('option', 'com_j2store'); ?>
         <?php echo J2Html::hidden('view', 'apps'); ?>
         <?php echo J2Html::hidden('app_id', $vars->id); ?>

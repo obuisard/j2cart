@@ -34,8 +34,8 @@ $enable_inventory = J2Store::config()->get ( 'enable_inventory', 1 );
                 <div class="control-group">
                     <div class="control-label"><?php echo J2Html::label(Text::_('J2STORE_PRODUCT_QUANTITY'), 'quantity');?></div>
                     <div class="controls">
-	                    <?php echo J2Html::hidden($this->form_prefix.'[quantity][j2store_productquantity_id]', (isset($this->variant->j2store_productquantity_id)) ? $this->variant->j2store_productquantity_id:'',array('class'=>'input')); ?>
-	                    <?php echo J2Html::text($this->form_prefix.'[quantity][quantity]', (isset($this->variant->quantity))?$this->variant->quantity:'',array('class'=>'form-control','field_type'=>'integer')); ?>
+                        <?php echo J2Html::hidden($this->form_prefix.'[quantity][j2store_productquantity_id]', (isset($this->variant->j2store_productquantity_id)) ? $this->variant->j2store_productquantity_id:'',array('class'=>'input')); ?>
+                        <?php echo J2Html::text($this->form_prefix.'[quantity][quantity]', (isset($this->variant->quantity))?$this->variant->quantity:'',array('class'=>'form-control','field_type'=>'integer')); ?>
                     </div>
                 </div>
                 <div class="control-group">

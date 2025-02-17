@@ -242,7 +242,7 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
 		}
 		if ($category) {
 			// we have a single category. So we can add a breadcrumb
-			$category_data = J2Store::article ()->getCategoryById ( $category );
+			$category_data = J2Store::article()->getCategoryById($category);
 			if (isset ( $category_data->title ) && $params->get('breadcrumb_category_inclusion', 1)) {
 				$pathway = $app->getPathway ();
 
@@ -335,7 +335,7 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
 					->name($this->form_prefix.'[manufacturer_id]')
 					->value($this->item->manufacturer_id)
                     ->attribs(array('class'=>'form-select'))
-					->setPlaceHolders(
+                    ->setPlaceHolders(
 							array(''=>Text::_('J2STORE_SELECT_OPTION'))
 					)
 					->hasOne('Manufacturers')
@@ -370,7 +370,7 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
 					->type('genericlist')
 					->name($this->form_prefix.'[taxprofile_id]')
                     ->attribs(array('class'=>'form-select'))
-					->value($this->item->taxprofile_id)
+                    ->value($this->item->taxprofile_id)
 					->setPlaceHolders(array(''=>Text::_('J2STORE_NOT_TAXABLE')))
 					->hasOne('Taxprofiles')
 					->setRelations(
@@ -752,15 +752,16 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
 		}
 
 		//add class to the module for better styling control.
-		$script = '
+        $script = '
             document.addEventListener("DOMContentLoaded", function() {
                 document.body.classList.add(
                     "j2store-single-product-view",
                     "view-product-' . $product->j2store_product_id . '",
                     "' . $product->source->alias . '"
                 );
-		  });
-		';
+            });
+        ';
+
         J2Store::platform()->addInlineScript($script);
 
 		//add custom styles

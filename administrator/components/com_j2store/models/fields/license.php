@@ -76,16 +76,16 @@ class JFormFieldLicense extends FormField
         if (($status !== 'active' && !empty($license_value)) || $force) {
             $html .= "<a id='activate_license' onclick='activateLicense()' class='btn btn-success' >" . Text::_('J2STORE_ACTIVATE') . "</a>";
             $html .= '<script>
-        function activateLicense(){
-            let license = document.getElementById("plugin_license_key").value;
-            let status = document.getElementById("plugin_license_status").value;
-            let expire = document.getElementById("plugin_license_expire").value;
-            let extension_id = "' . $extension_id . '";
-            let is_app_view = "' . $is_app_view . '";
-            let is_component_view = "' . $is_component_view . '";
-            let is_module_view = "' . $is_module_view . '";
-            let is_report_view = "' . $is_report_view . '";
-             let app_task = "'.$app_task.'";
+                function activateLicense() {
+                    let license = document.getElementById("plugin_license_key").value;
+                    let status = document.getElementById("plugin_license_status").value;
+                    let expire = document.getElementById("plugin_license_expire").value;
+                    let extension_id = "' . $extension_id . '";
+                    let is_app_view = "' . $is_app_view . '";
+                    let is_component_view = "' . $is_component_view . '";
+                    let is_module_view = "' . $is_module_view . '";
+                    let is_report_view = "' . $is_report_view . '";
+                    let app_task = "' . $app_task . '";
 
                     // Create XMLHttpRequest object
                     let xhr = new XMLHttpRequest();
@@ -101,7 +101,7 @@ class JFormFieldLicense extends FormField
                                 errorSpan.className = "j2error";
                                 errorSpan.innerHTML = data.message;
                                 document.getElementById("plugin_license_key").after(errorSpan);
-    			    }else {
+                            } else {
                                 document.getElementById("plugin_license_status").value = "active";
                                 document.getElementById("plugin_license_expire").value = data.response.expires;
 
@@ -110,32 +110,32 @@ class JFormFieldLicense extends FormField
                                 successSpan.innerHTML = data.message;
                                 document.getElementById("plugin_license_key").after(successSpan);
 
-                        if(is_app_view){
-                             document.adminForm.task ="view";
-                             document.getElementById("appTask").value = app_task;
-                             Joomla.submitform("view");
-                        }else if(is_component_view ){
+                                if (is_app_view) {
+                                    document.adminForm.task = "view";
+                                    document.getElementById("appTask").value = app_task;
+                                    Joomla.submitform("view");
+                                } else if (is_component_view) {
                                     document.querySelector(\'input[name="task"]\').value = "component.apply";
                                     setTimeout(() => {
                                         document.getElementById("plugin_license_key").closest("form").submit();
                                     }, 1000);
-                        }else if(is_module_view ){
+                                } else if (is_module_view) {
                                     document.querySelector(\'input[name="task"]\').value = "module.apply";
                                     setTimeout(() => {
                                         document.getElementById("plugin_license_key").closest("form").submit();
                                     }, 1000);
-                        }else if(is_report_view ){
-                             document.adminForm.task ="view";
-                             document.getElementById("reportTask").value = app_task;
-                             Joomla.submitform("view");
+                                } else if (is_report_view) {
+                                    document.adminForm.task = "view";
+                                    document.getElementById("reportTask").value = app_task;
+                                    Joomla.submitform("view");
                                 } else {
                                     document.querySelector(\'input[name="task"]\').value = "plugin.apply";
                                     setTimeout(() => {
                                         document.getElementById("plugin_license_key").closest("form").submit();
                                     }, 1000);
+                                }
+                            }
                         }
-                        }
-    			    }
                     };
                     // Send the request
                     xhr.send("license=" + encodeURIComponent(license) + "&status=" + encodeURIComponent(status) + "&expire=" + encodeURIComponent(expire) + "&id=" + encodeURIComponent(extension_id));}
@@ -143,14 +143,14 @@ class JFormFieldLicense extends FormField
         } elseif ($status === 'active') {
             $html .= "<a id='de_activate_license' class='btn btn-danger' onclick='deActivateLicense()' >" . Text::_('J2STORE_DEACTIVATE') . "</a>";
             $html .= '<script>
-        function deActivateLicense(){
+                function deActivateLicense() {
                     let license = document.getElementById("plugin_license_key").value;
-            let extension_id = "' . $extension_id . '";
-            let is_app_view = "' . $is_app_view . '";
-            let is_component_view = "' . $is_component_view . '";
-            let is_module_view = "' . $is_module_view . '";
-            let is_report_view = "' . $is_report_view . '";
-            let app_task = "'.$app_task.'";
+                    let extension_id = "' . $extension_id . '";
+                    let is_app_view = "' . $is_app_view . '";
+                    let is_component_view = "' . $is_component_view . '";
+                    let is_module_view = "' . $is_module_view . '";
+                    let is_report_view = "' . $is_report_view . '";
+                    let app_task = "' . $app_task . '";
 
                     // Create an XMLHttpRequest object
                     let xhr = new XMLHttpRequest();
@@ -166,7 +166,7 @@ class JFormFieldLicense extends FormField
                                 errorSpan.className = "j2error";
                                 errorSpan.innerHTML = data.message;
                                 document.getElementById("plugin_license_key").after(errorSpan);
-    			    }else {
+                            } else {
                                 document.getElementById("plugin_license_status").value = "in_active";
                                 document.getElementById("plugin_license_expire").value = "";
 
@@ -175,38 +175,37 @@ class JFormFieldLicense extends FormField
                                 successSpan.innerHTML = data.message;
                                 document.getElementById("plugin_license_key").after(successSpan);
 
-                        if(is_app_view){
-                             document.adminForm.task ="view";
-			                 document.getElementById("appTask").value = app_task;
-                             Joomla.submitform("view");
-                        }else if(is_component_view ){
+                                if (is_app_view) {
+                                    document.adminForm.task = "view";
+                                    document.getElementById("appTask").value = app_task;
+                                    Joomla.submitform("view");
+                                } else if (is_component_view) {
                                     document.querySelector(\'input[name="task"]\').value = "component.apply";
-                            setTimeout(function (){
+                                    setTimeout(function () {
                                         document.getElementById("plugin_license_key").closest("form").submit();
                                     }, 1000);
-                        }else if(is_module_view ){
+                                } else if (is_module_view) {
                                     document.querySelector(\'input[name="task"]\').value = "module.apply";
-                            setTimeout(function (){
+                                    setTimeout(function () {
                                         document.getElementById("plugin_license_key").closest("form").submit();
                                     }, 1000);
-                        }else if(is_report_view ){
-                             document.adminForm.task ="view";
-                             document.getElementById("reportTask").value = app_task;
-                             Joomla.submitform("view");
-                        }
-                        else{
+                                } else if (is_report_view) {
+                                    document.adminForm.task = "view";
+                                    document.getElementById("reportTask").value = app_task;
+                                    Joomla.submitform("view");
+                                } else {
                                     document.querySelector(\'input[name="task"]\').value = "plugin.apply";
-                            setTimeout(function (){
+                                    setTimeout(function () {
                                         document.getElementById("plugin_license_key").closest("form").submit();
                                     }, 1000);
+                                }
+                            }
                         }
-    			    }
-                }
                     };
 
                     // Send the request
                     xhr.send("license=" + encodeURIComponent(license) + "&id=" + encodeURIComponent(extension_id));
-        }
+                }
             </script>';
                 }
         return $html;

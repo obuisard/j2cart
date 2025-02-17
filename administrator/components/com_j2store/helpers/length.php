@@ -21,8 +21,7 @@ class J2Length
 	public function __construct()
   {
         $db = Factory::getContainer()->get('DatabaseDriver');
-		$query = $db->getQuery(true)->select('*')
-					->from('#__j2store_lengths');
+		$query = $db->getQuery(true)->select('*')->from('#__j2store_lengths');
 		$db->setQuery($query);
 		$rows = $db->loadObjectList();
 
@@ -68,7 +67,7 @@ class J2Length
   	}
 
 	public function format($value, $length_class_id, $decimal_point = '.', $thousand_point = ',')
-  {
+    {
 		if (isset($this->lengths[$length_class_id])) {
     		return number_format($value, 2, $decimal_point, $thousand_point) . $this->lengths[$length_class_id]['unit'];
 		} else {
@@ -77,7 +76,7 @@ class J2Length
 	}
 
 	public function getUnit($length_class_id)
-  {
+    {
 		if (isset($this->lengths[$length_class_id])) {
     		return $this->lengths[$length_class_id]['unit'];
 		} else {

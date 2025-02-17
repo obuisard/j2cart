@@ -132,7 +132,7 @@ class J2Html
 
     /**
      * Creates a single checkbox element
-     * @param stringe $name
+     * @param string $name
      * @param unknown_type $value
      * @param array $options
      * @result html
@@ -321,40 +321,39 @@ class J2Html
         $route = Uri::root();
 
         $media = ComponentHelper::getParams('com_media');
-            $imagesExt  = $media->get('image_extensions') ;
-            $audiosExt  = $media->get('audio_extensions');
-            $videosExt  = $media->get('video_extensions');
-            $documentsExt = $media->get('doc_extensions');
-            $displayData = [
-                'asset' => 'com_j2store',
-                'authorId' => '281',
-                'folder' => $folder,
-                'link' => '',
-                'preview' => 'show',
-                'previewHeight' => '200',
-                'previewWidth' => '200',
-                'class' => $class,
-                'id' => 'imageModal_jform_image_' . $id,
-                'name' => $name,
-                'value' => $value,
-                'readonly' => false,
-                'disabled' => false,
-                'dataAttribute' => '',
-                'mediaTypes' => 0,
-                'mediaTypeNames' => [],
-                'imagesExt' => isset($imagesExt) && !empty($imagesExt) ? explode(',',$imagesExt) : [] ,
-                'audiosExt' =>  isset($audiosExt) && !empty($audiosExt) ? explode(',',$audiosExt) : [] ,
-                'videosExt' =>  isset($videosExt) && !empty($videosExt) ? explode(',',$videosExt) : [] ,
-                'documentsExt' =>  isset($documentsExt) && !empty($documentsExt) ? explode(',',$documentsExt) : [] ,
-                'imagesAllowedExt' => [],
-                'audiosAllowedExt' => [],
-                'videosAllowedExt' => [],
-                'documentsAllowedExt' => []
-            ];
-            $path = JPATH_SITE . '/layouts/joomla/form/field/media.php';
-            $media_render = self::getRenderer('joomla.form.field.media', $path);
-            $html = $media_render->render($displayData);
-
+        $imagesExt  = $media->get('image_extensions') ;
+        $audiosExt  = $media->get('audio_extensions');
+        $videosExt  = $media->get('video_extensions');
+        $documentsExt = $media->get('doc_extensions');
+        $displayData = [
+            'asset' => 'com_j2store',
+            'authorId' => '281',
+            'folder' => $folder,
+            'link' => '',
+            'preview' => 'show',
+            'previewHeight' => '200',
+            'previewWidth' => '200',
+            'class' => $class,
+            'id' => 'imageModal_jform_image_' . $id,
+            'name' => $name,
+            'value' => $value,
+            'readonly' => false,
+            'disabled' => false,
+            'dataAttribute' => '',
+            'mediaTypes' => 0,
+            'mediaTypeNames' => [],
+            'imagesExt' => isset($imagesExt) && !empty($imagesExt) ? explode(',',$imagesExt) : [] ,
+            'audiosExt' =>  isset($audiosExt) && !empty($audiosExt) ? explode(',',$audiosExt) : [] ,
+            'videosExt' =>  isset($videosExt) && !empty($videosExt) ? explode(',',$videosExt) : [] ,
+            'documentsExt' =>  isset($documentsExt) && !empty($documentsExt) ? explode(',',$documentsExt) : [] ,
+            'imagesAllowedExt' => [],
+            'audiosAllowedExt' => [],
+            'videosAllowedExt' => [],
+            'documentsAllowedExt' => []
+        ];
+        $path = JPATH_SITE . '/layouts/joomla/form/field/media.php';
+        $media_render = self::getRenderer('joomla.form.field.media', $path);
+        $html = $media_render->render($displayData);
 
         J2Store::plugin()->event('MediaField', [&$html, $name, $value, $options]);
         return $html;
@@ -528,24 +527,24 @@ class J2Html
             $required = true;
         }
 
-            $displayData = [
-                'class' => '',
-                'name' => $name,
-                'value' => $value  ,
-                'options' =>$placeholders ,
-                'autofocus' => '',
-                'onchange' => '',
-                'dataAttribute' => '',
-                'readonly' => '',
-                'disabled' => false,
-                'hint' => '',
-                'required' => $required,
-                'id' => '',
-                'multiple'=> $multiple
-            ];
-            $path = JPATH_SITE . '/layouts/joomla/form/field/list-fancy-select.php';
-            $media_render = self::getRenderer('joomla.form.field.list-fancy-select', $path);
-            return $media_render->render($displayData);
+        $displayData = [
+            'class' => '',
+            'name' => $name,
+            'value' => $value  ,
+            'options' =>$placeholders ,
+            'autofocus' => '',
+            'onchange' => '',
+            'dataAttribute' => '',
+            'readonly' => '',
+            'disabled' => false,
+            'hint' => '',
+            'required' => $required,
+            'id' => '',
+            'multiple'=> $multiple
+        ];
+        $path = JPATH_SITE . '/layouts/joomla/form/field/list-fancy-select.php';
+        $media_render = self::getRenderer('joomla.form.field.list-fancy-select', $path);
+        return $media_render->render($displayData);
     }
 
     public static function country($name, $value, $options)
@@ -679,30 +678,31 @@ class J2Html
                     $lang = '';
                 }
                 $groups[$menu->title][] = HTMLHelper::_('select.option',
-                        $link->value, $levelPrefix . $link->text . $lang,
-                        'value',
-                        'text',
-                        \in_array($link->type, [])
-                    );
-                }
+                    $link->value, $levelPrefix . $link->text . $lang,
+                    'value',
+                    'text',
+                    \in_array($link->type, [])
+                );
+            }
         }
         $id = isset($options['id']) && $options['id'] ? $options['id'] : $name;
         if(isset($options['id'])){
             unset($options['id']);
         }
-	        $attr = [
-		        'id'        => $id,
-		        'list.select' => $value,
-		        'option.key.toHtml' => false,
-		        'option.text.toHtml' => false,
-		        'group.items' => null,
-		        'list.attr' => [
-			        implode(' ',$options),
-			        'class' => 'form-select'
-		        ]
-	        ];
-	        $html = HTMLHelper::_('select.groupedlist', $groups, $name, $attr);
-         return $html;
+        $attr = [
+            'id'        => $id,
+            'list.select' => $value,
+            'option.key.toHtml' => false,
+            'option.text.toHtml' => false,
+            'group.items' => null,
+            'list.attr' => [
+                implode(' ',$options),
+                'class' => 'form-select'
+            ]
+        ];
+        $html = HTMLHelper::_('select.groupedlist', $groups, $name, $attr);
+
+        return $html;
     }
 
     public static function inputFieldSql($name,$value,$options)
@@ -837,12 +837,13 @@ class J2Html
         return $html;
     }
 
-    public static  function userGroup($name, $value,$options)
+    public static function userGroup($name, $value,$options)
     {
         $platform = J2Store::platform();
         $platform->loadExtra('behavior.multiselect');
 
         $db = Factory::getContainer()->get('DatabaseDriver');
+
         $query = $db->getQuery(true);
         $query->select('a.id AS value, a.title AS text');
         $query->from('#__usergroups AS a');
@@ -860,24 +861,25 @@ class J2Html
             $placeholders = $user_group;
         }
 
-            $displayData = array(
-                'class' => '',
-                'name' => $name,
-                'value' => $value  ,
-                'options' =>$placeholders ,
-                'autofocus' => '',
-                'onchange' => '',
-                'dataAttribute' => '',
-                'readonly' => '',
-                'disabled' => false,
-                'hint' => '',
-                'required' => false,
-                'id' => '',
-                'multiple'=> true
-            );
-            $path = JPATH_SITE . '/layouts/joomla/form/field/list-fancy-select.php';
-            $media_render = self::getRenderer('joomla.form.field.list-fancy-select', $path);
-            return $media_render->render($displayData);
+        $displayData = array(
+            'class' => '',
+            'name' => $name,
+            'value' => $value  ,
+            'options' =>$placeholders ,
+            'autofocus' => '',
+            'onchange' => '',
+            'dataAttribute' => '',
+            'readonly' => '',
+            'disabled' => false,
+            'hint' => '',
+            'required' => false,
+            'id' => '',
+            'multiple'=> true
+        );
+        $path = JPATH_SITE . '/layouts/joomla/form/field/list-fancy-select.php';
+        $media_render = self::getRenderer('joomla.form.field.list-fancy-select', $path);
+
+        return $media_render->render($displayData);
     }
 
     protected static function getSource($filename)
@@ -886,18 +888,18 @@ class J2Html
         $item = new \stdClass();
 
         if ($filename) {
-            $filePath = Path::clean ( JPATH_ADMINISTRATOR.'/components/com_j2store/views/emailtemplate/tpls/'.$filename);
-            if (file_exists ( $filePath )) {
+            $filePath = Path::clean(JPATH_ADMINISTRATOR.'/components/com_j2store/views/emailtemplate/tpls/'.$filename);
+            if (file_exists($filePath)) {
                 $item->filename = $filename;
-                $item->source = file_get_contents ( $filePath );
+                $item->source = file_get_contents($filePath);
             } else {
-                $app->enqueueMessage ( Text::_ ( 'J2STORE_EMAILTEMPLATE_ERROR_SOURCE_FILE_NOT_FOUND' ), 'error' );
+                $app->enqueueMessage(Text::_('J2STORE_EMAILTEMPLATE_ERROR_SOURCE_FILE_NOT_FOUND'), 'error');
             }
         }
         return $item;
     }
-    public static  function duallistbox($name, $value, $options){
-
+    public static function duallistbox($name, $value, $options)
+    {
         $platform = J2Store::platform();
         FormHelper::loadFieldClass('list');
         $json = self::getOptions($name, $value, $options);
@@ -933,7 +935,7 @@ class J2Html
         return $html;
     }
 
-    public static  function duallistboxnew($name, $value, $options)
+    public static function duallistboxnew($name, $value, $options)
     {
         $platform = J2Store::platform();
         FormHelper::loadFieldClass('list');
@@ -1090,8 +1092,8 @@ class J2Html
         $modalId = 'Article_' . $id;
 
         $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-            // Add the modal field script to the document head.
-            $wa->useScript('field.modal-fields');
+        // Add the modal field script to the document head.
+        $wa->useScript('field.modal-fields');
 
         // Script to proxy the select modal function to the modal-fields.js file.
         if ($allowSelect)
@@ -1104,15 +1106,15 @@ class J2Html
             }
 
             if (!isset($scriptSelect[$id])) {
-                    $wa->addInlineScript("
+                $wa->addInlineScript("
 				window.jSelectJ2Article_" . $id . " = function (id, title, catid, object, url, language) {
 					window.processModalSelect('Article', '" . $id . "', id, title, catid, object, url, language);
 					jQuery('body').removeClass('modal-open');
                     jQuery('.modal-backdrop').remove();
 				}",
-                        [],
-                        ['type' => 'module']
-                    );
+                    [],
+                    ['type' => 'module']
+                );
                 Text::script('JGLOBAL_ASSOCIATIONS_PROPAGATE_FAILED');
 
                 $scriptSelect[$id] = true;
@@ -1125,6 +1127,7 @@ class J2Html
         if ($value)
         {
             $db = Factory::getContainer()->get('DatabaseDriver');
+
             $query = $db->getQuery(true)
                 ->select($db->quoteName('title'))
                 ->from($db->quoteName('#__content'))
@@ -1148,48 +1151,48 @@ class J2Html
         $html .= '<input class="form-control" id="' . $id . '_name" type="text" value="' . $title . '" readonly size="35">';
         if ($allowSelect)
         {
-                $html .= '<button'
-                    . ' class="btn btn-primary' . ($value ? ' hidden' : '') . '"'
-                    . ' id="' . $id . '_select"'
-                    . ' data-bs-toggle="modal"'
-                    . ' type="button"'
-                    . ' data-bs-target="#ModalSelect' . $modalId . '">'
-                    . '<span class="icon-file" aria-hidden="true"></span> ' . Text::_('JSELECT')
-                    . '</button>';
-            }
-// Clear article button
+            $html .= '<button'
+                . ' class="btn btn-primary' . ($value ? ' hidden' : '') . '"'
+                . ' id="' . $id . '_select"'
+                . ' data-bs-toggle="modal"'
+                . ' type="button"'
+                . ' data-bs-target="#ModalSelect' . $modalId . '">'
+                . '<span class="icon-file" aria-hidden="true"></span> ' . Text::_('JSELECT')
+                . '</button>';
+        }
+        // Clear article button
         if ($allowClear)
         {
-                $html .= '<button'
-                    . ' class="btn btn-secondary' . ($value ? '' : ' hidden') . '"'
-                    . ' id="' . $id . '_clear"'
-                    . ' type="button"'
-                    . ' onclick="window.processModalParent(\'' . $id . '\'); return false;">'
-                    . '<span class="icon-times" aria-hidden="true"></span> ' . Text::_('JCLEAR')
-                    . '</button>';
-            }
+            $html .= '<button'
+                . ' class="btn btn-secondary' . ($value ? '' : ' hidden') . '"'
+                . ' id="' . $id . '_clear"'
+                . ' type="button"'
+                . ' onclick="window.processModalParent(\'' . $id . '\'); return false;">'
+                . '<span class="icon-times" aria-hidden="true"></span> ' . Text::_('JCLEAR')
+                . '</button>';
+        }
 
         $html .= '</span>';
         $modalTitle    = Text::_('COM_CONTENT_SELECT_AN_ARTICLE');
         // Select article modal
         $html .= HTMLHelper::_(
-                'bootstrap.renderModal',
-                'ModalSelect' . $modalId,
-                array(
-                    'title'       => $modalTitle,
-                    'url'         => $urlSelect,
-                    'height'      => '400px',
-                    'width'       => '800px',
-                    'bodyHeight'  => 70,
-                    'modalWidth'  => 80,
-                    'footer'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
-                        . Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
-                )
-            );
+            'bootstrap.renderModal',
+            'ModalSelect' . $modalId,
+            array(
+                'title'       => $modalTitle,
+                'url'         => $urlSelect,
+                'height'      => '400px',
+                'width'       => '800px',
+                'bodyHeight'  => 70,
+                'modalWidth'  => 80,
+                'footer'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
+                    . Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
+            )
+        );
 
         $class = $required ? ' class="required modal-value"' : '';
-            $html .= '<input type="hidden" id="' . $id . '_id" ' . $class . ' data-required="' . (int) $required . '" name="' . $name
-                . '" data-text="' . htmlspecialchars(Text::_('COM_CONTENT_SELECT_AN_ARTICLE'), ENT_COMPAT, 'UTF-8') . '" value="' . $value . '">';
+        $html .= '<input type="hidden" id="' . $id . '_id" ' . $class . ' data-required="' . (int) $required . '" name="' . $name
+            . '" data-text="' . htmlspecialchars(Text::_('COM_CONTENT_SELECT_AN_ARTICLE'), ENT_COMPAT, 'UTF-8') . '" value="' . $value . '">';
 
         return $html;
     }
@@ -1458,9 +1461,9 @@ class J2Html
 
     public static function couponExpireText($item)
     {
-            $info_class = 'badge bg-info';
-            $warning_class = 'badge bg-warning';
-            $success_class = 'badge bg-success';
+        $info_class = 'badge bg-info';
+        $warning_class = 'badge bg-warning';
+        $success_class = 'badge bg-success';
 
         if (!isset($item->valid_from) || !isset($item->valid_to)) {
             return '';
@@ -1540,24 +1543,24 @@ class J2Html
 
     public static function orderStatusList($item)
     {
-            $success_class = 'badge bg-success';
+        $success_class = 'badge bg-success';
         $html ='';
         if($item->orderstatus_id !== '*'){
             $orderstatus = J2Store::fof()->loadTable('Orderstatus', 'J2StoreTable');
-                $orderstatus->load($item->orderstatus_id);
-                $html = '<label class="label">' . Text::_($orderstatus->orderstatus_name);
-                if (isset($orderstatus->orderstatus_cssclass) && $orderstatus->orderstatus_cssclass) {
-                if($orderstatus->orderstatus_cssclass === 'label-success'){
-                        $label_class = 'badge bg-success';
-                }else if($orderstatus->orderstatus_cssclass === 'label-warning'){
-                        $label_class = 'badge bg-warning';
-                }else if($orderstatus->orderstatus_cssclass === 'label-important'){
-                        $label_class = 'badge bg-important';
-                }else if($orderstatus->orderstatus_cssclass === 'label-info'){
-                        $label_class = 'badge bg-info';
-                    }
-                    $html = '<label class="' .$label_class. '">' . Text::_($orderstatus->orderstatus_name);
+            $orderstatus->load($item->orderstatus_id);
+            $html = '<label class="label">' . Text::_($orderstatus->orderstatus_name);
+            if (isset($orderstatus->orderstatus_cssclass) && $orderstatus->orderstatus_cssclass) {
+            if($orderstatus->orderstatus_cssclass === 'label-success'){
+                    $label_class = 'badge bg-success';
+            }else if($orderstatus->orderstatus_cssclass === 'label-warning'){
+                    $label_class = 'badge bg-warning';
+            }else if($orderstatus->orderstatus_cssclass === 'label-important'){
+                    $label_class = 'badge bg-important';
+            }else if($orderstatus->orderstatus_cssclass === 'label-info'){
+                    $label_class = 'badge bg-info';
                 }
+                $html = '<label class="' .$label_class. '">' . Text::_($orderstatus->orderstatus_name);
+            }
         }else{
             $html ='<label class="'.$success_class.'">'.Text::_('J2STORE_ALL');
         }
@@ -1584,10 +1587,10 @@ class J2Html
 
     public static function fieldCore($name, $field, $item)
     {
-            $html ='<label class="badge bg-warning">'.Text::_('J2STORE_CUSTOM_FIELDS_NOT_CORE').'</label>';
-            if(isset($item->$name) && $item->$name){
-                $html = '<label class="badge bg-success">'.Text::_('J2STORE_CUSTOM_FIELDS_CORE').'</label>';
-            }
+        $html ='<label class="badge bg-warning">'.Text::_('J2STORE_CUSTOM_FIELDS_NOT_CORE').'</label>';
+        if(isset($item->$name) && $item->$name){
+            $html = '<label class="badge bg-success">'.Text::_('J2STORE_CUSTOM_FIELDS_CORE').'</label>';
+        }
         return $html;
     }
 
@@ -1611,11 +1614,11 @@ class J2Html
 	{
 		$total = 0;
 		foreach ($orders as $order) {
-			// Check if orderstatus_cssclass is set and does not contain 'danger', 'important', or 'warning'
+			// Check if order status_cssclass is set and does not contain 'danger', 'important', or 'warning'
 			if (isset($order->orderstatus_cssclass) &&
-        strpos($order->orderstatus_cssclass, 'danger') === false &&
-        strpos($order->orderstatus_cssclass, 'important') === false &&
-        strpos($order->orderstatus_cssclass, 'warning') === false)
+                strpos($order->orderstatus_cssclass, 'danger') === false &&
+                strpos($order->orderstatus_cssclass, 'important') === false &&
+                strpos($order->orderstatus_cssclass, 'warning') === false)
 			{
 				$total += (float) $order->order_total;
 			}
@@ -1626,11 +1629,11 @@ class J2Html
 	public static function getSumCustomerOrders($orders)
 	{
 		foreach ($orders as $order) {
-			// Ensure orderstatus_cssclass is set and does not contain 'danger', 'important', or 'warning'
+			// Ensure order status_cssclass is set and does not contain 'danger', 'important', or 'warning'
 			if (isset($order->orderstatus_cssclass) &&
-        strpos($order->orderstatus_cssclass, 'danger') === false &&
-        strpos($order->orderstatus_cssclass, 'important') === false &&
-        strpos($order->orderstatus_cssclass, 'warning') === false)
+                strpos($order->orderstatus_cssclass, 'danger') === false &&
+                strpos($order->orderstatus_cssclass, 'important') === false &&
+                strpos($order->orderstatus_cssclass, 'warning') === false)
 			{
 				$count++;
 			}

@@ -22,11 +22,12 @@ $sidebar = JHtmlSidebar::render();
 $row_class = 'row';
 $col_class = 'col-md-';
 ?>
-
+<?php if (!empty($sidebar)): ?>
+    <div id="j2c-menu" class="mb-4">
+        <?php echo $sidebar; ?>
+    </div>
+<?php endif; ?>
 <div class="j2store j2store-voucher-history">
-    <div id="j-sidebar-container">
-      <?php echo $sidebar ; ?>
-   </div>
     <div class="js-stools mt-4 mb-3">
         <div class="js-stools-container-bar">
             <div class="btn-toolbar gap-2 align-items-center">

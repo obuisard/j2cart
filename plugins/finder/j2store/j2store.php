@@ -415,7 +415,7 @@ class PlgFinderJ2Store extends FinderIndexerAdapter
 				'task' => 'view',
 				'id' => $item->j2store_product_id
 			);
-			$pro_menu = \J2Commerce\Helper\J2StoreRouterHelper::findProductMenu($qoptions);
+			$pro_menu = J2StoreRouterHelper::findProductMenu($qoptions);
 			$menu_id = isset($pro_menu->id) ? $pro_menu->id : $menu_id;
 			$item->url =  $this->getJ2StoreURL($item->j2store_product_id, $this->extension, $this->layout);
 			$item->route = 'index.php?option=com_j2store&view=products&task=view&id='.$item->j2store_product_id.'&Itemid='.$menu_id;
@@ -539,9 +539,9 @@ class PlgFinderJ2Store extends FinderIndexerAdapter
         $query->join('INNER', '#__j2store_products as p ON p.product_source='.$db->quote('com_content').' AND p.product_source_id = a.id AND p.enabled=1');
         $query->select('*')->from('#__j2store_manufacturers');
         $query->join('LEFT', '#__j2store_manufacturers as m ON m.j2store_manufacturer_id = p.manufacturer_id');
-			$query->select('#__j2store_addresses.company as brand');
+        $query->select('#__j2store_addresses.company as brand');
         $query->join('LEFT', '#__j2store_addresses as ad ON ad.j2store_address_id= m.address_id');
-			$query->join('LEFT', '#__categories AS c ON c.id = a.catid')
+        $query->join('LEFT', '#__categories AS c ON c.id = a.catid')
 			->join('LEFT', '#__users AS u ON u.id = a.created_by');
 
 		return $query;

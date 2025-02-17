@@ -12,7 +12,10 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Uri\Uri;
 
 require_once (JPATH_ADMINISTRATOR.'/components/com_j2store/library/selectable/fields.php');
 
@@ -55,7 +58,7 @@ class J2StoreSelectableBase
 
 		if(substr($field->field_type,0,4) == 'plg.') {
 			$field_type = substr($field->field_type,4);
-			JPluginHelper::importPlugin('j2store', $field_type);
+			PluginHelper::importPlugin('j2store', $field_type);
 		}
 		$classType = 'j2store'.ucfirst($field_type);
 		$class = new $classType($this);
@@ -76,7 +79,7 @@ class J2StoreSelectableBase
 		$field_type = $field->field_type;
 		if(substr($field->field_type,0,4) == 'plg.') {
 			$field_type = substr($field->field_type,4);
-			JPluginHelper::importPlugin('j2store', $field_type);
+			PluginHelper::importPlugin('j2store', $field_type);
 		}
 		$classType = 'j2store'.ucfirst($field_type);
 		$class = new $classType($this);
@@ -100,8 +103,7 @@ class J2StoreSelectableBase
 		$defaultPath = JPATH_ADMINISTRATOR.'/components/com_j2store/views/order/tmpl/'.$layout.'.php';
 
 		// if the site template has a layout override, use it
-		jimport('joomla.filesystem.file');
-		if (JFile::exists( $templatePath ))
+		if (file_exists( $templatePath ))
 		{
 			$path = $templatePath;
 		}
@@ -139,7 +141,7 @@ class J2StoreSelectableBase
 			$field_type = $field->field_type;
 			if(substr($field->field_type,0,4) == 'plg.') {
 				$field_type = substr($field->field_type,4);
-				JPluginHelper::importPlugin('j2store', $field_type);
+				PluginHelper::importPlugin('j2store', $field_type);
 			}
 			if(isset($data->admin_display_error) && $data->admin_display_error){
 				$field->admin_display_error = 1;
@@ -199,7 +201,7 @@ class J2StoreSelectableBase
 				}
 
 				if(!empty($fields[$namekey]->field_options['zone_type']) && $fields[$namekey]->field_options['zone_type'] == 'country'){
-					$baseUrl = JURI::base().'index.php?option=com_j2store&view='.$url.'&tmpl=component';
+					$baseUrl = Uri::base().'index.php?option=com_j2store&view='.$url.'&tmpl=component';
 					$currentUrl = strtolower($this->getCurrentURL());
 					if(substr($currentUrl, 0, 8) == 'https://') {
 						$domain = substr($currentUrl, 0, strpos($currentUrl, '/', 9));
@@ -284,7 +286,7 @@ class J2StoreSelectableBase
 			foreach($zones as $zone){
 				$title = $zone->country_name;
 				$obj = new stdClass();
-				$obj->value = JText::_($zone->country_name);
+				$obj->value = Text::_($zone->country_name);
 				$obj->disabled = '0';
 
 				if(!is_array($fields[$k]->field_value)) {
@@ -490,7 +492,7 @@ class J2StoreSelectableBase
     {
 		if($this->externalValues == null) {
 			$this->externalValues = array();
-			JPluginHelper::importPlugin('j2store');
+			PluginHelper::importPlugin('j2store');
 			$dispatcher = JDispatcher::getInstance();
 			$dispatcher->trigger('onJ2StoreTableFieldsLoad', array( &$this->externalValues ) );
 			if(!empty($this->externalValues)) {
@@ -518,7 +520,7 @@ class J2StoreSelectableBase
 				$field_type = $field->field_type;
 				if(substr($field->field_type,0,4) == 'plg.') {
 					$field_type = substr($field->field_type,4);
-					JPluginHelper::importPlugin('j2store', $field_type);
+					PluginHelper::importPlugin('j2store', $field_type);
 				}
 				$classType = 'j2store'.ucfirst($field_type);
 				$class = new $classType($this);
@@ -541,8 +543,7 @@ class J2StoreSelectableBase
 		if(is_null($object))$object=new stdClass();
 		if($platform->isClient('administrator')){
 			if (is_null($safeHtmlFilter)) {
-				jimport('joomla.filter.filterinput');
-				$safeHtmlFilter = JFilterInput::getInstance(array(), array(), 1, 1);
+				$safeHtmlFilter = InputFilter::getInstance(array(), array(), 1, 1);
 			}
 		}
 		$noFilter = array();
@@ -619,7 +620,7 @@ class J2StoreSelectableBase
 		$formData = $app->input->get('data', array(), 'ARRAY');
 
 		//initialise a object
-		$field = new JObject();
+		$field = new \stdClass();
 		$field->field_id = $field_id;
 		$field->j2store_customfield_id = $field_id;
 
@@ -1018,7 +1019,7 @@ class j2storeFieldItem
 	function translate($name)
     {
 		$val = preg_replace('#[^a-z0-9]#i','_',strtoupper($name));
-		$trans = JText::_($val);
+		$trans = Text::_($val);
 		if($val==$trans){
 			$trans = $name;
 		}
@@ -1038,7 +1039,7 @@ class j2storeFieldItem
 				if(!empty($field->field_options['errormessage'])){
 					$error = addslashes($this->translate($field->field_options['errormessage']));
 				} else {
-					$error = JText::sprintf('J2STORE_FIELD_REQUIRED',$this->translate($field->field_name));
+					$error = Text::sprintf('J2STORE_FIELD_REQUIRED',$this->translate($field->field_name));
 				}
 			}
 		}
@@ -1090,7 +1091,7 @@ class j2storeEmail extends j2storeText
 		}
 
 		if (filter_var(trim($value), FILTER_VALIDATE_EMAIL) == false) {
-			$error = JText::_('J2STORE_VALIDATION_ENTER_VALID_EMAIL');
+			$error = Text::_('J2STORE_VALIDATION_ENTER_VALID_EMAIL');
 		} else {
 			return $error;
 		}
@@ -1101,7 +1102,7 @@ class j2storeEmail extends j2storeText
 				if(!empty($field->field_options['errormessage'])){
 					$error = addslashes($this->translate($field->field_options['errormessage']));
 				} else {
-					$error = JText::sprintf('PLEASE_FILL_THE_FIELD',$this->translate($field->field_name));
+					$error = Text::sprintf('PLEASE_FILL_THE_FIELD',$this->translate($field->field_name));
 				}
 			}
 		}
@@ -1273,7 +1274,7 @@ class j2storeDropdown extends j2storeFieldItem
 				}
 			}
 		}
-		$string .= '<select id="'.$this->prefix.$field->field_namekey.$this->suffix.'" class="form-select" name="'.$map.'" '.$arg.$options.'>';
+		$string .= '<select id="'.$this->prefix.$field->field_namekey.$this->suffix.'" name="'.$map.'" '.$arg.$options.' class="form-select">';
 		if(empty($field->field_value))
 			return $string.'</select>';
 

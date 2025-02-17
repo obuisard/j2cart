@@ -11,6 +11,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 require_once(JPATH_ADMINISTRATOR . '/components/com_j2store/library/plugins/report.php');
 
 class plgJ2StoreReport_itemised extends J2StoreReportPlugin

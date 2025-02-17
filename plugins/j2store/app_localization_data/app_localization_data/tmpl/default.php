@@ -36,14 +36,14 @@ use Joomla\CMS\Language\Text;
                                 <span class="fas fa-solid fa-earth-americas display-4 fw-bolder"></span>
                             </div>
                             <h3 class="mb-3"><?php echo Text::_('J2STORE_COUNTRIES') ?></h3>
-                <div class="tool-child tool-country">
-                    <div id="toolbar-icon icon-download" class="btn-wrapper">
+                            <div class="tool-child tool-country">
+                                <div id="toolbar-icon icon-download" class="btn-wrapper">
                                     <button class="btn btn-primary btn-sm" onclick="myToolFunction('countries');">
                                         <span class="icon-icon icon-download me-2"></span><?php echo Text::_('J2STORE_INSTALL'); ?>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-4 mb-3 mb-lg-0">
                         <div class="localization-box text-center">
@@ -51,36 +51,34 @@ use Joomla\CMS\Language\Text;
                                 <span class="fas fa-solid fa-street-view display-4 fw-bolder"></span>
                             </div>
                             <h3 class="mb-3"><?php echo Text::_('J2STORE_ZONES') ?></h3>
-                <div class="tool-child tool-zone">
-
-                    <div id="toolbar-icon icon-download" class="btn-wrapper">
+                            <div class="tool-child tool-zone">
+                                <div id="toolbar-icon icon-download" class="btn-wrapper">
                                     <button class="btn btn-primary btn-sm" onclick="myToolFunction('zones');">
                                         <span class="icon-icon icon-download me-2"></span><?php echo Text::_('J2STORE_INSTALL'); ?>
-                        </button>
-                    </div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                </div>
+                    </div>
                     <div class="col-lg-4 mb-3 mb-lg-0">
                         <div class="localization-box text-center">
                             <div class="tool-icon mb-2">
                                 <span class="fas fa-solid fa-ruler-combined display-4 fw-bolder"></span>
-            </div>
+                            </div>
                             <h3 class="mb-3"><?php echo Text::_('J2STORE_METRICS') ?></h3>
-                <div class="tool-child tool-metrics">
-
-                    <div id="toolbar-icon icon-download" class="btn-wrapper">
+                            <div class="tool-child tool-metrics">
+                                <div id="toolbar-icon icon-download" class="btn-wrapper">
                                     <button class="btn btn-primary btn-sm" onclick="myToolFunction('metrics');">
                                         <span class="icon-icon icon-download me-2"></span><?php echo Text::_('J2STORE_INSTALL'); ?>
-                        </button>
-                    </div>
+                                    </button>
+                                </div>
                             </div>
-                </div>
-            </div>
-                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 </form>
 
 <script type="text/javascript">

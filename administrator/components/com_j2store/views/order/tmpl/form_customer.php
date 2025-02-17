@@ -11,6 +11,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+
 $orderinfo = $this->orderinfo;
 $platform = J2Store::platform();
 $platform->loadExtra('behavior.modal','a.modal');
@@ -104,7 +107,7 @@ if($this->item->user_id > 0)
 			                        <?php endif;?>
                                 </p>
                             </div>
-	                    </div>
+                        </div>
                         <div class="col-12">
                             <div>
                                 <p class="small">
@@ -128,7 +131,7 @@ if($this->item->user_id > 0)
                         <div class="ms-4">
                             <h5 class="mb-0"><?php echo Text::_('J2STORE_SHIPPING_ADDRESS');?>
 	                            <?php echo J2StorePopup::popupAdvanced('index.php?option=com_j2store&view=orders&task=setOrderinfo&order_id='.$this->item->order_id.'&address_type=shipping&layout=address&tmpl=component','',array('class'=>'fas fa-solid fa-edit','refresh'=>true,'id'=>'fancybox ms-2'));?>
-							&nbsp;
+                                &nbsp;
 	                            <?php echo J2StorePopup::popupAdvanced('index.php?option=com_j2store&view=orders&task=printShipping&tmpl=component&order_id='.$this->orderinfo->order_id,'', array('class'=>'fas fa-solid fa-print','width'=>800 ,'height'=>600,'id'=>'ms-2'));?>
                                 </h5>
                             <small><?php echo $this->orderinfo->shipping_first_name.' '.$this->orderinfo->shipping_last_name; ?></small>
@@ -181,7 +184,7 @@ if($this->item->user_id > 0)
                         </div>
                     </div>
                 </div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -22,10 +22,6 @@ $add_product_link = $route."?option=com_j2store&view=products&task=displayAdminP
 $item_url = "index.php?option=com_j2store&view=orders&task=saveAdminOrder&layout=items&next_layout=items&oid=".$this->order->j2store_order_id;
 $row_class = 'row';
 $col_class = 'col-md-';
-if (version_compare(JVERSION, '3.99.99', 'lt')) {
-    $row_class = 'row-fluid';
-    $col_class = 'span';
-}
 ?>
 
 <style>
@@ -36,7 +32,6 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
 <div class="orderitems">
 	<div class="<?php echo $row_class ?>">
 		<div class="<?php echo $col_class ?>12">
-
 			<h4>
 				<?php echo JText::_('J2STORE_ORDER_SUMMARY');?>
 			</h4>
@@ -82,7 +77,6 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
 										<?php endif; ?>
 							</span>
 							<br>
-
 							<?php if(isset($item->orderitemattributes) && $item->orderitemattributes): ?>
 							<span class="cart-item-options"> <?php foreach ($item->orderitemattributes as $attribute): ?>
 								<small> - <?php echo JText::_($attribute->orderitemattribute_name); ?>
@@ -103,7 +97,6 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
 								class="cart-item-title"><?php echo JText::_('J2STORE_CART_LINE_ITEM_SKU'); ?>
 							</span> <span class="cart-item-value"><?php echo $item->orderitem_sku; ?>
 							</span>
-
 						</span> <?php endif; ?>
                             <?php echo J2Store::plugin()->eventWithHtml('AfterDisplayLineItemTitle', array($item, $this->order, $this->params));?>
                             <?php if(isset($this->onDisplayCartItem[$i])):?>
@@ -123,11 +116,8 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
 							</a>
 							-->
 						</td>
-
-
 						<?php if(isset($this->taxes) && count($this->taxes) && $this->params->get('show_item_tax', 0)): ?>
 						<td>
-
 							<?php 	echo $this->currency->format($item->orderitem_tax); 	?>
 						</td>
 						<?php endif; ?>
@@ -160,7 +150,6 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
 		</div>
 
 		<div class="<?php echo $col_class ?>8">
-
 			<div class="j2store-order-items">
 				<table class="table table-bordered">
 					<tr>
@@ -173,22 +162,18 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
 					<tr id="selector-row">
 						<td><?php echo JText::_('J2STORE_CHOOSE_PRODUCTS');?></td>
 						 <td>
-
 						 <?php echo J2Html::text('product_name' ,'',array('id'=>'productselector'));?>
 							<?php echo J2Html::hidden('product_id' ,'',array()) ;?>
-
 						</td>
 					</tr>
 				</table>
-
 			</div>
 			<div id="j2store-product-display" style="display:none;">
 				<span id="j2store-product-name"></span>
 				<?php //"window.parent.location='index.php?option=com_j2store&view=orders&task=createOrder&layout=items&oid={$this->order->j2store_order_id}"?>
 				<?php echo J2StorePopup::popupAdvanced($add_product_link,JText::_( "J2STORE_ORDER_ADD_ITEM" ), array('width'=>800 ,'height'=>400 ,'class'=>'btn btn-success','refresh'=>true,'id'=>'fancybox'));?>
             </div>
-		</div
-
+		</div>
 		<div class="<?php echo $col_class ?>4">
 				<?php // echo $this->loadTemplate('totals'); ?>
 			</div>

@@ -11,6 +11,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Uri\Uri;
+
 class J2License
 {
     public static $instance = null;
@@ -58,7 +60,7 @@ class J2License
 
     public function checkLicense($params = array())
     {
-        $baseURL = str_replace('/administrator', '', JURI::base());
+        $baseURL = str_replace('/administrator', '', Uri::base());
         // Data to send in our API request
         $api_params = array(
             'edd_action' => 'check_license',

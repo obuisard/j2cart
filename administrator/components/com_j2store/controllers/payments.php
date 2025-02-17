@@ -18,7 +18,7 @@ class J2storeControllerPayments extends F0FController
     use list_view;
 
 	public function __construct($config)
-  {
+    {
 		parent::__construct($config);
 		$this->registerTask('apply', 'save');
 		$this->registerTask('saveNew', 'save');

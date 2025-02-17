@@ -33,7 +33,7 @@ class J2Queue extends JObject
 	}
 
 	public function deleteQueue($list)
-  {
+    {
 		if(isset($list->j2store_queue_id) && !empty($list->j2store_queue_id)) {
 			$queue_table = J2Store::fof()->loadTable( 'Queue', 'J2StoreTable' )->getClone ();
 			$queue_table->load ( $list->j2store_queue_id );
@@ -42,7 +42,7 @@ class J2Queue extends JObject
 	}
 
 	function resetQueue($list,$day = 7)
-  {
+    {
 		if(isset($list->j2store_queue_id) && !empty($list->j2store_queue_id)){
 			$queue_table = J2Store::fof()->loadTable('Queue', 'J2StoreTable')->getClone();
 			$queue_table->load($list->j2store_queue_id);

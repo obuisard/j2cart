@@ -38,7 +38,7 @@ $lastKey = array_key_last($this->orderhistory);
 					$foundKeyword = 'secondary';
 				}
 			}
-?>
+            ?>
             <?php if($key == $firstKey) {
                 $col1 = '';
                 $col2 = ' border-end';
@@ -85,8 +85,8 @@ $lastKey = array_key_last($this->orderhistory);
                             <p class="card-text text-subdued small"><?php echo Text::_($history->comment);?></p>
                         </div>
                     </div>
-	            </div>
+                </div>
             </div>
-	    <?php endforeach;?>
+		<?php endforeach;?>
     </div>
 </div>

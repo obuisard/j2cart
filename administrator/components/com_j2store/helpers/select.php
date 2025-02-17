@@ -32,7 +32,7 @@ class J2StoreHelperSelect
 	 * @return multitype:string NULL
 	 */
 	function getSelectArrayOptions($view,$key,$value,$value1='')
-  {
+    {
 		$items = J2Store::fof()->getModel(ucfirst($view),'J2storeModel')->enabled(1)->getList();
 		$result = [];
 		$result[''] = Text::_('J2STORE_SELECT_OPTION');
@@ -47,7 +47,7 @@ class J2StoreHelperSelect
 
 	public static function productattributeoptionprefix( $selected, $name = 'filter_prefix', $attribs = array('class' => 'j2storeprefix form-select', 'size' => '1'), $idtag = null, $allowAny = false, $title = 'Select Prefix' )
 	{
-		$list = array();
+		$list = [];
 		if($allowAny) {
 			$list[] =  self::option('', "- ".Text::_( $title )." -" );
 		}
@@ -59,7 +59,7 @@ class J2StoreHelperSelect
 	}
 
 	protected static function genericlist($list, $name, $attribs, $selected, $idTag)
-  {
+    {
 		if (empty($attribs)) {
 			$attribs = [];
 		}
@@ -75,7 +75,7 @@ class J2StoreHelperSelect
 
 	// get countries
 	public static function getCountries()
-  {
+    {
 		$options = array ();
 		$enabled = 1;
 		$countries = J2Store::fof()->getModel('countries', 'J2StoreModel')->enabled($enabled)->getList();
@@ -87,7 +87,7 @@ class J2StoreHelperSelect
 
 	// get taxrates
 	public static function getTaxRates()
-  {
+    {
 		$options = array ();
 		$enabled = 1;
 		$taxrates = J2Store::fof()->getModel('taxrates', 'J2StoreModel')->enabled($enabled)->getList();
@@ -100,7 +100,7 @@ class J2StoreHelperSelect
 
 	// get languages
 	public static function languages($selected = null, $id = 'language', $attribs = array())
-  {
+    {
 		$languages = LanguageHelper::getLanguages('lang_code');
 		$options = array ();
 
@@ -121,7 +121,7 @@ class J2StoreHelperSelect
 
 	// get orderstatus
 	public static function OrderStatus($selected = null, $id = '', $attribs = array(), $default_option = null)
-  {
+    {
 		$orderstatus_options [] = HTMLHelper::_( 'select.option', '', Text::_( 'JALL' ) );
 
 		$orderlist = self::getOrderStatus ( $default_option, true );
@@ -135,7 +135,7 @@ class J2StoreHelperSelect
 	 * Static method that return only the orderstatus.
 	 */
 	public static function getOrderStatus($default_option = null, $asObject = false)
-  {
+    {
 		$enabled = 1;
 		$orderstatus = J2Store::fof()->getModel('orderstatuses', 'J2StoreModel')->enabled($enabled)->getList(true);
 		return $orderstatus;
@@ -156,7 +156,7 @@ class J2StoreHelperSelect
 
 	// get paymentlist
 	public static function PaymentList($selected = null, $id = '', $attribs = array(), $default_option = null)
-  {
+    {
 		$paymentmethod_options [] = HTMLHelper::_( 'select.option', '', Text::_ ('JALL') );
 
 		return self::genericlist ( $paymentmethod_options, $id, $attribs, $selected, $id );
@@ -173,8 +173,8 @@ class J2StoreHelperSelect
 	}
 
 	// get countries
-	public static function getCurrencies()
-  {
+    public static function getCurrencies()
+    {
 		$options = array ();
 		$enabled = 1;
 		$currencies = J2Store::fof()->getModel('currencies', 'J2StoreModel')->enabled($enabled)->getList();
@@ -194,13 +194,13 @@ class J2StoreHelperSelect
 	}
 
 	public static function getParentOption($variant_id,$default_par_id_array,$same_option)
-  {
+    {
 		$model = J2Store::fof()->getModel('Options','J2StoreModel');
 		//get parent
 		$pa_options= $model->getList();
 		//generate parent filter list
 		$parent_options = [];
-		$parent_options[]=Text::_('J2STORE_SELECT_PARENT_OPTION');
+		$parent_options[] = Text::_('J2STORE_SELECT_PARENT_OPTION');
 		if(!empty($pa_options))
 		{
 			foreach($pa_options as $row) {
@@ -262,13 +262,13 @@ class J2StoreHelperSelect
 	}
 
 	public static function taxclass($default, $name)
-  {
+    {
         $attr = [];
         $attr['class']= 'form-select';
 		return J2Html::select()->clearState()
 		->type('genericlist')
 		->name($name)
-      ->attribs($attr)
+        ->attribs($attr)
 		->value($default)
 		->setPlaceHolders(
 				array(''=>Text::_('J2STORE_SELECT_OPTION'))
@@ -284,7 +284,7 @@ class J2StoreHelperSelect
 	}
 
 	public static function geozones($default, $name)
-  {
+    {
         $attr = [];
         $attr['class']= 'form-select';
 
@@ -317,41 +317,42 @@ class J2StoreHelperSelect
 	 * @since   1.6
 	 */
 	public static function getContentCategories()
-	{		$config = array('filter.published' => array(0, 1));
-			$extension ='com_content';
-			$config = (array) $config;
-				$db = Factory::getContainer()->get('DatabaseDriver');
-			$query = $db->getQuery(true)
-			->select('a.id, a.title, a.level, a.parent_id')
-			->from('#__categories AS a')
-			->where('a.parent_id > 0');
+	{
+        $config = array('filter.published' => array(0, 1));
+        $extension ='com_content';
+        $config = (array) $config;
+        $db = Factory::getContainer()->get('DatabaseDriver');
+        $query = $db->getQuery(true)
+        ->select('a.id, a.title, a.level, a.parent_id')
+        ->from('#__categories AS a')
+        ->where('a.parent_id > 0');
 
-			// Filter on extension.
-			$query->where('extension = ' . $db->quote($extension));
+        // Filter on extension.
+        $query->where('extension = ' . $db->quote($extension));
 
-			// Filter on the published state
-			if (isset($config['filter.published']))
-			{
-				if (is_numeric($config['filter.published']))
-				{
-					$query->where('a.published = ' . $db->q((int) $config['filter.published']));
-				}
-				elseif (is_array($config['filter.published']))
-				{
-                    $config['filter.published'] = J2Store::platform()->toInteger($config['filter.published']);
-					$query->where('a.published IN (' . implode(',', $config['filter.published']) . ')');
-				}
-			}
+        // Filter on the published state
+        if (isset($config['filter.published']))
+        {
+            if (is_numeric($config['filter.published']))
+            {
+                $query->where('a.published = ' . $db->q((int) $config['filter.published']));
+            }
+            elseif (is_array($config['filter.published']))
+            {
+                $config['filter.published'] = J2Store::platform()->toInteger($config['filter.published']);
+                $query->where('a.published IN (' . implode(',', $config['filter.published']) . ')');
+            }
+        }
 
-			$query->order('a.lft');
+        $query->order('a.lft');
 
-			$db->setQuery($query);
-			$items = $db->loadObjectList();
-			return $items;
+        $db->setQuery($query);
+        $items = $db->loadObjectList();
+        return $items;
 	}
 
 	public static function getManufacturers()
-  {
+    {
 		$items =  J2Store::fof()->getModel('Manufacturers','J2StoreModel')->getItemList();
 		$new_options  = [];
 		$new_options[] = Text::_('J2STORE_ALL');
@@ -362,7 +363,7 @@ class J2StoreHelperSelect
 	}
 
 	public static function getOptionTypesList($name, $id, $item)
-  {
+    {
 		$groups = array ();
 
 		$types = self::getOptionTypes ();
@@ -392,7 +393,7 @@ class J2StoreHelperSelect
 	}
 
 	public static function getOptionTypes()
-  {
+    {
 		$types = array ();
 		$choose = array ();
 		$choose [] = 'select';

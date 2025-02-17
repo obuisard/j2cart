@@ -284,7 +284,7 @@ class J2StoreModelCoupons extends F0FModel
 		}
 
 		// allow plugins to modify the output
-		J2Store::plugin ()->event ( 'IsCouponValidForProduct', array (
+		J2Store::plugin ()->event( 'IsCouponValidForProduct', array (
 				$valid,
 				$product,
 				$this
@@ -513,7 +513,7 @@ class J2StoreModelCoupons extends F0FModel
 			if($platform->isClient('administrator')){
 				$order_items = $order->getItems();
 				//product categories
-				if ( count ( $coupon_categories_data ) > 0 ) {
+				if (count($coupon_categories_data) > 0 ) {
 
 					if ( count ( $order_items ) > 0 ) {
 						foreach ( $order_items as $order_item ) {

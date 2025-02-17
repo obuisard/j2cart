@@ -17,14 +17,6 @@ use Joomla\CMS\Language\Text;
 
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
-
-
-$sidebar = JHtmlSidebar::render();
-$row_class = 'row';
-$col_class = 'col-lg-';
-
-
-$wa  = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->addInlineScript("
     Joomla.submitbutton = function(pressbutton) {
         if(pressbutton === 'edit' || pressbutton === 'add') {
@@ -35,9 +27,13 @@ $wa->addInlineScript("
     }
 ");
 
+$sidebar = JHtmlSidebar::render();
+
+$row_class = 'row';
+$col_class = 'col-lg-';
 ?>
 <?php if(!empty( $sidebar )): ?>
-    <div id="j2c-menu">
+    <div id="j2c-menu" class="mb-4">
         <?php echo $sidebar ; ?>
     </div>
 <?php endif;?>

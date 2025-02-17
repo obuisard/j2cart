@@ -28,7 +28,6 @@ use Joomla\CMS\Language\Text;
                     <a class="btn btn-primary app-button-open" href="<?php echo J2Store::buildSiteLink('support', 'support'); ?>" target="_blank"><span class="fas fa-solid fa-arrow-up-right-from-square me-2"></span><?php echo Text::_('J2STORE_SHIPPING_HELP_BUTTON_SUPPORT_LABEL'); ?></a>
                 </div>
             </div>
-
         </div>
         <div class="col-md-6 align-self-stretch">
             <div class="d-flex flex-column text-center h-100">
