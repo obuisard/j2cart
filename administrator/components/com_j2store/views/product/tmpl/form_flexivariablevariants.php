@@ -47,7 +47,10 @@ $wa->addInlineStyle($style, [], []);
     <div id="variant_display_block">
         <!-- Advanced variable starts here  -->
         <div class="j2store-advancedvariants-settings">
-            <div class="d-flex justify-content-start mb-3">
+            <div class="d-flex justify-content-start align-items-center mb-3">
+                <div class="form-check pt-0 me-2">
+                    <input class="form-check-input" type="checkbox" value="" id="toggleAllCheckboxes">
+                </div>
                 <button type="button" class="btn btn-outline-danger btn-sm" id="deleteCheckedVariants" data-bs-toggle="tooltip" title="<?php echo Text::_('J2STORE_PRODUCT_VARIANTS_DELETE_CHECKED');?>" disabled>
                 <span class="fa-stack small">
                   <span class="fa-solid fas fa-trash fa-stack-2x"></span>
@@ -287,27 +290,48 @@ $wa->addInlineStyle($style, [], []);
         };
         xhr.send();
     }
+
     document.addEventListener("DOMContentLoaded", function () {
-        // Select the button and checkboxes
+        let toggleCheckbox = document.getElementById("toggleAllCheckboxes");
+
+        if (toggleCheckbox) {
+            toggleCheckbox.addEventListener("change", function () {
+                let checkboxes = document.querySelectorAll('input[type="checkbox"][id^="cid"]');
+
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = toggleCheckbox.checked;
+                });
+            });
+        }
+    });
+    document.addEventListener("DOMContentLoaded", function () {
         const deleteButton = document.getElementById("deleteCheckedVariants");
         const checkboxes = document.querySelectorAll('input[type="checkbox"][name="vid[]"]');
+        const toggleAllCheckbox = document.getElementById("toggleAllCheckboxes");
 
-        // Function to check the state of the checkboxes and toggle the button
         function toggleButtonState() {
             const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-            deleteButton.disabled = !isAnyChecked; // Enable if any checkbox is checked, disable otherwise
+            deleteButton.disabled = !isAnyChecked;
         }
-
-        // Add event listeners to each checkbox
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener("change", function () {
-                toggleButtonState();
+        function toggleAll() {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = toggleAllCheckbox.checked;
             });
+            toggleButtonState();
+        }
+        function updateToggleAllCheckbox() {
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            toggleAllCheckbox.checked = allChecked;
+            toggleButtonState();
+        }
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", updateToggleAllCheckbox);
         });
-
-        // Disable the button if all checkboxes are unchecked initially
-        toggleButtonState();
+        toggleAllCheckbox.addEventListener("change", toggleAll);
+        updateToggleAllCheckbox();
     });
+
 
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#deleteCheckedVariants').addEventListener('click', function (e) {
