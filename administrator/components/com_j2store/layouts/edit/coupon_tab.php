@@ -21,7 +21,7 @@ $platform->loadExtra('behavior.multiselect');
 
 $row_class = 'row';
 $col_class = 'col-lg-';
-$alert_html = '<joomla-alert type="danger" close-text="Close" dismiss="true" role="alert" style="animation-name: joomla-alert-fade-in;"><div class="alert-heading"><span class="error"></span><span class="visually-hidden">Error</span></div><div class="alert-wrapper"><div class="alert-message" >'.Text::_('J2STORE_INVALID_INPUT_FIELD').'</div></div></joomla-alert>' ;
+$alert_html = '<joomla-alert type="danger" close-text="Close" dismiss="true" role="alert" style="animation-name: joomla-alert-fade-in;"><div class="alert-heading"><span class="error"></span><span class="visually-hidden">Error</span></div><div class="alert-wrapper"><div class="alert-message" >'.Text::_('JLIB_FORM_CONTAINS_INVALID_FIELDS').'</div></div></joomla-alert>' ;
 
 $wa  = Factory::getApplication()->getDocument()->getWebAssetManager();
 $script = 'function jSelectProduct(product_id, product_name, field_id) {
