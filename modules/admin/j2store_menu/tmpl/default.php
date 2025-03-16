@@ -11,13 +11,14 @@
 
 defined( '_JEXEC' ) or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
 $platform = J2Store::platform();
 
-$wa = Joomla\CMS\Factory::getApplication()->getDocument()->getWebAssetManager();
+$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $waState = $wa->getManagerState();
 
 if ($wa->assetExists('style', 'fontawesome')) {
@@ -35,7 +36,7 @@ HTMLHelper::_('bootstrap.dropdown', '.dropdown-toggle');
 
 $menus = [
     'dashboard' => [
-        'name' => 'Dashboard',
+        'name' => Text::_ ( 'COM_J2STORE_MAINMENU_DASHBOARD' ),
         'icon' => 'fas fa-tachometer-alt',
         'active' => 1,
     ],
@@ -96,7 +97,7 @@ $menus = [
         ]
     ],
     'apps' => [
-        'name' => 'Apps',
+        'name' => Text::_ ( 'COM_J2STORE_MAINMENU_APPS' ),
         'icon' => 'fas fa-th',
         'active' => 0,
         'submenu' => [
@@ -105,7 +106,7 @@ $menus = [
         ]
     ],
     'reporting' => [
-        'name' => 'Reporting',
+        'name' => Text::_ ( 'COM_J2STORE_MAINMENU_REPORTING' ),
         'icon' => 'fas fa-pie-chart fa-chart-pie',
         'submenu' => [
             'Reports' => 'fas fa-chart-bar',
@@ -157,13 +158,13 @@ $j2StorePlugin->event('AddDashboardMenuInJ2Store', array(&$menus));
             <?php else:?>
                 <?php
                     $url = 'javascript:void(0);';
-                    if ($value['name']=='Dashboard') {
+                    if ($key == 'dashboard') {
                         $url = Route::_('index.php?option=com_j2store&view=cpanels');
                     }
                 ?>
                 <a class="dropdown-item" href="<?php echo $url; ?>">
                     <span class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>" aria-hidden="true"></span>
-                    <?php echo Text::_('COM_J2STORE_MAINMENU_'.$value['name']); ?>
+                    <?php echo $value['name']; ?>
                 </a>
             <?php endif; ?>
         <?php endforeach; ?>
