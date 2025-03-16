@@ -34,7 +34,7 @@ if ($wa->assetExists('style', 'fontawesome')) {
 
 $menus = [
     'dashboard' => [
-        'name' => 'Dashboard',
+        'name' => Text::_ ( 'COM_J2STORE_MAINMENU_DASHBOARD' ),
         'icon' => 'fas fa-solid fa-tachometer-alt',
         'active' => 1
 	],
@@ -95,7 +95,7 @@ $menus = [
         ]
 	],
     'apps' => [
-        'name' => 'Apps',
+        'name' => Text::_ ( 'COM_J2STORE_MAINMENU_APPS' ),
         'icon' => 'fas fa-solid fa-th',
         'submenu' => [
             'apps' => 'fas fa-th',
@@ -104,7 +104,7 @@ $menus = [
         'active' => 0
 	],
     'reporting' => [
-        'name' => 'Reporting',
+        'name' => Text::_ ( 'COM_J2STORE_MAINMENU_REPORTING' ),
         'icon' => 'fas fa-solid fa-pie-chart fa-chart-pie',
         'submenu' => [
             'Reports' => 'fas fa-solid fa-chart-bar'
@@ -242,14 +242,14 @@ $wa->addInlineScript("window.addEventListener('resize', function () {
                                 <?php if (isset($value['link']) && $value['link'] != ''): ?>
                                     <a class="nav-link text-lg-center text-nowrap" aria-current="page" href="<?php echo $value['link'];?>">
                                 <?php else : ?>
-                                    <?php if($value['name']=='Dashboard') : ?>
+                                    <?php if ($key === 'dashboard') : ?>
                                         <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page" href="<?php echo 'index.php?option=com_j2store&view=cpanels';?>">
                                     <?php else : ?>
                                         <a class="nav-link text-nowrap <?php echo $active_class;?> text-lg-center" aria-current="page" href="javascript:void(0);">
-                                            <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i><span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo Text::_('COM_J2STORE_MAINMENU_'.strtoupper($value['name']));?></span>
-                                        </a>
                                     <?php endif; ?>
                                 <?php endif; ?>
+                                    <i class="fa-fw me-1 me-xxl-2 <?php echo isset($value['icon']) ? $value['icon'] : '';?>"></i><span class="submenu-title d-inline d-lg-none d-xl-inline fs-6"><?php echo Text::_('COM_J2STORE_MAINMENU_'.strtoupper($value['name']));?></span>
+                                </a>
                             </li>
                         <?php endif; ?>
                     <?php endforeach; ?>
