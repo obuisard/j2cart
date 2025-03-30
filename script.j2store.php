@@ -108,11 +108,10 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
   protected $installation_queue = array(
     'modules' => array(
       'admin' => array(
-        'mod_j2commerce_chart' => array('j2store-module-position-3', 1),
         'j2store_stats_mini' => array('j2store-module-position-1', 1),
         'j2store_orders' => array('j2store-module-position-4', 1),
         'j2store_stats' => array('j2store-module-position-5', 1),
-        'j2store_menu' => array('menu', 1)
+        'j2store_menu' => array('status', 1)
       ),
       'site' => array(
         'mod_j2store_currency' => array('left', 0),
@@ -197,13 +196,16 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
       $dashboard_positions[] = 'j2store-module-position-4';
       $dashboard_positions[] = 'j2store-module-position-5';
 
-      // New charts
-      if (!$this->isModuleInAnyPositions('mod_j2commerce_chart', $dashboard_positions)) {
-          $this->addModuleToPosition('mod_j2commerce_chart', 'j2store-module-position-3', ['chart_type' => 'daily,monthly,yearly']);
+      if ($type === 'update') {
           // Remove the old chart module
           if ($this->isModuleInAnyPositions('mod_j2store_chart', $dashboard_positions)) {
               $this->removeModuleFromAnyPositions('mod_j2store_chart', $dashboard_positions);
           }
+      }
+
+      // New charts
+      if (!$this->isModuleInAnyPositions('mod_j2commerce_chart', $dashboard_positions)) {
+          $this->addModuleToPosition('mod_j2commerce_chart', 'j2store-module-position-3', ['chart_type' => 'daily,monthly,yearly']);
       }
 
       // Quick Start Checklist
@@ -216,9 +218,12 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
           $this->addModuleToPosition('mod_j2commerce_adminmenu', 'menu');
       }
 
-      // New admin menu Quick Icons
-      if (!$this->isModuleInAnyPositions('mod_j2commerce_adminmenu', ['icon', 'cpanel'])) {
+      if ($type === 'install') {    
+          // New admin menu Quick Icons
           $this->addModuleToPosition('mod_j2commerce_adminmenu', 'icon');
+    
+          // New admin menu Quick Icons for the J2Commerce dashboard (position 'cpanel-j2commerce' is added by core Joomla dashboard
+          $this->addModuleToPosition('mod_j2commerce_adminmenu', 'cpanel-j2commerce');
       }
   }
 
