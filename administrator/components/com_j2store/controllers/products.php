@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Response\JsonResponse;
 
 require_once(JPATH_ADMINISTRATOR.'/components/com_j2store/controllers/productbase.php');
 
@@ -80,4 +81,23 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
 		$view->setLayout($layout);
 		$view->display();
 	}
+
+    /**
+     * The number of products to show in the dashboard quickicon.
+     * @return void
+     */
+    public function getQuickiconContent()
+    {
+        $model = F0FModel::getTmpInstance('Products', 'J2StoreModel');
+
+        $amount = (int) $model->getProductPageTotal();
+
+        $result = [];
+
+        $result['amount'] = $amount;
+        //$result['sronly'] = Text::plural('COM_BANNERS_N_QUICKICON_SRONLY', $amount);
+        //$result['name']   = $amount . ' products'; //Text::plural('COM_BANNERS_N_QUICKICON', $amount);
+
+        echo new JsonResponse($result);
+    }
 }
