@@ -215,6 +215,11 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
       if (!$this->isModuleInAnyPositions('mod_j2commerce_adminmenu', ['menu'])) {
           $this->addModuleToPosition('mod_j2commerce_adminmenu', 'menu');
       }
+
+      // New admin menu Quick Icons
+      if (!$this->isModuleInAnyPositions('mod_j2commerce_adminmenu', ['icon', 'cpanel'])) {
+          $this->addModuleToPosition('mod_j2commerce_adminmenu', 'icon');
+      }
   }
 
     /**
