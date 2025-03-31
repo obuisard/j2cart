@@ -342,7 +342,7 @@ class J2StoreModelOrders extends F0FModel
 			'title'			=> $this->getState('title','','string'),
 			'user_id'		=> $this->getState('user_id',0,'int'),
 			'order_id'		=> $this->getState('order_id',0,'int'),
-			'orderstate'	=> $this->getState('orderstate',0,'int'),
+			'orderstate'		=> $this->getState('orderstate',0,'int'),
 			'processor'		=> $this->getState('processor','','string'),
 			'paykey'		=> $this->getState('paykey','','string'),
 			'since'			=> $this->getState('since',0,'string'),
@@ -356,7 +356,7 @@ class J2StoreModelOrders extends F0FModel
 			'frominvoice'	=> $this->getState('frominvoice',0,'int'),
 			'toinvoice'		=> $this->getState('toinvoice',0,'int'),
 			'orderstatus'	=> $this->getState('orderstatus',array()),
-			'token'		    => $this->getState('token',''),
+			'token'			=> $this->getState('token',''),
 			'user_email'	=> $this->getState('user_email',''),
 		);
 	}
