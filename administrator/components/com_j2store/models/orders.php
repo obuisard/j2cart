@@ -26,6 +26,7 @@ class J2StoreModelOrders extends F0FModel
 	protected function onAfterGetItem(&$record)
     {
 		$status = J2Store::fof()->getModel('Orderstatuses', 'J2StoreModel')->getItem($record->order_state_id);
+
 		$record->orderstatus_name = $status->orderstatus_name;
 		$record->orderstatus_cssclass = $status->orderstatus_cssclass;
 	}
@@ -76,7 +77,7 @@ class J2StoreModelOrders extends F0FModel
 		return $this->_order;
 	}
 
-	function initOrder($order_id = null)
+    function initOrder($order_id = null)
     {
 		$cart_model = J2Store::fof()->getModel('Carts', 'J2StoreModel');
 		$cart_model->setCartType('cart');
@@ -97,6 +98,7 @@ class J2StoreModelOrders extends F0FModel
 		//check if items are in cart
 		if($order->getItemCount() < 1) {
 			throw new \Exception(Text::_('J2STORE_CART_NO_ITEMS'));
+
 			return false;
 		}
 
@@ -119,6 +121,7 @@ class J2StoreModelOrders extends F0FModel
 		{
 			if (empty($shipping_address)) {
 				throw new \Exception(Text::_('J2STORE_CHECKOUT_NO_SHIPPING_ADDRESS_FOUND'));
+
 				return false;
 			}
 		}else {
@@ -137,6 +140,7 @@ class J2StoreModelOrders extends F0FModel
 
 		if (empty($billing_address)) {
 			throw new \Exception(Text::_('J2STORE_CHECKOUT_NO_BILLING_ADDRESS_FOUND'));
+
 			return false;
 		}
 
@@ -241,9 +245,9 @@ class J2StoreModelOrders extends F0FModel
 
 		$query = $db->getQuery(true)->select('#__j2store_orders.*')->from('#__j2store_orders');
 
-		$query->select($this->_db->quoteName('#__j2store_orderstatuses.orderstatus_name'));
+		$query->select($db->quoteName('#__j2store_orderstatuses.orderstatus_name'));
 
-		$query->select($this->_db->quoteName('#__j2store_orderstatuses.orderstatus_cssclass'));
+		$query->select($db->quoteName('#__j2store_orderstatuses.orderstatus_cssclass'));
 
 		$query->select("CASE WHEN #__j2store_orders.invoice_prefix IS NULL or #__j2store_orders.invoice_number = 0 THEN
 				#__j2store_orders.j2store_order_id
@@ -268,7 +272,7 @@ class J2StoreModelOrders extends F0FModel
 		$query->select(' ( SELECT #__j2store_zones.zone_name FROM #__j2store_zones WHERE #__j2store_zones.j2store_zone_id = #__j2store_orderinfos.billing_zone_id ) as billingzone_name');
 		$query->select(' ( SELECT #__j2store_zones.zone_name FROM #__j2store_zones WHERE #__j2store_zones.j2store_zone_id = #__j2store_orderinfos.shipping_zone_id ) as shippingzone_name');
 
-		$query->select($this->_db->quoteName('#__j2store_orderdiscounts.discount_code'));
+        $query->select($this->_db->quoteName('#__j2store_orderdiscounts.discount_code'));
 		$query->join('LEFT OUTER', '#__j2store_orderdiscounts ON #__j2store_orders.order_id = #__j2store_orderdiscounts.order_id AND #__j2store_orderdiscounts.discount_type = '.$db->quote('coupon'));
 
 		$query->select($this->_db->quoteName('#__j2store_ordershippings.ordershipping_name'));
@@ -395,8 +399,7 @@ class J2StoreModelOrders extends F0FModel
 			if(!empty($states)) {
 
 				$query->where(
-					$db->quoteName('#__j2store_orders').'.'.$db->quoteName('order_state_id').' IN ('.
-					implode(',',$states).')'
+					$db->quoteName('#__j2store_orders').'.'.$db->quoteName('order_state_id').' IN (' . implode(',',$states) . ')'
 				);
 			}
 		}
