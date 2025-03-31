@@ -95,8 +95,6 @@ class J2StoreControllerProducts extends J2StoreControllerProductsBase
         $result = [];
 
         $result['amount'] = $amount;
-        //$result['sronly'] = Text::plural('COM_BANNERS_N_QUICKICON_SRONLY', $amount);
-        //$result['name']   = $amount . ' products'; //Text::plural('COM_BANNERS_N_QUICKICON', $amount);
 
         echo new JsonResponse($result);
     }
