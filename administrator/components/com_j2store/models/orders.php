@@ -272,11 +272,11 @@ class J2StoreModelOrders extends F0FModel
 		$query->select(' ( SELECT #__j2store_zones.zone_name FROM #__j2store_zones WHERE #__j2store_zones.j2store_zone_id = #__j2store_orderinfos.billing_zone_id ) as billingzone_name');
 		$query->select(' ( SELECT #__j2store_zones.zone_name FROM #__j2store_zones WHERE #__j2store_zones.j2store_zone_id = #__j2store_orderinfos.shipping_zone_id ) as shippingzone_name');
 
-        $query->select($this->_db->quoteName('#__j2store_orderdiscounts.discount_code'));
+        $query->select($db->quoteName('#__j2store_orderdiscounts.discount_code'));
 		$query->join('LEFT OUTER', '#__j2store_orderdiscounts ON #__j2store_orders.order_id = #__j2store_orderdiscounts.order_id AND #__j2store_orderdiscounts.discount_type = '.$db->quote('coupon'));
 
-		$query->select($this->_db->quoteName('#__j2store_ordershippings.ordershipping_name'));
-		$query->select($this->_db->quoteName('#__j2store_ordershippings.ordershipping_tracking_id'));
+		$query->select($db->quoteName('#__j2store_ordershippings.ordershipping_name'));
+		$query->select($db->quoteName('#__j2store_ordershippings.ordershipping_tracking_id'));
 		$query->join('LEFT OUTER', '#__j2store_ordershippings ON #__j2store_orders.order_id = #__j2store_ordershippings.order_id');
 
 		$this->_buildTotalQueryWhere($query);
