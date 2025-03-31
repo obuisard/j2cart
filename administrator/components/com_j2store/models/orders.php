@@ -43,14 +43,14 @@ class J2StoreModelOrders extends F0FModel
 
 	public function populateOrder($cartitems = array(), $order_id = null)
     {
-		$orderTable = J2Store::fof()->loadTable('Order', 'J2StoreTable')->getClone();
+		$orderTable = J2Store::fof()->loadTable('Order', 'J2StoreTable');
 
 		if ( $order_id > 0 && ( $orderTable->load(array('order_id'=>$order_id))) && $orderTable->has_status( array( 5 ) ) ) {
 			$order = $orderTable;
 			//Customer is resuming an order. So delete the children. We have to re-initialise the order object
 			$order->updateOrder();
 		}else{
-			$order = J2Store::fof()->loadTable('Order', 'J2StoreTable')->getClone();
+			$order = J2Store::fof()->loadTable('Order', 'J2StoreTable');
 			$order->is_update = 0;
 		}
 
@@ -583,7 +583,7 @@ class J2StoreModelOrders extends F0FModel
 
                 foreach ($rows as $key => $order)
                 {
-                    $orderTable = J2Store::fof()->loadTable('Order', 'J2StoreTable')->getClone();
+                    $orderTable = J2Store::fof()->loadTable('Order', 'J2StoreTable');
                     $orderTable->load($order->j2store_order_id);
                     $orderitems = $orderTable->getItems();
 
@@ -597,7 +597,7 @@ class J2StoreModelOrders extends F0FModel
             }
 
 			foreach ($rows as $key => $order) {
-				$orderTable = J2Store::fof()->loadTable('Order','J2StoreTable')->getClone();
+				$orderTable = J2Store::fof()->loadTable('Order','J2StoreTable');
 				$orderTable->load($order->j2store_order_id);
 				$orderitems = $orderTable->getItems();
 				$new_order = array();
@@ -869,7 +869,7 @@ class J2StoreModelOrders extends F0FModel
 		if ( $unpaid_orders ) {
 			foreach ( $unpaid_orders as $unpaid_order ) {
 
-				$order = J2Store::fof()->loadTable('Order', 'J2StoreTable')->getClone();
+				$order = J2Store::fof()->loadTable('Order', 'J2StoreTable');
 				if($order->load(array('order_id'=>$unpaid_order->order_id)) ) {
 
 					if ( !empty($order->order_id) ) {
@@ -894,7 +894,7 @@ class J2StoreModelOrders extends F0FModel
 
 	public function getCountryById($country_id)
     {
-		$country = J2Store::fof()->loadTable('Country', 'J2StoreTable')->getClone();
+		$country = J2Store::fof()->loadTable('Country', 'J2StoreTable');
 		$country->load($country_id);
 
 		return $country;
