@@ -70,10 +70,10 @@ $wa->useScript('table.columns')->useScript('multiselect');
 			<th scope="col" class="d-none d-sm-table-cell"><?php echo Text::_('J2STORE_PRODUCT_SKU'); ?></th>
 			<th scope="col" class="d-none d-lg-table-cell"><?php echo Text::_('J2STORE_PRODUCT_PRICE'); ?></th>
 			<th scope="col" class="text-center d-none d-xxl-table-cell"><?php  echo Text::_('J2STORE_SHIPPING'); ?></th>
-            <?php if($this->params->get('enable_inventory', 0)):?>
-                <th scope="col" class="d-none d-xxl-table-cell"><?php  echo Text::_('J2STORE_CURRENT_STOCK'); ?></th>
-            <?php endif;?>
-            <th scope="col" class="d-none d-xxl-table-cell"><?php echo Text::_('J2STORE_CURRENT_STOCK'); ?></th>
+			<?php if($this->params->get('enable_inventory', 0)):?>
+				<th scope="col" class="d-none d-xxl-table-cell"><?php  echo Text::_('J2STORE_CURRENT_STOCK'); ?></th>
+			<?php endif;?>
+			<th scope="col" class="d-none d-xxl-table-cell"><?php echo Text::_('J2STORE_SOURCE'); ?></th>
 			<th scope="col" class="text-center d-none d-xxl-table-cell"><?php echo Text::_('J2STORE_SOURCE_ID'); ?></th>
 		</tr>
 	</thead>
