@@ -135,7 +135,7 @@ class J2StoreControllerConfigurations extends F0FController
                     'label' => 'J2STORE_CONF_BOOTSTRAP_VERSION',
                     'type' => 'list',
                     'name' => 'bootstrap_version',
-                    'value' => isset($vars->item->bootstrap_version) && !is_null($vars->item->bootstrap_version) ? $vars->item->bootstrap_version : 2,
+                    'value' => isset($vars->item->bootstrap_version) && !is_null($vars->item->bootstrap_version) ? $vars->item->bootstrap_version : 5,
                     'options' => array(
                         'options' => array(2 => JText::_('J2STORE_BOOTSTRAP2'), 3 => JText::_('J2STORE_BOOTSTRAP3'),4 => JText::_('J2STORE_BOOTSTRAP4'),5 => JText::_('J2STORE_BOOTSTRAP5'))
                     ),
