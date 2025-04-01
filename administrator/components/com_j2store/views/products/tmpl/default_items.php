@@ -24,10 +24,28 @@ $danger_class = $platform->getLabel('danger');
 HTMLHelper::_('bootstrap.offcanvas', '[data-bs-toggle="offcanvas"]');
 HTMLHelper::_('bootstrap.tooltip', '[data-bs-toggle="tooltip"]', ['placement' => 'left']);
 
+$currentOrder = $this->state->filter_order ?? 'j2store_product_id';
+$currentDir = strtoupper($this->state->filter_order_Dir ?? 'ASC');
 
+$dir = ($currentOrder === 'j2store_product_id' && $currentDir === 'ASC') ? 'DESC' : 'ASC';
+$session = Factory::getApplication()->getSession();
+$session_dir = Factory::getApplication()->getSession()->set('j2store_sort_order', $currentDir);
+if($currentDir !== $session_dir){
+    $dir = $session_dir;
+}
+
+$link = 'index.php?' . http_build_query(array_merge($_GET, [
+        'filter_order' => 'j2store_product_id',
+        'filter_order_Dir' => $dir,
+    ]));
+$hasFilterOrderDir = isset($_GET['filter_order_Dir']);
+
+if (!$hasFilterOrderDir && $currentDir !== $session_dir) {
+    Factory::getApplication()->redirect($link);
+    return;
+}
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-$wa->useScript('table.columns')
-	->useScript('multiselect');
+$wa->useScript('table.columns')->useScript('multiselect');
 
     ?>
 <table class="table itemList" id="productList">
@@ -40,7 +58,10 @@ $wa->useScript('table.columns')
 		<tr>
 			<td class="w-1 text-center"><input type="checkbox" name="checkall-toggle" value="" title="<?php echo Text::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" /></td>
 			<th scope="col" class="text-center d-none d-md-table-cell">
-				<?php echo HTMLHelper::_('grid.sort', 'J2STORE_PRODUCT_ID', 'j2store_product_id', $this->state->filter_order_Dir, $this->state->filter_order); ?>
+                <a href="<?php echo $link; ?>">
+                    <?php echo Text::_('J2STORE_PRODUCT_ID'); ?>
+                    <?php echo ($currentOrder === 'j2store_product_id') ? ($currentDir === 'ASC' ? '↑' : '↓') : ''; ?>
+                </a>
             </th>
             <th scope="col" style="min-width:100px" class="title">
                 <?php echo Text::_('J2STORE_PRODUCT_NAME'); ?>
@@ -52,8 +73,8 @@ $wa->useScript('table.columns')
             <?php if($this->params->get('enable_inventory', 0)):?>
                 <th scope="col" class="d-none d-xxl-table-cell"><?php  echo Text::_('J2STORE_CURRENT_STOCK'); ?></th>
             <?php endif;?>
-            <th scope="col" class="d-none d-xxl-table-cell"><?php echo HTMLHelper::_('grid.sort',  'J2STORE_SOURCE', 'product_source', $this->state->filter_order_Dir, $this->state->filter_order ); ?></th>
-			<th scope="col" class="text-center d-none d-xxl-table-cell"><?php  echo HTMLHelper::_('grid.sort',  'J2STORE_SOURCE_ID', 'product_source_id', $this->state->filter_order_Dir, $this->state->filter_order ); ?></th>
+            <th scope="col" class="d-none d-xxl-table-cell"><?php echo Text::_('J2STORE_CURRENT_STOCK'); ?></th>
+			<th scope="col" class="text-center d-none d-xxl-table-cell"><?php echo Text::_('J2STORE_SOURCE_ID'); ?></th>
 		</tr>
 	</thead>
 	<tbody>
