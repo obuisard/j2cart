@@ -108,6 +108,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
   protected $installation_queue = array(
     'modules' => array(
       'admin' => array(
+        'mod_j2commerce_adminmenu' => array('menu', 1),
         'j2store_stats_mini' => array('j2store-module-position-1', 1),
         'j2store_orders' => array('j2store-module-position-4', 1),
         'j2store_stats' => array('j2store-module-position-5', 1),
@@ -204,11 +205,6 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
       // New charts
       if (!$this->isModuleInAnyPositions('mod_j2commerce_chart', $dashboard_positions)) {
           $this->addModuleToPosition('mod_j2commerce_chart', 'j2store-module-position-3', ['chart_type' => 'daily,monthly,yearly']);
-      }
-
-      // New admin menu
-      if (!$this->isModuleInAnyPositions('mod_j2commerce_adminmenu', ['menu'])) {
-          $this->addModuleToPosition('mod_j2commerce_adminmenu', 'menu');
       }
 
       if ($type === 'install') {    
