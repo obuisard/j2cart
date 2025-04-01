@@ -202,7 +202,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
 
       // New charts
       if (!$this->isModuleInAnyPositions('mod_j2commerce_chart', $dashboard_positions)) {
-          $this->addModuleToPosition('mod_j2commerce_chart', 'j2store-module-position-3', ['chart_type' => 'daily,monthly,yearly']);
+          $this->addModuleToPosition('mod_j2commerce_chart', 'j2store-module-position-3', ['chart_type' => ['daily', 'monthly', 'yearly']]);
       }
   }
 
