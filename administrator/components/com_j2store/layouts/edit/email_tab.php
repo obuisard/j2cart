@@ -98,7 +98,7 @@ $alert_html = '<joomla-alert type="danger" close-text="Close" dismiss="true" rol
                                                                 </div>
                                                             </div>
                                                             <div>
-							                                    <?php echo include_once JPATH_ADMINISTRATOR.'/components/com_j2store/views/emailtemplate/tmpl/form_tags.php' ;?>
+							                                    <?php include_once JPATH_ADMINISTRATOR.'/components/com_j2store/views/emailtemplate/tmpl/form_tags.php' ;?>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3" style="<?php echo isset($field['style']) && !empty($field['style']) ? $field['style']: '';?>">
