@@ -25,7 +25,7 @@ $alert_html = '<joomla-alert type="danger" close-text="Close" dismiss="true" rol
 if (version_compare(JVERSION, '3.99.99', 'lt')) {
     $row_class = 'row-fluid';
     $col_class = 'span';
-    $alert_html = '<div class="alert alert-error alert-danger">'.Text::_('JLIB_FORM_CONTAINS_INVALID_FIELDS').'<button type="button" class="close" data-dismiss="alert">×</button></div>' ;
+    $alert_html = '<div class="alert alert-error alert-danger">'.htmlspecialchars(Text::_('JLIB_FORM_CONTAINS_INVALID_FIELDS')).'<button type="button" class="close" data-dismiss="alert">×</button></div>' ;
 }
 $config = Factory::getApplication()->getConfig();
 $asset_id = $config->get('asset_id');
