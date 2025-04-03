@@ -101,7 +101,7 @@ if (version_compare(JVERSION, '3.99.99', 'lt')) {
                                                                 </div>
                                                             </div>
                                                             <div>
-							                                    <?php echo include_once JPATH_ADMINISTRATOR.'/components/com_j2store/views/emailtemplate/tmpl/form_tags.php' ;?>
+							                                    <?php include_once JPATH_ADMINISTRATOR.'/components/com_j2store/views/emailtemplate/tmpl/form_tags.php' ;?>
                                                             </div>
                                                         </div>
                                                         <div class="<?php echo $col_class ?>3" style="<?php echo isset($field['style']) && !empty($field['style']) ? $field['style']: '';?>">

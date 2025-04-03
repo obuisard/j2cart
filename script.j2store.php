@@ -150,6 +150,23 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
     )
   );
 
+    public function postflight($type, $parent)
+    {
+        parent::postflight($type, $parent);
+
+        // Remove extra column from the variants table
+
+        $db = Factory::getDbo();
+
+        try {
+            $alterQuery = "ALTER TABLE `#__j2store_variants` DROP `campaign_variant_id`";
+            $db->setQuery($alterQuery);
+            $db->execute();
+        } catch (\Exception $e) {
+            // Can fail if the column does not exist
+        }
+    }
+
   public function preflight($type, $parent)
   {
     if (parent::preflight($type, $parent)) {

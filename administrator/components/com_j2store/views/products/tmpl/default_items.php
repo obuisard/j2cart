@@ -160,10 +160,10 @@ $wa->useScript('table.columns')->useScript('multiselect');
                                 <div class="offcanvas-body">
                                     <div class="d-flex align-items-center justify-content-between mb-1">
                                         <div class="small">
-                                            <i class="fa-solid fa-box text-danger"></i> = <?php echo Text::_('J2STORE_PRODUCT_SHIPPING_ENABLED_NO');?>
+                                            <i class="fas fa-solid fa-box text-danger"></i> = <?php echo Text::_('J2STORE_PRODUCT_SHIPPING_ENABLED_NO');?>
                                         </div>
                                         <div class="small">
-                                            <i class="fa-solid fa-box text-success"></i> = <?php echo Text::_('J2STORE_PRODUCT_SHIPPING_ENABLED_YES');?>
+                                            <i class="fas fa-solid fa-box text-success"></i> = <?php echo Text::_('J2STORE_PRODUCT_SHIPPING_ENABLED_YES');?>
                                         </div>
                                     </div>
                                     <?php
@@ -176,7 +176,7 @@ $wa->useScript('table.columns')->useScript('multiselect');
                                                 <div class="list-group-item mb-1">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <h5 class="mb-1"><?php echo J2Store::product()->getVariantNamesByCSV($variant->variant_name); ?></h5>
-                                                        <?php echo (isset($variant->shipping) && ($variant->shipping)) ? '<i class="fa-solid fa-box text-success"></i>' : '<i class="fa-solid fa-box text-danger"></i>'?>
+                                                        <?php echo (isset($variant->shipping) && ($variant->shipping)) ? '<i class="fas fa-solid fa-box text-success"></i>' : '<i class="fas fa-solid fa-box text-danger"></i>'?>
                                                     </div>
                                                     <div class="small text-capitalize"><?php echo Text::_('J2STORE_VARIANT_PRICE')?>:<b class="ms-2 text-capitalize"><?php echo J2store::currency()->format($variant->price); ?></b></div>
                                                     <div class="small text-capitalize"><?php echo Text::_('J2STORE_VARIANT_SKU')?>:<b class="ms-2 text-capitalize"><?php echo $variant->sku; ?></b></div>
