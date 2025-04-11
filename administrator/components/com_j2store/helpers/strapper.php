@@ -1,15 +1,27 @@
 <?php
-/*------------------------------------------------------------------------
- # com_j2store - J2Store
-# ------------------------------------------------------------------------
-# author    Sasi varna kumar - Weblogicx India http://www.weblogicxindia.com
-# copyright Copyright (C) 2014 - 19 Weblogicxindia.com. All Rights Reserved.
-# @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-# Websites: http://j2store.org
-# Technical Support:  Forum - http://j2store.org/forum/index.html
--------------------------------------------------------------------------*/
+/**
+ * @package     Joomla.Component
+ * @subpackage  J2Store.com_j2store
+ *
+ * @copyright Copyright (C) 2014 Weblogicxindia.com. All rights reserved.
+ * @copyright Copyright (C) 2025 J2Commerce, LLC. All rights reserved.
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later
+ * @website https://www.j2commerce.com
+ */
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Document\Document;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Mail\MailerFactoryInterface;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Filesystem\File;
+
+
 require_once(JPATH_ADMINISTRATOR.'/components/com_j2store/helpers/j2store.php');
 class J2StoreStrapper {
     public static $instance = null;
@@ -28,19 +40,14 @@ class J2StoreStrapper {
     public static function addJS() {
         $params = J2Store::config();
         $platform = J2Store::platform();
-        $document = JFactory::getDocument();
-        //$document = $platform->application()->getDocument()->getWebAssetManager();
+        $app = Factory::getApplication();
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 
         $platform->loadExtra('jquery.framework');
         $platform->loadExtra('bootstrap.framework');
 
-        //JHtml::_('jquery.framework');
-        //JHtml::_('bootstrap.framework');
-        //load name spaced jqueryui
-        //load name spacer
 
-        $platform->addScript('j2store-namespace','/media/j2store/js/j2store.namespace.js');
-        //$wa->registerAndUseScript('namespace',JURI::root().'/media/j2store/js/j2store.namespace.js');
+        $wa->registerAndUseScript('j2store-namespace',Uri::root().'media/j2store/js/j2store.namespace.js');
         $ui_location = $params->get ( 'load_jquery_ui', 3 );
         $load_fancybox = $params->get ( 'load_fancybox', 1 );
         $load_timepicker = $params->get ( 'load_timepicker', 1 );
@@ -51,21 +58,20 @@ class J2StoreStrapper {
                 // load nothing
                 break;
             case '1':
-                if ($platform->isClient('site')) {
-                    $platform->addScript('j2store-jquery-ui',  '/media/j2store/js/jquery-ui.min.js');
-                    //$wa->registerAndUseScript( );
+                if ($app->isClient('site')) {
+                    $wa->registerAndUseScript('j2store-jquery-ui',Uri::root().'media/j2store/js/jquery-ui.min.js');
                 }
                 break;
 
             case '2' :
-                if ($platform->isClient('administrator')) {
-                    $platform->addScript('j2store-jquery-ui', '/media/j2store/js/jquery-ui.min.js');
+                if ($app->isClient('administrator')) {
+                    $wa->registerAndUseScript('j2store-jquery-ui',Uri::root().'media/j2store/js/jquery-ui.min.js');
                 }
                 break;
 
             case '3' :
             default :
-                 $platform->addScript('j2store-jquery-ui',  '/media/j2store/js/jquery-ui.min.js');
+                $wa->registerAndUseScript('j2store-jquery-ui',Uri::root().'media/j2store/js/jquery-ui.min.js');
                 break;
         }
         switch ($load_timepicker) {
@@ -74,83 +80,58 @@ class J2StoreStrapper {
                 // load nothing
                 break;
             case '1':
-                if ($platform->isClient('site')) {
-                    $platform->addScript('j2store-jquery-ui',  '/media/j2store/js/jquery-ui.min.js');
-                    $platform->addScript('j2store-timepicker-script', '/media/j2store/js/jquery-ui-timepicker-addon.js');
+                if ($app->isClient('site')) {
+                    $wa->registerAndUseScript('j2store-jquery-ui',Uri::root().'media/j2store/js/jquery-ui.min.js');
+                    $wa->registerAndUseScript('j2store-timepicker-script',Uri::root().'media/j2store/js/jquery-ui-timepicker-addon.js');
                 }
                 break;
 
             case '2' :
-                if ($platform->isClient('administrator')) {
-                    $platform->addScript('j2store-timepicker-script', '/media/j2store/js/jquery-ui-timepicker-addon.js');
+                if ($app->isClient('administrator')) {
+                    $wa->registerAndUseScript('j2store-timepicker-script',Uri::root().'media/j2store/js/jquery-ui-timepicker-addon.js');
                     self::loadTimepickerScript();
                 }
                 break;
 
             case '3' :
             default :
-                // $manager = $platform->application()->getDocument()->getWebAssetManager();
-                $platform->addScript('j2store-timepicker-script', '/media/j2store/js/jquery-ui-timepicker-addon.js');
+                $wa->registerAndUseScript('j2store-timepicker-script',Uri::root().'media/j2store/js/jquery-ui-timepicker-addon.js');
                 self::loadTimepickerScript();
                 break;
         }
-//        echo trim(JURI::root(),'/')."/media/j2store/js/jquery.validate.min.js";
-//        echo "<br>hiii";
-//        echo JURI::root(true);
 
-        if($platform->isClient('administrator')) {
-
-            $platform->addScript('j2store-jquery-validate-script','/media/j2store/js/jquery.validate.min.js');
-            $platform->addScript('j2store-admin-script','/media/j2store/js/j2store_admin.js');
-            $platform->addScript('j2store-fancybox-script','/media/j2store/js/jquery.fancybox.min.js');
+        if($app->isClient('administrator')) {
+            $wa->registerAndUseScript('j2store-jquery-validate-script',Uri::root().'media/j2store/js/jquery.validate.min.js');
+            $wa->registerAndUseScript('j2store-admin-script',Uri::root().'media/j2store/js/j2store_admin.js');
+            $wa->registerAndUseScript('j2store-fancybox-script',Uri::root().'media/j2store/js/jquery.fancybox.min.js');
         }
         else {
-
-
-//            if($load_timepicker) {
-//                $manager = $platform->application()->getDocument()->getWebAssetManager();
-//                $manager->registerAndUseScript('my-script', JUri::root(true).'media/j2store/js/jquery-ui-timepicker-addon.js');
-//                self::loadTimepickerScript($document);
-//            }
-            $platform->addScript('j2store-jquery-zoom-script','/media/j2store/js/jquery.zoom.js');
-            $platform->addScript('j2store-script','/media/j2store/js/j2store.js');
-            $platform->addScript('j2store-media-script','/media/j2store/js/bootstrap-modal-conflit.js');
+            $wa->registerAndUseScript('j2store-jquery-zoom-script',Uri::root().'media/j2store/js/jquery.zoom.js');
+            $wa->registerAndUseScript('j2store-script',Uri::root().'media/j2store/js/j2store.js');
+            $wa->registerAndUseScript('j2store-media-script',Uri::root().'media/j2store/js/bootstrap-modal-conflit.js');
             if($load_fancybox) {
-                $platform->addScript('j2store-fancybox-script',  '/media/j2store/js/jquery.fancybox.min.js');
+                $wa->registerAndUseScript('j2store-fancybox-script',Uri::root().'media/j2store/js/jquery.fancybox.min.js');
                 $platform->addInlineScript('jQuery(document).off("click.fb-start", "[data-trigger]");');
             }
-//			$document->addScript(JUri::root(true).'/media/j2store/js/jquery.zoom.js');
-//			$document->addScript(JURI::root(true).'/media/j2store/js/j2store.js');
-//            $document->addScript(JURI::root(true).'/media/j2store/js/bootstrap-modal-conflit.js');
-//            if($load_fancybox) {
-//                $document->addScript(JURI::root(true).'/media/j2store/js/jquery.fancybox.min.js');
-//                $document->addScriptDeclaration('jQuery(document).off("click.fb-start", "[data-trigger]");');
-//            }
         }
         J2Store::plugin ()->event ( 'AfterAddJS' );
     }
 
     public static function addCSS() {
         $j2storeparams = J2Store::config ();
+        $app = Factory::getApplication();
         $platform = J2Store::platform();
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 
-        //$wa = $platform->application()->getDocument()->getWebAssetManager();
 
-        if($platform->isClient('administrator')) {
-            // always load namespaced bootstrap
-            // $document->addStyleSheet(JURI::root(true).'/media/j2store/css/bootstrap.min.css');
-        }
-
-        // load full bootstrap css bundled with J2Store.
-        if ($platform->isClient('site') && $j2storeparams->get ( 'load_bootstrap', 0 )) {
-            $platform->addStyle('j2store-bootstrap', '/media/j2store/css/bootstrap.min.css');
-            //$document->addStyleSheet ( JURI::root ( true ) . '/media/j2store/css/bootstrap.min.css' );
+        // load full bootstrap css bundled with J2Commerce.
+        if ($app->isClient('site') && $j2storeparams->get('load_bootstrap', 0)) {
+            $wa->registerAndUseStyle('j2store-bootstrap', Uri::root().'media/j2store/css/bootstrap.min.css');
         }
 
         // for site side, check if the param is enabled.
-        if ($platform->isClient('site') && $j2storeparams->get ( 'load_minimal_bootstrap', 0 )) {
-            $platform->addStyle('j2store-minimal','/media/j2store/css/minimal-bs.css');
-            //$document->addStyleSheet ( JURI::root ( true ) . '/media/j2store/css/-bs.css' );
+        if ($app->isClient('site') && $j2storeparams->get('load_minimal_bootstrap', 0)) {
+            $wa->registerAndUseStyle('j2store-minimal',Uri::root().'media/j2store/css/minimal-bs.css');
         }
 
         // jquery UI css
@@ -161,62 +142,47 @@ class J2StoreStrapper {
                 // load nothing
                 break;
             case '1' :
-                if ($platform->isClient('site')) {
-                    //$document->addStyleSheet ( JURI::root ( true ) . '/media/j2store/css/jquery-ui-custom.css' );
-                    $platform->addStyle('j2store-custom-css','/media/j2store/css/jquery-ui-custom.css');
+                if ($app->isClient('site')) {
+                    $wa->registerAndUseStyle('j2store-custom-css',Uri::root().'media/j2store/css/jquery-ui-custom.css');
                 }
                 break;
 
             case '2' :
-                if ($platform->isClient('administrator')) {
-                    //$document->addStyleSheet ( JURI::root ( true ) . '/media/j2store/css/jquery-ui-custom.css' );
-                    $platform->addStyle('j2store-custom-css','/media/j2store/css/jquery-ui-custom.css');
+                if ($app->isClient('administrator')) {
+                    $wa->registerAndUseStyle('j2store-custom-css',Uri::root().'media/j2store/css/jquery-ui-custom.css');
                 }
                 break;
 
             case '3' :
             default :
-                $platform->addStyle('j2store-custom-css','/media/j2store/css/jquery-ui-custom.css');
-                //$document->addStyleSheet ( JURI::root ( true ) . '/media/j2store/css/jquery-ui-custom.css' );
+                $wa->registerAndUseStyle('j2store-custom-css',Uri::root().'media/j2store/css/jquery-ui-custom.css');
                 break;
         }
 
 
-        if ($platform->isClient('administrator')) {
-            if (version_compare(JVERSION, '3.99.99', 'ge')) {
-                $platform->addStyle('j2store-admin-css', '/media/j2store/css/J4/j2store_admin.css');
-                $platform->addStyle('listview-css', '/media/j2store/css/backend/listview.css');
-                $platform->addStyle('editview-css', '/media/j2store/css/backend/editview.css');
-//                $document->addStyleSheet(JUri::root(true).'/media/j2store/css/J4/j2store_admin.css');
-//                $document->addStyleSheet ( JURI::root ( true ) . '/media/j2store/css/backend/listview.css' );
-          //      $document->addStyleSheet ( JURI::root ( true ). '/media/j2store/css/backend/editview.css' );
-            }else if (version_compare(JVERSION, '3.99.99', 'lt')) {
-
-                $platform->addStyle('j2store-admin-css','/media/j2store/css/j2store_admin.css');
-                //$document->addStyleSheet(JUri::root(true).'/media/j2store/css/j2store_admin.css');
-            }
-            $platform->addStyle('j2store-fancybox-css','/media/j2store/css/jquery.fancybox.min.css');
-            // $document->addStyleSheet ( JURI::root ( true ) . '/media/j2store/css/jquery.fancybox.min.css' );
+        if ($app->isClient('administrator')) {
+            $wa->registerAndUseStyle('j2store-admin-css', Uri::root().'media/j2store/css/J4/j2store_admin.css');
+            $wa->registerAndUseStyle('listview-css', Uri::root().'media/j2store/css/backend/listview.css');
+            $wa->registerAndUseStyle('editview-css', Uri::root().'media/j2store/css/backend/editview.css');
+            $wa->registerAndUseStyle('j2store-fancybox-css',Uri::root().'media/j2store/css/jquery.fancybox.min.css');
         } else {
             J2Store::strapper()->addFontAwesome();
-            $document =JFactory::getDocument();
+            $document = Factory::getApplication()->getDocument();
             // Add related CSS to the <head>
-            if ($document->getType () == 'html' && $j2storeparams->get ( 'j2store_enable_css' )) {
-
+            if ((new Joomla\CMS\Document\Document)->getType() === 'html' && $j2storeparams->get('j2store_enable_css')) {
                 $template = self::getDefaultTemplate ();
-
-                jimport ( 'joomla.filesystem.file' );
                 // j2store.css
-                if (JFile::exists ( JPATH_SITE . '/templates/' . $template . '/css/j2store.css' ))
-                    $platform->addStyle( 'j2store-css', '/templates/' . $template . '/css/j2store.css' );
-                else
-                    $platform->addStyle( 'j2store-css', '/media/j2store/css/j2store.css' );
+                if (file_exists( JPATH_SITE . 'templates/' . $template . '/css/j2store.css')){
+                    $wa->registerAndUseStyle('j2store-css', Uri::root() .'media/templates/site/' . $template . '/css/j2store.css');
+                } elseif(file_exists( JPATH_SITE . 'media/templates/site/' . $template . '/css/j2store.css')) {
+                    $wa->registerAndUseStyle('j2store-css', Uri::root() .'media/templates/site/' . $template . '/css/j2store.css');
             } else {
-                $platform->addStyle ( 'j2store-css','/media/j2store/css/j2store.css' );
+                    $wa->registerAndUseStyle('j2store-css', Uri::root() .'media/j2store/css/j2store.css');
+            }
             }
             $load_fancybox = $j2storeparams->get ( 'load_fancybox', 1 );
             if($load_fancybox){
-                $platform->addStyle ( 'j2store-fancybox-css', '/media/j2store/css/jquery.fancybox.min.css' );
+                $wa->registerAndUseStyle('j2store-fancybox-css', Uri::root() .'media/j2store/css/jquery.fancybox.min.css');
             }
         }
         J2Store::plugin ()->event ( 'AfterAddCSS' );
@@ -232,7 +198,7 @@ class J2StoreStrapper {
         }
         $id = 1;
         if(!isset($tsets[$id])) {
-            $db = JFactory::getDBO();
+            $db = Factory::getContainer()->get('DatabaseDriver');
             $query = "SELECT template FROM #__template_styles WHERE client_id = 0 AND home=1";
             $db->setQuery( $query );
             $tsets[$id] = $db->loadResult();
@@ -241,6 +207,7 @@ class J2StoreStrapper {
     }
 
     public static function loadTimepickerScript() {
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
         static $sets;
         $platform = J2Store::platform();
         if ( !is_array( $sets ) )
@@ -249,20 +216,16 @@ class J2StoreStrapper {
         }
         $id = 1;
         if(!isset($sets[$id])) {
-            $platform->addInlineScript(self::getTimePickerScript());
-            //$document->addScriptDeclaration(self::getTimePickerScript());
+            $wa->addInlineScript(self::getTimePickerScript());
             $sets[$id] = true;
         }
     }
 
     public static function getTimePickerScript($date_format='', $time_format='', $prefix='j2store', $isAdmin=false) {
-
-        //initialise the date/time picker
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
         if($isAdmin) {
-            $platform = J2Store::platform();
-           // $document =JFactory::getDocument();
-            $platform->addScript('j2store-ui-timepicker','/media/j2store/js/jquery-ui-timepicker-addon.js');
-            $platform->addStyle('j2store-ui-custom','/media/j2store/css/jquery-ui-custom.css');
+            $wa->registerAndUseScript('j2store-ui-timepicker',Uri::root() .'media/j2store/js/jquery-ui-timepicker-addon.js');
+            $wa->registerAndUseStyle('j2store-ui-custom',Uri::root() .'media/j2store/css/jquery-ui-custom.css');
         }
 
         if(empty($date_format)) {
@@ -323,38 +286,35 @@ class J2StoreStrapper {
     }
 
     public static function getDateLocalisation($as_array=false) {
-
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
         //add localisation
 
         $params = J2Store::config();
-        $language = JFactory::getLanguage()->getTag();
+        $language = Factory::getApplication()->getLanguage()->getTag();
         if($params->get('jquery_ui_localisation', 0) && strpos($language, 'en') === false) {
-            $platform = J2Store::platform();
-            //$doc = JFactory::getDocument();
-            $platform->addScript('jquery-ui-i18n','/ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js');
-           // $doc->addScript('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js');
+
+            $wa->registerAndUseScript('jquery-ui-i18n',Uri::root() .'ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js');
 
             //set the language default
             $tag = explode('-', $language);
             if(isset($tag[0]) && strlen($tag[0]) == 2) {
                 $script = "";
                 $script .= "(function($) { $.datepicker.setDefaults($.datepicker.regional['{$tag[0]}']); })(j2store.jQuery);";
-                $platform->addInlineScript($script);
-                //$doc->addScriptDeclaration($script);
+                $wa->addInlineScript($script);
             }
 
         }
 
         //localisation
-        $currentText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_CURRENT_TEXT'));
-        $closeText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_CLOSE_TEXT'));
-        $timeOnlyText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_CHOOSE_TIME'));
-        $timeText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_TIME'));
-        $hourText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_HOUR'));
-        $minuteText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_MINUTE'));
-        $secondText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_SECOND'));
-        $millisecondText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_MILLISECOND'));
-        $timezoneText = addslashes(JText::_('J2STORE_TIMEPICKER_JS_TIMEZONE'));
+        $currentText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_CURRENT_TEXT'));
+        $closeText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_CLOSE_TEXT'));
+        $timeOnlyText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_CHOOSE_TIME'));
+        $timeText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_TIME'));
+        $hourText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_HOUR'));
+        $minuteText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_MINUTE'));
+        $secondText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_SECOND'));
+        $millisecondText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_MILLISECOND'));
+        $timezoneText = addslashes(Text::_('J2STORE_TIMEPICKER_JS_TIMEZONE'));
 
         if($as_array) {
 
@@ -390,9 +350,10 @@ class J2StoreStrapper {
     }
 
     public static function addDateTimePicker($element, $json_options) {
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+
         $timepicker_script = self::getDateTimePickerScript($element, $json_options) ;
-        J2Store::platform()->addInlineScript($timepicker_script );
-        //JFactory::getDocument ()->addScriptDeclaration ( $timepicker_script );
+        $wa->addInlineScript($timepicker_script );
     }
 
     public static function getDateTimePickerScript($element, $json_options) {
@@ -416,10 +377,10 @@ class J2StoreStrapper {
     }
 
     public static function addDatePicker($element, $json_options) {
-
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
         $datepicker_script = self::getDatePickerScript($element, $json_options) ;
-        J2Store::platform()->addInlineScript($datepicker_script);
-        //JFactory::getDocument ()->addScriptDeclaration ( $datepicker_script);
+        $wa->addInlineScript($datepicker_script);
+
     }
 
     public static function getDatePickerScript($element, $json_options) {
@@ -455,12 +416,16 @@ class J2StoreStrapper {
     }
 
     public function addFontAwesome(){
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+        $waState = $wa->getManagerState();
         $config = J2Store::config();
-        //$document = JFactory::getDocument();
         $font_awesome_ui = $config->get('load_fontawesome_ui',1);
         if($font_awesome_ui){
-            J2Store::platform()->addStyle('j2store-font-awesome-css','/media/j2store/css/font-awesome.min.css');
-            //$document->addStyleSheet ( JUri::root () . 'media/j2store/css/font-awesome.min.css' );
+            if($waState['activeAssets']['style']['fontawesome']){
+                $wa->useStyle('fontawesome');
+            } else {
+                $wa->registerAndUseStyle('fontawesome',Uri::root() .'media/j2store/css/font-awesome.min.css');
+            }
         }
     }
 }
