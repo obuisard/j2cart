@@ -665,7 +665,7 @@ class J2Product extends JObject
 	return $return;
 	}
 
-	public function displayPrice($price, $product, $params=array(),$context='')
+	public function displayPrice($price, $product, $params = null, $context = '')
     {
 		$currency = J2Store::currency();
 		if(empty($params)) {
@@ -707,13 +707,11 @@ class J2Product extends JObject
 	 * @param 	array 		$options 	options or extra attribs for the element
 	 * @return 	string 					html for the quantity box
 	 * */
-	public function displayQuantity($context, $product, $params=array(), $options = array() )
+	public function displayQuantity($context, $product, $params = null, $options = array())
     {
-		if( empty($params) ) {
-			$params = J2Store::config();
+		if (empty($params)) {
+	    	$params = J2Store::config();
 		}
-
-        $params = J2Store::platform()->getRegistry($params);
 		$class = 'input-mini form-control ';
 		if ( isset($options['class']) && !empty($options['class']) ) {
 			$class = $options['class'];
@@ -1212,7 +1210,7 @@ class J2Product extends JObject
 				foreach ( $up_sells as $upsell ) {
 
 					$upsell_product = $this->setId ( $upsell )->getProduct ();
-					if(empty($upsell_product->product_name) || ($upsell_product->visibility == 0) || $upsell_product->enabled != 1) continue;
+					if(empty($upsell_product->product_name) || ($upsell_product->visibility == 0) || $upsell_product->enabled != 1 || $upsell_product->source->state !=1) continue;
 					F0FModel::getTmpInstance ( 'Products', 'J2StoreModel' )->runMyBehaviorFlag ( true )->getProduct ( $upsell_product );
 
 					if ($upsell_product->variant->availability || J2Store::product ()->backorders_allowed ( $upsell_product->variant )) {
@@ -1274,7 +1272,7 @@ class J2Product extends JObject
 				foreach ( $cross_sells as $cross_sell ) {
 
 					$cross_sell_product = $this->setId ( $cross_sell )->getProduct ();
-					if(empty($cross_sell_product->product_name) || $cross_sell_product->visibility == 0 || $cross_sell_product->enabled != 1) continue;
+					if(empty($cross_sell_product->product_name) || $cross_sell_product->visibility == 0 || $cross_sell_product->enabled != 1 || $cross_sell_product->source->state !=1) continue;
 					F0FModel::getTmpInstance ( 'Products', 'J2StoreModel' )->runMyBehaviorFlag ( true )->getProduct ( $cross_sell_product );
 
 					if ($cross_sell_product->variant->availability || J2Store::product ()->backorders_allowed ( $cross_sell_product->variant )) {

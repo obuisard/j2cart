@@ -2,7 +2,7 @@
 /**
  * @package J2Store
  * @copyright Copyright (C) 2014-2019 Weblogicx India. All rights reserved.
- * @copyright Copyright (C) 2024 J2Commerce, Inc. All rights reserved.
+ * @copyright Copyright (C) 2025 J2Commerce, LLC. All rights reserved.
  * @license https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3 or later
  * @website https://www.j2commerce.com
  */
@@ -15,8 +15,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Database\ParameterType;
-
-// use Joomla\Database\DatabaseDriver; // not in Joomla 3
 
 defined('_JEXEC') or die;
 
@@ -109,6 +107,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
     'modules' => array(
       'admin' => array(
         'mod_j2commerce_adminmenu' => array('menu', 1),
+        'mod_j2commerce_chart' => array('', 0), // we just want to install the module
         'j2store_stats_mini' => array('j2store-module-position-1', 1),
         'j2store_orders' => array('j2store-module-position-4', 1),
         'j2store_stats' => array('j2store-module-position-5', 1),
@@ -168,6 +167,18 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
   {
       parent::postflight($type, $parent);
 
+      // Remove extra column from the variants table
+
+      $db = Factory::getDbo();
+
+      try {
+          $alterQuery = "ALTER TABLE `#__j2store_variants` DROP `campaign_variant_id`";
+          $db->setQuery($alterQuery);
+          $db->execute();
+      } catch (\Exception $e) {
+          // Can fail if the column does not exist
+      }
+
       // TODO remove once we are done moving files from j2store to com_j2commerce
       $source = JPATH_SITE . '/media/j2store/j2commerce';
       $destination = JPATH_SITE . '/media/com_j2commerce';
@@ -204,7 +215,7 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
 
       // New charts
       if (!$this->isModuleInAnyPositions('mod_j2commerce_chart', $dashboard_positions)) {
-          $this->addModuleToPosition('mod_j2commerce_chart', 'j2store-module-position-3', ['chart_type' => 'daily,monthly,yearly']);
+          $this->addModuleToPosition('mod_j2commerce_chart', 'j2store-module-position-3', ['chart_type' => ['daily', 'monthly', 'yearly']]);
       }
 
       if ($type === 'install') {    
@@ -473,9 +484,6 @@ class Com_J2storeInstallerScript extends F0FUtilsInstallscript
         }
       }
 
-      if (version_compare(JVERSION, '4.0.0', 'ge') && isset($this->installation_queue) && isset($this->installation_queue['modules']['admin']['j2store_menu'])) {
-        $this->installation_queue['modules']['admin']['j2store_menu'] = array('status', 1);
-      }
       //----end of file removal//
       //all set. Lets rock..
 
