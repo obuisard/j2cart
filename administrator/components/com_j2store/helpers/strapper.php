@@ -163,18 +163,17 @@ class J2StoreStrapper {
 	        $wa->registerAndUseStyle('j2store-fancybox-css',Uri::root().'media/j2store/css/jquery.fancybox.min.css');
         } else {
             J2Store::strapper()->addFontAwesome();
-            $document = Factory::getApplication()->getDocument();
             // Add related CSS to the <head>
-            if ((new Joomla\CMS\Document\Document)->getType() === 'html' && $j2storeparams->get('j2store_enable_css')) {
+            if ($app->getDocument()->getType() === 'html' && $j2storeparams->get('j2store_enable_css', 1)) {
                 $template = self::getDefaultTemplate();
                 // j2store.css
-	            if (file_exists( JPATH_SITE . 'templates/' . $template . '/css/j2store.css')){
-					$wa->registerAndUseStyle('j2store-css', Uri::root() .'media/templates/site/' . $template . '/css/j2store.css');
-	            } elseif(file_exists( JPATH_SITE . 'media/templates/site/' . $template . '/css/j2store.css')) {
-					$wa->registerAndUseStyle('j2store-css', Uri::root() .'media/templates/site/' . $template . '/css/j2store.css');
-				} else {
-					$wa->registerAndUseStyle('j2store-css', Uri::root() .'media/j2store/css/j2store.css');
-				}
+                if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/j2store.css')){
+                    $wa->registerAndUseStyle('j2store-css', Uri::root() . 'templates/' . $template . '/css/j2store.css');
+                } elseif (file_exists(JPATH_SITE . '/media/templates/site/' . $template . '/css/j2store.css')) {
+                    $wa->registerAndUseStyle('j2store-css', Uri::root() .'media/templates/site/' . $template . '/css/j2store.css');
+                } else {
+                    $wa->registerAndUseStyle('j2store-css', 'j2store/j2store.css');
+                }
             }
             $load_fancybox = $j2storeparams->get('load_fancybox', 1 );
             if($load_fancybox){
@@ -218,8 +217,8 @@ class J2StoreStrapper {
     }
 
     public static function getTimePickerScript($date_format='', $time_format='', $prefix='j2store', $isAdmin=false) {
-	    $wa = Factory::getApplication()->getDocument()->getWebAssetManager();        
-        if($isAdmin) {           
+	    $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+        if($isAdmin) {
 	        $wa->registerAndUseScript('j2store-ui-timepicker',Uri::root() .'media/j2store/js/jquery-ui-timepicker-addon.js');
 	        $wa->registerAndUseStyle('j2store-ui-custom',Uri::root() .'media/j2store/css/jquery-ui-custom.css');
         }
@@ -245,21 +244,21 @@ class J2StoreStrapper {
 			if(typeof(jQuery) != 'undefined') {
 				jQuery.noConflict();
 			}
-		
+
 			if(typeof(j2store.jQuery) == 'undefined') {
 				j2store.jQuery = jQuery.noConflict();
 			}
-		
+
 			if(typeof(j2store.jQuery) != 'undefined') {
-		
+
 				(function($) {
 					$(document).ready(function(){
 						/*date, time, datetime*/
-		
+
 						if( $('.$element_date').length ){
 							$('.$element_date').datepicker({dateFormat: '$date_format'});
 						}
-		
+
 						if($('.$element_datetime').length){
 							$('.$element_datetime').datetimepicker({
 									dateFormat: '$date_format',
@@ -267,11 +266,11 @@ class J2StoreStrapper {
 									$localisation
 							});
 						}
-		
+
 						if($('.$element_time').length){
 							$('.$element_time').timepicker({timeFormat: '$time_format', $localisation});
 						}
-		
+
 					});
 				})(j2store.jQuery);
 			}
@@ -296,7 +295,7 @@ class J2StoreStrapper {
             if(isset($tag[0]) && strlen($tag[0]) == 2) {
                 $script = "";
                 $script .= "(function($) { $.datepicker.setDefaults($.datepicker.regional['{$tag[0]}']); })(j2store.jQuery);";
-	            $wa->addInlineScript($script);                
+	            $wa->addInlineScript($script);
             }
 
         }
