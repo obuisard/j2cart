@@ -167,18 +167,17 @@ class J2StoreStrapper {
             $wa->registerAndUseStyle('j2store-fancybox-css',Uri::root().'media/j2store/css/jquery.fancybox.min.css');
         } else {
             J2Store::strapper()->addFontAwesome();
-            $document = Factory::getApplication()->getDocument();
             // Add related CSS to the <head>
-            if ((new Joomla\CMS\Document\Document)->getType() === 'html' && $j2storeparams->get('j2store_enable_css')) {
-                $template = self::getDefaultTemplate ();
+            if ($app->getDocument()->getType() === 'html' && $j2storeparams->get('j2store_enable_css', 1)) {
+                $template = self::getDefaultTemplate();
                 // j2store.css
-                if (file_exists( JPATH_SITE . 'templates/' . $template . '/css/j2store.css')){
+                if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/j2store.css')){
+                    $wa->registerAndUseStyle('j2store-css', Uri::root() . 'templates/' . $template . '/css/j2store.css');
+                } elseif (file_exists(JPATH_SITE . '/media/templates/site/' . $template . '/css/j2store.css')) {
                     $wa->registerAndUseStyle('j2store-css', Uri::root() .'media/templates/site/' . $template . '/css/j2store.css');
-                } elseif(file_exists( JPATH_SITE . 'media/templates/site/' . $template . '/css/j2store.css')) {
-                    $wa->registerAndUseStyle('j2store-css', Uri::root() .'media/templates/site/' . $template . '/css/j2store.css');
-            } else {
-                    $wa->registerAndUseStyle('j2store-css', Uri::root() .'media/j2store/css/j2store.css');
-            }
+                } else {
+                    $wa->registerAndUseStyle('j2store-css', 'j2store/j2store.css');
+                }
             }
             $load_fancybox = $j2storeparams->get ( 'load_fancybox', 1 );
             if($load_fancybox){
