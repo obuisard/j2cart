@@ -111,12 +111,13 @@ if ($module->position === 'menu') {
         ->set($db->quoteName('alias') . ' = ' . $db->quote('com-j2storetmp'))
         ->where($db->quoteName('link') . ' = ' . $db->quote('index.php?option=com_j2store'))
         ->where($db->quoteName('client_id') . ' = 1')
+        ->where($db->quoteName('published') . ' = 1')
         ->where($db->quoteName('menutype') . ' = ' . $db->quote('main'));
 
     $db->setQuery($query);
     $db->execute();
 
-    // TODO How to revert it?
+    // TODO How to revert it and only do it once?
 
     MenusHelper::addPreset('j2commerce', 'J2Commerce', __DIR__ . '/../presets/j2commerce.xml');
 
