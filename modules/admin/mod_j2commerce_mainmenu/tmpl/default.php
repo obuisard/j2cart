@@ -108,7 +108,6 @@ if ($module->position === 'menu') {
         ->update($db->quoteName('#__menu'))
         ->set($db->quoteName('published') . ' = 0') // not enough to remove from 'main' menu
         ->set($db->quoteName('menutype') . ' = ' . $db->quote('j2ctmp'))
-        ->set($db->quoteName('alias') . ' = ' . $db->quote('com-j2storetmp'))
         ->where($db->quoteName('link') . ' = ' . $db->quote('index.php?option=com_j2store'))
         ->where($db->quoteName('client_id') . ' = 1')
         ->where($db->quoteName('published') . ' = 1')
