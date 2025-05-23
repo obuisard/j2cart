@@ -134,7 +134,7 @@ class J2StoreModelProductsBehaviorFlexiVariable extends F0FModelBehavior
             }
         }
 
-        if(is_object($data['quantity']) && (!isset($data['quantity']->product_attributes) || empty($data['quantity']->product_attributes))){
+        if(isset($data['quantity']) && is_object($data['quantity']) && (!isset($data['quantity']->product_attributes) || empty($data['quantity']->product_attributes))){
             $data['quantity']->product_attributes = '';
         }
         $quantity_integer_array = array('quantity');
