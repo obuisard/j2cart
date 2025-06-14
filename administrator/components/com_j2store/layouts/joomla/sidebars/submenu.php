@@ -99,7 +99,7 @@ $menus = [
         'icon' => 'fas fa-solid fa-th',
         'submenu' => [
             'apps' => 'fas fa-th',
-            'appstores' => 'fas fa-solid fa-shop',
+            /*'appstores' => 'fas fa-solid fa-shop',*/
         ],
         'active' => 0
 	],
